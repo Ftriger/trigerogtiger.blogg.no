@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triger'n og Tiger'n &amp; resten av familien suser verden rundt</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --ink: #1a1614;
+    --muted: #6b5e52;
+    --accent: #b85c38;
+    --accent-light: #d4845f;
+    --border: #d9cfc4;
+    --tag-bg: #ede8e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', Georgia, serif; font-size: 17px; line-height: 1.8; }
+
+  header {
+    background: var(--ink); color: var(--cream);
+    padding: 3.5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+  }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; position: relative; }
+  header p.tagline { color: var(--accent-light); font-style: italic; margin-top: 0.5rem; font-size: 1rem; position: relative; }
+  header p.desc { color: #bbb; font-size: 0.9rem; margin-top: 0.75rem; max-width: 650px; margin-left: auto; margin-right: auto; position: relative; font-style: italic; }
+
+  .nav-bar { background: #2a2220; padding: 0.75rem 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .nav-bar a { color: var(--accent-light); text-decoration: none; font-family: sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .nav-bar a:hover { color: white; }
+
+  .divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .divider span { color: var(--accent); font-size: 1.2rem; }
+
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+  article {
+    background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px;
+    padding: 2.5rem 3rem; margin-bottom: 3rem;
+    box-shadow: 3px 3px 0 var(--border); transition: box-shadow 0.2s ease;
+  }
+  article:hover { box-shadow: 5px 5px 0 var(--accent-light); }
+
+  .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .post-date { font-family: 'Playfair Display', serif; font-style: italic; color: var(--muted); font-size: 0.9rem; }
+  .post-tag { background: var(--tag-bg); color: var(--muted); font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.08em; font-family: sans-serif; }
+
+  article h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 700; line-height: 1.25; margin-bottom: 1.25rem; color: var(--ink); }
+  article p { margin-bottom: 1.2rem; color: #2d2520; }
+  article p:last-child { margin-bottom: 0; }
+
+  .location-badge { display: inline-block; background: var(--accent); color: white; font-size: 0.78rem; padding: 0.25rem 0.75rem; border-radius: 2px; margin-bottom: 1.25rem; font-family: sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+  .video-note { background: var(--tag-bg); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; font-style: italic; color: var(--muted); margin-bottom: 1rem; font-size: 0.95rem; }
+
+  .recipe-box { background: var(--tag-bg); border: 1px solid var(--border); padding: 1.5rem; margin: 1.5rem 0; border-radius: 2px; }
+  .recipe-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent); }
+  .recipe-box ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+  .recipe-box li { margin-bottom: 0.3rem; }
+  .recipe-box ol { padding-left: 1.5rem; }
+  .recipe-box ol li { margin-bottom: 0.5rem; }
+
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-style: italic; font-size: 0.9rem; border-top: 1px solid var(--border); }
+
+  @media (max-width: 600px) { article { padding: 1.5rem; } header { padding: 2rem 1rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Triger'n og Tiger'n &amp; resten av familien suser verden rundt</h1>
+  <p class="tagline">Finn Magne og Tina &mdash; med barn, katter og friskt mot</p>
+  <p class="desc">Nå legger vi verden for våre føtter! Finn Magne og Tina med barn legger ut på eventyr med friskt mot, null stedsans og rykende fersk blogg.</p>
+</header>
+
+<div class="nav-bar">
+  <a href="#">Blogg</a>
+  <a href="#">Reise</a>
+  <a href="#">Barna</a>
+  <a href="#">Test/anbefaling</a>
+</div>
+
+<main>
+
+  <!-- 2014 -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">10. april 2014, kl. 15:12</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>Mitt beste reiseminne</h2>
+    <p>Det er én tur som topper alt vi har vært på: Sharm El Sheikh høsten 2012. Første store utenlandstur med alle seks barna. Det som gjorde denne turen så spesiell var at vi møtte venner vi ble kjent med da vi voksne var i Sharm i 2008, og at vi fikk en masse nye venner som vi fortsatt har masse kontakt med.</p>
+    <p>Sol, sommer og bading i både basseng og hav var naturligvis en stor del av turen. Vennene våre tok oss med på private sightseeingturer, hvor vi fikk komme tett innpå lokalbefolkningen, fikk spise genuin egyptisk mat og fikk se steder andre turister aldri får se. Til alt overmål arrangerte vennene våre supriseparty for Finn Magne da han fylte 34 år!</p>
+    <p>Vår beste reise var da vi slapp alle fordommer og hemninger, og ble godt og grundig kjent med de lokale. Det er virkelig verdens beste måte å reise på. Vi er klar for ny Egypt-tur så snart som mulig!</p>
+  </article>
+
+  <div class="divider"><span>✦</span></div>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">8. januar 2014, kl. 08:59</span>
+      <span class="post-tag">Barna</span>
+    </div>
+    <h2>Vil dere hjelpe flotte barn og unge med en stemme?</h2>
+    <p>En jury har plukket ut vårt skolekorps, Tjodalyng Skolekorps, som en av tre finalister i en konkurranse om å vinne fyrverkerishow til 50.000 kroner. Korpset vårt feirer 60 år i år, og denne flotte gjengen barn, unge, ildsjeler, foreldre og andre som støtter opp om korpset fortjener virkelig en pang-avslutning på jubileumsfesten.</p>
+    <p>Det er enkelt nok å stemme &mdash; det eneste kriteriet er at man må logge inn med Facebook-kontoen sin. Vi er en liten bygd og er oppe mot hard konkurranse, så å vinne dette ville vært helt utrolig moro. Hver eneste stemme teller, så på forhånd tusen takk til de som vil stemme på oss og til de som er så snille å dele oppfordringen videre!</p>
+  </article>
+
+  <!-- FACEBOOK-GIRAFFEN -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">26. oktober 2013, kl. 16:59</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Facebookgiraffen er ufarlig</h2>
+    <p>De fleste som er på Facebook har vel fått med seg giraffbildene som florerer om dagen. Disse dukker opp hos folk som ikke har klart riktig svar på en gåte. En morsom liten ting på Facebook, i likhet med bh-farger, hjerter og gud vet hva annet som går rundt der innimellom.</p>
+    <p>Og så er det en gjøk som sitter og ser dette og tenker "dette kan gi meg supre lesertall uten at jeg faktisk trenger å skrive bra innlegg". Han la ut en advarsel om at disse giraffbildene var et hackerangrep og at alle kunne se passordet til de som hadde byttet til giraffbilde. Med minimalt med datakunnskap skjønner man at dette ikke er tilfelle. Jeg skrev en kommentar og etterspurte en seriøs kilde &mdash; og fikk slettet kommentaren og blokkering som svar. Hvilket jo var svar godt nok.</p>
+    <p>Seriøst dere... giraffbildene er bare akkurat det det så ut som: et morsomt lite innslag på Facebook. Ingen seriøse sider omtaler noe som helst med hacking i forbindelse med dette. God helg fra alle oss &mdash; og fra giraffen!</p>
+  </article>
+
+  <!-- REISMEDBARN -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">4. september 2013, kl. 17:20</span>
+      <span class="post-tag">Test/anbefaling</span>
+    </div>
+    <h2>Min kjære er ute med en ny sak på reismedbarn.no!</h2>
+    <p>Min kjære har vært ute på skriveren igjen og denne gangen fikk hun forsideplass på reismedbarn.no med en artikkel om Ula i Tjodalyng &mdash; verdens mest barnevennlige camping.</p>
+    <p>Ula er en virkelig perle hvor telt er hovedfokus. Å våkne til fullstendig stillhet, gå barbeint ned til stranda og ta et morgenbad i det friske saltvannet &mdash; det er spesielt. Strendene er barnevennlige med silkemyk finkornet sand og ganske langgrunt vann.</p>
+  </article>
+
+  <!-- BOLLER -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">3. september 2013, kl. 09:54</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Boller i ovnen og andre boller</h2>
+    <p>Jeg er garantert ikke den eneste som har opplevd et utall stusslige bolleoppskrifter. Bollene kan være gode nok da de er nystekte, men etter bare noen timer er de tørre og harde. Jeg hadde nærmest gitt opp å bake boller &mdash; før jeg kom over denne oppskriften. Siden da har bollebakingen blitt en fryd. Bollene holder seg myke og ferske i flere dager!</p>
+
+    <div class="recipe-box">
+      <h3>🥐 Verdens beste boller (ca. 40 stykker)</h3>
+      <ul>
+        <li>1 liter melk</li>
+        <li>300 gram melange/smør</li>
+        <li>250 gram melis</li>
+        <li>2 poser tørrgjær</li>
+        <li>0,5 ts kardemomme</li>
+        <li>1,5 kg hvetemel</li>
+        <li>Egg til pensling</li>
+      </ul>
+      <ol>
+        <li>Ha melk, melange/smør og melis i en kjele. Kok opp, og avkjøl til ca. 37 grader.</li>
+        <li>Bland mel, kardemomme og gjær i bakebollen. Tilsett melkeblandingen og elt deigen til den er smidig og glatt. <strong>NB: Deigen skal IKKE forheves.</strong></li>
+        <li>Trill ut ca. 40 boller. Ønsker du rosiner, knas de inn nå.</li>
+        <li>Sett bollene på bakepapirkledde plater og la heve ca. 1 time.</li>
+        <li>Pensle med sammenvispet egg.</li>
+        <li>Stek midt i ovnen på 250°C i ca. 10 minutter til de er gyldenbrune.</li>
+        <li>Avkjøl på rist og nyt!</li>
+      </ol>
+    </div>
+
+    <p><strong>Vulkanboller:</strong> Rør sammen mykt smør/melange, sukker og kanel. Lag en liten grop i bollen og legg en klatt smørblandingen i gropen. Under steking bobler det opp som en vulkan. Smaker himmelsk &mdash; men husk bakepapir!</p>
+    <p><strong>Skoleboller:</strong> Fyll med vaniljekrem, avkjøl, og smør på melisglasur (eggehvite + sitron + melis) og dypp i kokosmasse.</p>
+  </article>
+
+  <!-- SIDEN SIST AUG 2013 -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">31. august 2013, kl. 11:47</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Siden sist</h2>
+    <p>Det ble plutselig en liten bloggpause, men årsaken var rett og slett skolestart, korpsstart og diverse andre happenings som krevde en del tid. Når jeg i tillegg konsekvent glemmer å ta bilder, ja da blir det lite å blogge om.</p>
+    <p>Svigermor fylte 60 den 26. august &mdash; hurra for svigermora! Hun hadde sagt klart ifra at hun IKKE ville ha noe supriseparty. Innen rimelighetens grenser. Vi måtte jo finne på noe. Og siden det var supriseparty hun ikke ville ha, så måtte vi jo trå til med et suprise-kaffeslabberas i stedet. Hun ble kjempeoverrasket! Og da vinklubben hennes dukket opp i tillegg &mdash; da ble svigermor litt satt ut hehe.</p>
+    <p>Jølle (katten) har fortsatt på med interiørdesign og klatring i sypressen. Han klatrer ned med hodet først &mdash; noe katter jo ikke gjør. Men vår pus gjør. Han klatret og datt om hverandre nedover, helt til han landet trygt i Tirils armer.</p>
+    <p>Emma fikk et lite kick og lagde forrett til oss med blomkål og rekesaus. Drivende dyktig til å lage mat!</p>
+  </article>
+
+  <!-- SPRINKELSENG -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">3. august 2013, kl. 13:29</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Det var en gang en sprinkelseng...</h2>
+    <p>Eller, mer korrekt, det var en gang TO sprinkelsenger &mdash; for vi har jo tvillinger. Men soverommet føltes litt klaustrofobisk med begge sengene der inne, så en alternativ løsning meldte seg. Ungene syns køyesenger er kjempemoro, så to sprinkelsenger ble &mdash; etter en liten time med snekkerinnsats fra pappa &mdash; til en tvillingkøyeseng! I miniformat.</p>
+    <p>Pappa og tvillingene trådde til med drill, sag og skruer. Og ja, de har pruser på hodet begge to. HMS er viktig vet dere. I mangel på hjelmer testet de de nye prinsessetrusene. De fungerte flott, syntes tvillingene.</p>
+    <p>Og for et fantastisk vær vi hadde i dag! Lyn og torden herjet. Nydelig innevær med stearinlys på bordet. Jeg som har vært redd tordenvær hele livet har nå funnet ut at det er det beste som finnes!</p>
+  </article>
+
+  <!-- KJÆRESTETUR BODØ -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">2. august 2013, kl. 20:46</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>Ut på kjærestetur snart!</h2>
+    <div class="location-badge">📍 Bodø</div>
+    <p>Om en snau uke skal bare jeg og min kjære ut på tur! Det er ikke hverdagskost. Jeg vant (ja, vant faktisk!) en reise i en konkurranse som Innovasjon Norge holdt. På bursdagen til twinsa ringte en hyggelig dame og fortalte at jeg skulle på langweekend til Bodø.</p>
+    <p>Vi skal fly til Bodø og overnatte tre netter. Anledningen er Arctic Race &mdash; verdens nordligste sykkelløp. I tillegg fikk vi fire billetter til valgfrie konserter under Nordland Musikkuke og et gavekort på 1000 kroner fra Koch Glassmagasinet. Himmel og hav! Svigermor stilte velvillig opp som barnevakt og gubbisen fikk fri fra jobben.</p>
+    <p>Om noen har noen tips om noe vi bør gjøre/se i Bodø, så si ifra!</p>
+  </article>
+
+  <!-- FEIRING I FLERE DAGER -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">1. august 2013, kl. 22:32</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Feiring i flere dager!</h2>
+    <p>Tre av seks barn har bursdag i løpet av to dager, så da blir det en del baking og diverse. Twinsa fylte to år den 29. og Emma fylte 11 år den 30., så her feirer vi tett i tett. Vi synes det er greit at de får hver sin dag.</p>
+    <p>Ariane hjalp mamma å bake, og mamma glemte å følge med et halvt sekund. Poof&hellip; mel og egg er moro! Kine kalte inn forsterkninger til ballongblåsing, og Anders og Chubs stilte villig opp. Tvillingene fikk masse fint i gave, og syklene de fikk av oss var STOR stas!</p>
+    <p>Dagen etter var det storesøster Emmas store dag, og den begynte, tradisjonen tro, med date på Jordbærpikene med pappa. Og KUN pappa. Det er Emma og pappas greie. Emma hadde ett ønske øverst på ønskelista: tritoms. Og hun fikk det! Strålte fra øre til øre. Emma fikk også roser av pappansen på bursdagen. Det husket hun at Tiril fikk på 12-årsdagen.</p>
+    <p>Dagen etter Emmas bursdag dukket det opp en skjønnhet av en regnbue da jeg skulle kjøre Anders hjem &mdash; en dobbel en som speilet seg i asfalten. Nydelig rett og slett.</p>
+  </article>
+
+  <!-- STORM OG ARIANE PÅ BORTEBESØK -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">25. juli 2013, kl. 18:14</span>
+      <span class="post-tag">Test/anbefaling</span>
+    </div>
+    <h2>Storm og Ariane på bortebesøk &mdash; mest bilder</h2>
+    <p><em>(Innlegg skrevet av Kine og Anders, som passet tvillingene mens mamma jobbet)</em></p>
+    <p>Ariane fant fort ut at Anders hadde bamser og det var jo gøy! Hun ble sittende i senga å peke rundt i rommet og si "Takk, takk". Storm var litt mer usikker på hva han skulle ta seg til &mdash; søstra hadde stukket av med alle bamsene på en gang.</p>
+    <p>Siden det var så varmt, fant vi ut at vi skulle ta dem med ut og leke med hageslangen. Noe de syntes var kjempegøy &mdash; særlig da de fant ut at det gikk an å sprute iskaldt vann på hverandre. Storm ville nesten ikke gi fra seg hageslangen.</p>
+    <p>Til slutt kledde vi på dem &mdash; og fikk for oss den morsomme ideen at vi skulle bytte om på klærne deres for å se om mamma ville ta feil. Dessverre ville ikke Ariane låne vekk hårpynten sin til Storm, så det ble ikke så vanskelig å se forskjellen likevel.</p>
+  </article>
+
+  <!-- KATTUNGELIV -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">24. juli 2013, kl. 15:03</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Kattunge-liv</h2>
+    <p>Lillepusen har fortsatt ikke noe navn... vi har kommet opp med noen forslag, men det perfekte har ikke dukket opp. Vi trodde han skulle bli en Garfield, men han er det altså ikke.</p>
+    <p>Om morgenen da vi står opp, kommer han i fullt firsprang og møter oss, sørger for å spenne ben på oss et par ganger underveis, og idet vi gjør et forsøk på å sette oss ned, smetter han under baken på oss. HVER gang.</p>
+    <p>Han har ramlet i bassenget en gang, fordi han var nysgjerrig på den gule badeanda. Plopp &mdash; så hadde vi en veldig våt og forbauset kattunge. Badekaret inne liker han derimot godt. Han klatrer opp på ene enden og setter utfor &mdash; gjerne med rompa først &mdash; og bruker badekaret som skaterampe.</p>
+    <p>Han har til og med lekt med Lukas (storekatta) på gresset. Men da Lukas innså at vi så på ham, samlet han seg, rettet seg opp og spankulerte overlegent bort i skyggen og la seg. Katta ble faktisk flau.</p>
+    <p>Vi har forresten to andre små rare her i huset som fikk sandkasse for noen dager siden. Og sandkasse er jo moro! De endte naturligvis i hengeren til bestefar hvor resten av sandlasset var&hellip; jaja, de finner ut av sandkassas funksjon etterhvert.</p>
+  </article>
+
+  <!-- ETTERMIDDAG PÅ STRANDA -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">23. juli 2013, kl. 00:30</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Ettermiddag på stranda</h2>
+    <div class="location-badge">📍 Ula, Tjodalyng</div>
+    <p>På ettermiddagen tok vi en tur ut til Ula så twinsa skulle få badet litt. Når stranda ventet, var det ikke aktuelt å GÅ inn til campinga &mdash; da var løping eneste alternativ.</p>
+    <p>Storm fant "blomster" på havbunnen og måtte plukke noen til pappa som sto på land. Så bar det ut på løpetur bort på campingområdet for å hilse på gamle kjente &mdash; en herlig gjeng fra Bergen som har vært på Ula i årevis.</p>
+    <p>Pusen vår har forresten enda ikke fått noe navn. Men du allverden for en personlighet! Han har en forkjærlighet for å leke med krøllene til Storm, særlig hvis Storm sover. Men guttungen bare ler når han vekkes på den måten.</p>
+  </article>
+
+  <!-- FINNSKOGEN -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">22. juli 2013, kl. 00:29</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>Helg på Finnskogen &mdash; mest i bilder</h2>
+    <div class="location-badge">📍 Finnskogen / Rotberget</div>
+    <p>I helga har vi vært på Finnskogen sammen med bestefar, onkel og tante. Anledningen var at vi skulle ha urnenedsettelse for mamma, som døde før jul i fjor. Det ble en veldig fin seremoni med bare de nærmeste til stede.</p>
+    <p>Noe merkelig skjedde ved gravstedet. Da vi stoppet ved oldeforeldrenes graver, skjøt tvillingene fart og sprang rett bort til en annen gravsten litt lengre borte. Det rareste var at gravstenen de hadde løpt bort til, var nettopp oldeforeldrenes gravsten! Som om noen hadde ropt på dem. Vi var fler som tenkte at det var mer mellom himmel og jord akkurat da.</p>
+    <p>Etter urnenedsettelsen kjørte vi opp til Rotberget og grillet i solsteika. Utpå kvelden dro vi ned til Rotbergsjøen for kveldsbad. Vannet var overraskende godt! Og mirakel over alle mirakler&hellip; Finn Magne bada også! Jeg tror ikke jeg har sett ham bade frivillig i Norge før.</p>
+    <p>Finn Magne fikk seg en skikkelig Finnskog-opplevelse sent på kvelden: han hørte ulven hyle i det fjerne. DET er spesielt. Og vi som er oppvokst i ulveterreng vet bedre enn å være redd ulven. Ulv er fantastiske, vakre dyr &mdash; og det burde vært fler av dem.</p>
+  </article>
+
+  <!-- ROADTRIP DAG 2 OG 3 -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">18. juli 2013, kl. 00:14</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>Roadtrip dag 2 og 3 &mdash; for det er ikke så mye dekning rundt i dalene</h2>
+    <div class="location-badge">📍 Stavanger → Vestlandet → Kristiansand</div>
+    <p>Tirsdag morgen satte vi kursen mot Madla hvor Tiril skulle møte kjekkasen Erik. Mens ungdommene fikk tid alene, kjørte jeg avgårde og fant meg en plass nede ved stranda i Madla i duskregnet. Nede ved stranda står det som kalles "sverd i stein" &mdash; et minnesmerke over slaget ved Hafrsfjord. Et veldig imponerende syn.</p>
+    <p>På stranda lå det også en diger knoppsvane. Jeg listet meg bort for å ta noen bilder, og fikk den gode ideen at jeg skulle prøve å klappe den. Ja, fullstendig hårreisende dum idé. Men jeg lyktes! Svanen virket totalt uinteressert. Forresten &mdash; svaner lukter ikke særlig godt.</p>
+    <p>Planen for turen videre var å reise til Odda. Vi kjørte mil etter mil langs vestlandsfjorder uten telefondekning. De eneste gangene vi fikk litt dekning, hørte vi plingen fra Tirils telefon &mdash; meldinger fra Erik, naturligvis. Jeg klarte faktisk å overtale ham til å bli svigersønnen min underveis hehe.</p>
+    <p>Klokka var rundt halv 11 på kvelden og vi var i Røldal. Vi bestemte oss for å krysse Haukelifjell om natta. Haukeli by night er et utrolig flott syn. Og til slutt parkerte vi på en rasteplass langt nede i Setesdalen og sov noen timer i bilen &mdash; Tiril i passasjersetet og meg skvisa under hennes sete i baksetet. Kaos uten like, men vi fikk sovet vi.</p>
+    <p>Videre ned Setesdalen, frokost på Lille Bageri i Kristiansand og besøk hos Gry. Gry skulle kjøpe jordbær &mdash; og sprang rett forbi en bod full av jordbær mens hun bekymret seg for at de kanskje ikke hadde. Noen ganger ser man ikke jordbæra for bare jordbær.</p>
+  </article>
+
+  <!-- ROADTRIP DAG 1 -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">16. juli 2013, kl. 01:01</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>Roadtrip dag 1 &mdash; Larvik til Stavanger med ørlittegrann rot</h2>
+    <div class="location-badge">📍 Larvik → Telemark → Stavanger</div>
+    <p>Første dag av roadtripen er unnagjort! Turen fra Larvik til Stavanger tok nærmere 10 timer. En del av tidsbruken var planlagte stopp.</p>
+    <p>Det tøffeste i dag var å si hadet til de to minste rakkerne. Første gang uten dem i flere dager sammenhengende. Men pappa og bestemor klarer nok fint å holde dem opptatt.</p>
+    <p>Vi la naturligvis ut på tur bak en bobil &mdash; en nederlandsk en. I Ulefoss tok vi en avstikker for å se på slusene. Akkurat mens vi var der, var Victoria på vei ned gjennom slusene, så Tiril fikk se hvordan det fungerte i praksis. Ganske imponerende ingeniørkunst som drives med rå muskelkraft.</p>
+    <p>I Seljord var det jo obligatorisk å se etter sjøormen. Og jeg er HELT sikker på at vi så den. I Morgedal, hjemstedet til norsk skiidrett, stoppet vi ved OL-ilden. Så fant vi Eidsborg stavkirke &mdash; skikkelig søt liten kirke med tonnevis av trespiker og tyske turister.</p>
+    <p>Turen ned til Dalen gikk via hårreisende bratte hårnålsvinger. Men opp kom vi &mdash; og møtte Dalen Hotell, som ser MYE større og mer imponerende ut på postkort enn i virkeligheten. Nå er vi framme hos gamlenabo Knieling på Sola. I morgen setter vi kursen videre!</p>
+  </article>
+
+  <!-- PORNOPUNG -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">14. juli 2013, kl. 23:27</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Pornopung!</h2>
+    <p>Ja, altså ikke i form av et skjellsord, men filmen Pornopung. Vi fikk billetter til førpremieren på Bølgen i dag. Vi ante i grunnen ikke helt hva som ventet oss, men filmen var faktisk bra &mdash; om en kanskje noe avkledd og direkte til tider. De to tenåringene vi hadde med oss gapskrattet seg gjennom hele filmen.</p>
+    <p>Siden det var førpremiere var det både regissør og skuespillere til stede, og vi fikk hilse på dem etterpå. Tiril og Christin fikk ta bilde med "Karl" som har en av hovedrollene. Tiril spurte om klem opptil flere ganger hehe &mdash; han var nesten dobbelt så høy som Tiril. Et artig minne.</p>
+    <p>Nå er det klart for litt pakking &mdash; jeg og Tiril legger ut på roadtrip i morgen!</p>
+  </article>
+
+  <!-- SUSETUR MED GRY -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">13. juli 2013, kl. 21:46</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Susetur med Gry</h2>
+    <div class="location-badge">📍 Tønsberg / Sandefjord</div>
+    <p>Aller besteste Gryen vår er på besøk i helga, og i dag tok vi en tur til Tønsberg og Sandefjord. Det skulle forsåvidt være enkelt nok, men med oss blir ting gjerne ikke så enkelt som man forventer.</p>
+    <p>I Tønsberg endte jeg opp med å buklande med bilen midt i gågata, for så å kjøre rett inn på en parkeringsplass som ikke hadde utkjøring i den andre enden. Nå har Gry sett både Farmandstredet, en masse enveiskjørte gater, deler av gågata og et lite antall parkeringsplasser &mdash; da anser jeg oppdraget utført.</p>
+    <p>I morgen skal vi på kino forresten. Vi har fått ti gratisbilletter til førpremieren på filmen med det klingende navnet Pornopung på Bølgen.</p>
+  </article>
+
+  <!-- ROADTRIP PLANLEGGING -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">10. juli 2013, kl. 22:20</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>Roadtrip!</h2>
+    <p>Yepp, nå skal vi på tur igjen &mdash; meg og Tiril. Målet er å gjennomføre en skikkelig god gammeldags roadtrip ved bruk av kart i papirformat og uten altfor mange faste holdepunkter. Målet for turen er Stavanger.</p>
+    <p>Turen går i grove trekk: Fra Larvik, via Skien, Ulefoss, Bø og Seljord, videre over Haukelifjell, ned mot vestlandskysten via Sauda, muligens en svipp utom Haugesund, og så langs kysten ned mot Stavanger. Hjemturen går kysten rundt sørlandet &mdash; med forhåpentligvis et stopp hos Gryen vår ved Kristiansand.</p>
+    <p>Jeg har fått tak i et eksemplar av NAF veibok fra 1985! Med den burde ikke en gang jeg klare å rote meg vekk. Og jada, jeg har GPS på telefonen om behovet skulle melde seg. Tjohei, ut på tur!</p>
+  </article>
+
+  <!-- TO UKER FESTIVAL -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">4. juli 2013, kl. 13:16</span>
+      <span class="post-tag">Reise</span>
+    </div>
+    <h2>To uker festival &mdash; stort sett i bilder</h2>
+    <div class="location-badge">📍 Blokhus, Danmark</div>
+    <p>Da er vi vel hjemme etter to uker med festival i Danmark. Tre festivaler er overstått, og det meste gikk etter planen. Vi kunne godt kjørt på med noen uker til, men jobben kaller.</p>
+    <p>For de som ikke kjenner til Nordsøfestivalen og Danmarkstreff: begge er for skolekorps, med musikkglede og moro som hovedfokus. Nordsøfestivalen feiret 25 års jubileum i år! Festivalene drives av vår familie &mdash; tre generasjoner Rasmussen/Triger. Min far er hjernen bak, og jeg og min bror Kjeld Erik har vært med fra starten.</p>
+    <p>I år hadde vi en "grand opening" av festivalen på torvet i Blokhus med sjonglører, musikk og taler. Og avfyring av den 200 år gamle kanonen som Blokhus bruker til å skyte solen ned i havet med hver eneste kveld hele sommeren!</p>
+    <p>Fårup Sommerland hører også med til festivalen, og tvillingene kjørte runde på runde på runde med småtass-berg og dalbanen, og var nesten ikke til å få med hjem.</p>
+    <p>Festivalene ble avsluttet med en fin middag på Restaurant Nordstjernen: nydelig mat, fantastisk service og flamberte crepe suzettes. Perfekt finale! Vel blåst!</p>
+  </article>
+
+  <!-- SO MUCH TO DO -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">18. juni 2013, kl. 08:45</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>So much to do og slikt</h2>
+    <p>Det er en nydelig dag på Verningen i dag. Herlig varme i sola ute på trappa. Men mens jeg satt der og filosoferte, så jeg alle de tingene som må gjøres i hagen. Klatrerosa på verandaen er stappfull av knopper og vokser i et forrykende tempo &mdash; den må stroppes fast.</p>
+    <p>Jaja, jeg får stikke fingeren i jorda. For jeg må innse at alt dette hagedillet ikke har jeg tid til akkurat nå. I morgen reiser vi til Danmark for 14 dager med korpsfestival igjen. Nordsøfestivalen feirer 25 år! Det er ikke så rent få norske, danske og svenske korpsunger som har vært i vår "varetekt" i Danmark disse 25 årene.</p>
+  </article>
+
+  <!-- SIDEN SIST OG VELKOMMEN INN -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">17. juni 2013, kl. 10:12</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Siden sist &mdash; og velkommen inn</h2>
+    <p>For to dager siden hadde Theo bursdag. Fylte hele 9 år! Det ble feiret med is og spesialbestilt tiramisu ala Anders. De som spiste opp hele herligheten var twinsa og Kine.</p>
+    <p>Verdensproblemer har jeg svært så lite av i dag. Det eneste problemet mitt er at jeg ikke får bestemt meg for om jeg skal ha gardiner på stua eller ikke. Vi har elektriske persienner på alle vinduene, så det er ikke nødvendig &mdash; men så var det dekor-faktoren da. I snart en måned har jeg ikke funnet løsning på det gigantiske problemet mitt.</p>
+    <p>Og så et lite glimt fra heimen! Det første rommet er gangen, som jeg er veldig glad i. Et flott skap som den forrige eieren bare skulle kaste &mdash; det var ikke noe jeg ville ha noe av. Det er hvitt og fint, med masse oppbevaringsplass. Og det kuleste paraplystativet: en anti-luftverns-hylse &mdash; en gigant-patron av massiv messing. Alle spør hva det er hehe.</p>
+  </article>
+
+  <!-- PETER WESSEL -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">16. juni 2013, kl. 12:23</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Peter Wessel Festivalen 2013</h2>
+    <div class="location-badge">📍 Tjodalyng / Larvik</div>
+    <p>En super helg med strålende vær, flinke unger, energiske voksne og mange dyktige mennesker.</p>
+    <p>Ungene lærte å spille på gehør, og med 80 barn i juniorkorps-alder var det helt fantastisk hva instruktørene fra Røshnes klarte å få til. På 2,5 timer lærte de å spille to New Orleans-jazz stykker og Idas Sang &mdash; utenat! Og de spilte det kjempebra!</p>
+    <p>På kvelden var det grilling i skolegården og konsert hvor ungene fikk vise fram hva de hadde lært. 160 unger &mdash; en helt utrolig musikalsk opplevelse! Vi hadde også en super konferansier, Espen, med et tak på ungene som var helt utrolig.</p>
+    <p>Søndag tok vi med ungene til Ula for marsjoppvisning og bading på storstranda &mdash; Norges svar på syden. Festivalen ble avsluttet med oppmarsj fra Torget til Bøkeskogen i Larvik. Vel blåst, Tjodalyng Skolekorps!</p>
+  </article>
+
+  <!-- STILL ALIVE -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">4. juni 2013, kl. 00:47</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Still alive!</h2>
+    <p>Det er vel nå man bare må beklage den totale mangelen på blogging, men det har vært hektisk. Siste flyttelass fra Kjerringvik er kjørt, eksamensperioden er over &mdash; og den bød på noen merkelige opplevelser.</p>
+    <p>Matte-eksamen gikk ikke så bra, for å si det mildt. Jeg har dyskalkuli &mdash; tallversjonen av dysleksi. Der dyslektikere ikke får helt styring på bokstavene, sliter vi med tallene. Da det virkelig slår inn, blir det bare helt mørkt.</p>
+    <p>Norsk-eksamen derimot &mdash; der er jeg på hjemmebane! Og jeg fikk til muntlig historie veldig bra.</p>
+    <p>Opptakten til kveldeksamen var litt livlig: Emma skulle i bursdag med 70-, 80- og 90-talls tema samtidig. Hun måtte leveres en time tidlig &mdash; men først ble hun stylet skikkelig av mammaen sin.</p>
+  </article>
+
+  <!-- AV ALLE MERKELIGE -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">28. mai 2013, kl. 17:04</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Av alle merkelige...</h2>
+    <p>Jeg begynner å innse at jeg har mange rare hendelser i livet. Men dagen i dag nekter jeg å se på som normal.</p>
+    <p>Jeg skulle ha eksamen i norsk skriftlig. Fant ikke fram (GPS nektet å laste inn kartet), og da jeg endelig fant gata &mdash; sto jeg foran en kirkedør med en lapp det sto "Eksamen" på. Jeg trodde nesten ikke mine egne øyne. Men det stemte med husnummeret, og klokka holdt på å løpe fra meg, så jeg måtte pent springe inn i kirka.</p>
+    <p>Og ganske riktig &mdash; i døra ble jeg møtt av en eksamensvakt. Inne i kirka var kirkebenkene byttet ut med pulter og stoler. Jesus kikket på oss fra alle kanter. Jeg har aldri hørt om noen som tar en vanlig videregående eksamen i en kirke. Men vi får tro at høyere makter var med oss, slik at vi alle fikk bra karakter da!</p>
+  </article>
+
+  <!-- NOMADELIV -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">21. mai 2013, kl. 17:57</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Den som sover synder ikke..</h2>
+    <p>Det er ihvertfall det folk flest påstår. Jeg og gubbis brukte lang tid på å sette opp et stort veggord i gangen i det nye huset. Og vi trodde i vår villfarelse at det fikk henge i fred. Så feil kan man ta. Lille frøken Ariane fant veldig raskt ut at hennes små fingre kunne løsne bokstavene fra veggen, og ordene ble mer og mer forkortet. Det er slitsomt å være bokstavplukker &mdash; plutselig bare sovnet hun rett ut på gulvet. Lillemor ble båret i seng, og hva skjer da? Joda, tvillingbroren tar over.</p>
+    <p>Vi innser nå at vi bare må fjerne veggordet igjen og finne noe i mer babyvennlig høyde. Omvendt psykologi &mdash; "la de holde på, så blir det ikke så spennende" &mdash; fungerer forøvrig ikke i det hele tatt med mine unger. De fortsetter med fornyet styrke.</p>
+    <p>Fint er det forresten å ha fått hobbitt-peis i huset! Vi fikk fyrt litt i den &mdash; og måtte lufte etterpå fordi det ble i varmeste laget &mdash; men det var det verdt. Og katta, den lille rødstripete puseklatten, trives like godt som resten av familien i det nye huset.</p>
+  </article>
+
+  <div class="divider"><span>✦</span></div>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">21. mai 2013, kl. 00:52</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Nomade-liv</h2>
+    <p>Det føles nesten sånn, her vi flytter alt fra ett sted til et annet. Aner dere hvor mye ting en familie på 8 har? Vi kjørte det første flyttelasset på kvelden 17. Mai, og siden det har det gått i ett.</p>
+    <p>Katta ble med på flyttelasset selvfølgelig. Løs i bilen. Ikke helt etter boka altså, men katta egnet seg godt som papegøye på skuldra. Alle kom frem helskinnet.</p>
+    <p>Og så varmt som det var i pinsehelga! Høyommer-temperaturer &mdash; og vi passet på å legge flyttinga midt i varmebølgen. Vi svettet oss igjennom helga, men nå har vi et hus som faktisk har normaltemperatur uavhengig av vær! Vi tror vi kan komme til å trives veldig godt her i tyrolerhuset vårt.</p>
+  </article>
+
+  <!-- 17. MAI -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">18. mai 2013, kl. 12:55</span>
+      <span class="post-tag">Test/anbefaling</span>
+    </div>
+    <h2>Vår 17. Mai i bilder</h2>
+    <div class="location-badge">📍 Tjodalyng / Sandefjord</div>
+    <p>17. Mai starter alltid tidlig her i huset. Emma var førstemann ut, med spilling ved flaggheisingen på sykehjemmet i Tjølling kl. 8. Så var det skoletoget med Tjodalyng Skolekorps Juniorkorps &mdash; i strålende sommervær!</p>
+    <p>Ariane presterte forresten å sove seg gjennom hele skoletoget. Den jenta har et enormt sovehjerte! Hun sov seg gjennom borgertoget i Sandefjord senere på dagen også.</p>
+    <p>Avslutningen ble grilling hos bestemor, og årets familiebilde ble tatt. Å få 8 personer til å sitte pent og se i kamera er så godt som umulig. Men vi klarte det &mdash; nesten. Storm er akkurat på vei til å stikke av.</p>
+    <p>Forresten: blogginnlegget mitt om å være korpsmamma fikk masse oppmerksomhet den dagen &mdash; vi endte på 20. plass på topplista til blogg.no, og saken lå som hovedsak på nettavisen! Ganske underlig å se trynet sitt klint utover nettavisen. Men det dreier seg om en god sak, og om jeg kan få bare ETT barn til å begynne i korpset, har jeg gjort mitt.</p>
+  </article>
+
+  <!-- DOUBLE TROUBLE - 2011 -->
+  <article>
+    <div class="post-meta">
+      <span class="post-date">15. april 2011, kl. 10:48</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Double trouble</h2>
+    <p>Jada, jada, jeg vet... treige på bloggefronten igjen. Men som alltid har vi en GOD unnskyldning. Vi har nemlig startet på et nytt eventyr! Og det har vært litt krevende og tatt litt tid, men nå serru, nå er det virkelig i gang!</p>
+    <p>Som nevnt tidligere i bloggen har vi vært i gang med prøverørsbehandling en periode. Det er jo ikke alltid ting går av seg selv, og det gjorde det neimenn ikke i dette tilfellet heller. Men etter et par feilskjær bestemte vi oss for å ta et nytt forsøk før jul. Og jadda! FULL POTT!</p>
+    <p>1. desember ble to perfekte små embryo satt inn, og jammen... en drøy uke senere lyste det blå krysset mot oss. Og ikke i vår villeste fantasi ville vi trodd at vi rett før jul skulle få beskjed om at vi venter tvillinger!! TO små trigertigere jo!!</p>
+    <p>Svangerskapet har gått strålende så langt, og as we speak er jeg straks 22 uker på vei. Det sparker og romsterer i magen døgnet rundt og livvidden begynner å bli rimelig stor. Men det er bare koselig, for disse to var jammen ønsket og etterlengtet.</p>
+    <p>For noen uker siden fikk vi også vite hvem det er som bor i magen. <strong>Tvilling 1 er en liten gutt som skal hete Storm Julian.</strong> Og <strong>tvilling 2 er ei lita jente som skal hete Ariane Isabell.</strong> Snakker om full uttelling &mdash; en av hvert! Det er nesten så vi ikke kan tro hvor heldige vi har vært.</p>
+    <p>Så i august blir vi en skikkelig storfamilie. Ungene gleder seg vanvittig til de små kommer, og de tre besteforeldrene er også elleville over familieforøkningen. Heldige småtroll som får så snille besteforeldre.</p>
+  </article>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- ===== 2010-INNLEGG ===== -->
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">21. september 2010, kl. 13:02</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Litt mere videoblogg fra oss</h2>
+    <div class="location-badge">📍 Sardinia</div>
+    <div class="video-note">🎥 Videoblogg &mdash; originalvideo ikke lenger tilgjengelig</div>
+    <p>I dag går turen til Neptune's Cave, så da får dere bare smøre dere med tålmodighet og vente på neste oppdatering.</p>
+    <p><em>Kommentarer er alltid hyggelig når vi blogger &mdash; hint hint!</em></p>
+  </article>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">19. september 2010, kl. 18:11</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Sardinia dag 3 og litt dag 4</h2>
+    <div class="location-badge">📍 Alghero, Sardinia</div>
+    <p>Slæppåff-dager i Alghero. Vi har i grunnen ikke gjort så mye fornuftig. Ikke at vi pleier å gjøre fornuftige ting på ferie, men nå har vi bare susa rundt og kost oss og kikket på ting og tang og rare mennesker.</p>
+    <p>Trange smale smug er en stor del av Alghero. Skjevt, gammelt og veldig sjarmerende. Sånne steder MÅ vi bare gå inn &mdash; er det en åpning i en vegg, er det bare å rusle inn og se hvor man ender.</p>
+    <p>Jeg er skuffet over tørkesnorene&hellip; ærlig talt! De skal henge tvers over gata! Her henger de jo inntil husveggen &mdash; ikke sånn det er i "Lady og Landstrykeren". Og vi har enda ikke funnet noen restaurant med rødrutete duker og spaghetti med kjøttboller heller.</p>
+    <p>Nusseord og nytt italiensk vokabular lært av Finn Magne: <em>Birreria</em>. Man kan jo gjette seg til hva det betyr? <em>Gelateria</em> er iskrem &mdash; men iskremsjappe OG krematorium i ett og samme lokale?? Det henger da virkelig ikke på greip.</p>
+    <div class="divider"><span>✦</span></div>
+    <p>Huff&hellip; dette bildet har en helt egen historie. I går kveld skulle vi ut og spise middag. Altfor sent, som vanlig. En plass holdt de åpent for oss og servitøren anbefalte den sardinske pasta-spesialiteten. Og vi lot oss lure. Etter to sånne konsistensløse og svært syrlige pastaklumper ga jeg opp, og Finn Magne greide å trøkke ned fire stykker. Men da var det bråstopp.</p>
+    <p>Men vi kunne jo ikke la maten ligge igjen da de hadde holdt kjøkkenet åpent litt lengre bare for oss. Så jeg fisket opp en pakke kleenex fra vesken, og driblet de forbaska pasta-klumpene inn i papir og ned i vesken, én etter én. Servitøren spurte "it was good, no?" &mdash; jada, vi løy overbevisende. I nærmeste søppelbøtte ble pastakladdene avlevert, og vi tuslet hjem og spiste potetgull i stedet. Dette skal vi IKKE prøve igjen!</p>
+    <p>I dag sneik vi oss inn og smugkikket på en katolsk messe. For syns skyld bekjente vi syndene våre da vi så en skriftestol &mdash; men den var helt tom for prest. Og ikke har vi syndet så mye heller da. Vi er jo gift nå 😛</p>
+  </article>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 14:10</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Dag 1 og 2 &mdash; Sardinia</h2>
+    <div class="location-badge">📍 Alghero, Sardinia</div>
+    <p>Utpå ettermiddagen ankom vi knøttlille Alghero flyplass. Den deilige varmen slo mot oss da vi gikk ut av flyet. Vi skulle egentlig bli hentet, men ventet og ventet uten at noen dukket opp &mdash; så det ble taxi. Heldigvis visste sjåføren veien.</p>
+    <p>Utenfor inngangen møtte Vittoria oss &mdash; en kjempehyggelig dame som er sjefa her på hostellet. Vi fikk rom i 4. etasje (hva er det med at de skal legge oss i toppetasjen hele tiden?), og rommet var NYDELIG! Med eget bad, stor dobbeltdør ut til luftebalkongen og kjøkken gjemt inni et skap. Dette er ikke et hostell &mdash; det er et leilighetshotell.</p>
+    <p>Starten på stranden i Alghero: lang strand med støvete finkornet sand. Ut og teste vannet &mdash; det er jo viktig da man kommer til et nytt sted. Og vannet var svært behagelig!</p>
+    <p>Fortauene kan umulig være laget for å gå på &mdash; buskene tok 90% av plassen. Men vi snek uansett, for vi var på gekkojakt! De små søte krapylene er slettes ikke sosiale.</p>
+    <p>På ettermiddagen på dag 2 hadde vi videosamtale med elsklingene hjemme. Emma har begynt i korps og har fått utlevert instrument, så vi fikk en trombone-konsert over nett hehe.</p>
+    <p>Forsøkene på å ta bilder av oss sammen ute i vannet ble heller mislykket. Men legg merke til han italieneren i bakgrunnen &mdash; dette er VELDIG typisk på strendene her. Brunsvarte halvgamle italienere i hvit speedo&hellip;</p>
+    <p>Snakker om Caro&hellip; jeg har tatt Finn Magne på fersken! Han tagger!! Det må jo være han som har skrevet "Ti amo Caro Tina" på veggen??</p>
+    <p><em>Hilsen fra varmen fra Hr. og Fru Triger på Sardinia! 🌞</em></p>
+  </article>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 01:31</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Amsterdam</h2>
+    <div class="location-badge">📍 Amsterdam, Nederland</div>
+    <p>En ganske merkbar overgang fra 35 grader og stekende sol i Madrid til godt under 20-tallet, vind og regn i Amsterdam. Vi fikk rotet oss på toget til sentrum og trodde faktisk at hostellet lå rett ved Central stasjonen. Yeah right. "Nær ved" viste seg å bety 20 minutter gange &mdash; i stiv kuling og regn. Så det ble taxi.</p>
+    <p>Vi fikk til vår store skrekk beskjed om at vi bodde i toppetasjen &mdash; 5 etasjer opp med trapper så smale og skjeve at vi knapt hadde sett maken. Med nærmere 40 kilo bagasje totalt. Rommet var rent og pent, men eneste utganger var døra og et bittelite vindu høyyyt under taket.</p>
+    <p>Vi fant en pitteliten indisk restaurant ved en byggeplass. Maten var nydelig &mdash; og det tøffeste: musikken. Fyren spilte indisk musikk på kassettspiller! Jeg ante ikke en gang at denslags eksisterte lenger. Etter maten tuslet vi ned mot red light district, men i regn og vind var det egentlig en heller trist affære. Taxi hjem og til køys.</p>
+    <p>Forsov vi oss? Selvfølgelig. Vaskehjelpa vekte oss med å dundre på døra. Men vi rakk toget til Eindhoven, og derfra flyet til Alghero. Amsterdam er et tilbakelagt kapittel. Vi har ett bilde. Av trikken vi sneik på hehe.</p>
+  </article>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">17. september 2010, kl. 00:44</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Madrid!</h2>
+    <div class="location-badge">📍 Madrid, Spania</div>
+    <p>Vi ankom Madrid litt etter midnatt etter en skikkelig bumpy ride med kaptein Kenguru som pilot. Taxisjåføren var en halvgammel spanjol som ikke kunne et pipp engelsk &mdash; men han kaklet og bablet og gestikulerte mens vi bare nikket og smilte.</p>
+    <p>Plaza Mayor: vi trodde det var et gammelt torg, men det var den opprinnelige tyrefekterarenaen i Madrid! Deretter fant vi det lokale markedet &mdash; det er helt utrolig hvor stor frukten i Spania er. En helt annen smak enn hjemme.</p>
+    <p>Etter siesta bar det ut på metroen. Madrid har et enormt metro-nett! Vi fartet rundt for å finne tyrefekterarenaen Plaza del Toros de las Ventas &mdash; enormt stor. Dessverre var det stengt da vi kom, men vi kom tilbake på omvisning neste dag.</p>
+    <p>Grunnen til at kun 3 tyrefektere har mistet livet siden arenaen ble bygd i 1927: de har to operasjonssaler og 7 av Spanias fremste kirurger på plass under kampene. Vi fikk prøve å holde kappene: den rosa veier 15 kilo (silke og bly!), den røde bare 5 kilo.</p>
+    <p>Etter omvisningen tok vi taxi til flyplassen. Halvannet hektisk døgn i Madrid var over &mdash; slitne i beina men fulle av minner.</p>
+  </article>
+
+  <article>
+    <div class="post-meta">
+      <span class="post-date">13. september 2010, kl. 15:27</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Nå forlater vi Alicante</h2>
+    <div class="location-badge">📍 Alicante, Spania</div>
+    <p>&hellip;og setter kursen mot Madrid. Og jeg måtte bare legge inn noen ord om vakringene som bor her hos David: Mira, Rex og Sita &mdash; tre nydelige pelsballer. Rex er en kjærlig sjel hehe. Og Finn Magne (han bor jo ikke her permanent, men vakring er han 😊)</p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">29. august 2010, kl. 19:10</span>
+      <span class="post-tag">Bryllupsreise</span>
+    </div>
+    <h2>Snart bryllupsreise!!</h2>
+    <p>Nå legger vi jammen snart ut på tur igjen! Det er i grunnen på høy tid også, for vi har ikke vært de mest aktive på reisefronten egentlig. Muligens fordi det har vært andre ting som skulle prioriteres &mdash; vi giftet oss jo nettopp! Men nå er det bryllupsreise som gjelder, og vi gleder oss!</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">24. august 2010, kl. 09:36</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Just married</h2>
+    <p>Nå er vi endelig gift!</p>
+    <p>På lørdag ble vi viet i Sandefjord Kirke, og dagen ble HELT fantastisk!</p>
+    <p>Da vi la oss natt til lørdag bøttet regnet ned i bøtter og spann og man må vel innrømme at bekymringen for om det skulle bli en regnvåt bryllupsdag meldte seg litt da. Men morgenen etter tittet solen gradvis fram, og til slutt var det strålende vær!</p>
+    <p>Finn Magne var trygt plassert hos forloveren sin Thomas, så hva som skjedde der på morgenen vet jeg i grunnen lite om. Men her hjemme så var det til å begynne med avslappet stemning og rolige forhold til tross for et hus fullt av gjester og en litt nervøs brud og forlover.</p>
+    <p>Verdens beste forlover Caroline og jeg ruslet etterhvert over til svigermor og satte i gang med hårspray, makeup, en million hårspenner og en glovarm krølltang. Alle brudepikene, bruden, forloveren og svigermor skulle styles på morgenen, og jeg har vel sjelden sett noen være mer aktiv med krølltanga enn Caroline var da hehe. Men &mdash; så fløy tiden fra oss gitt! Plutselig ble alt veldig hektisk. Da cadillacen kjørte opp i gården hadde bruden enda ikke fått på seg makeup, og brudekjolen hang i grunnen fortsatt på hengeren. Men 20 minutter før vielsen hadde alle småtingene kommet på plass, og vi kastet oss ut av døren og satte kursen mot kirka. Jeg tror alvorlig talt aldri en brudekjole har blitt snørt så fort før hehe.</p>
+    <p>Brudebilen var en rålekker sak da &hellip; mørk rosa cadillac! Det var litt stas 🙂 Eldstejentas svigerfar stilte som sjåfør &mdash; med cowboyhatt og det hele. Tøft!</p>
+    <p>Da vi endelig ankom kirken kom nervene for fullt. Knærne ristet, hendene skalv, og jeg har aldri før vært så tørr i munnen som jeg var akkurat da. Hadde noen passert meg med et glass vann da, så hadde jeg knetaklet de overende og rappet glasset. Men neida, ikke noe vann å se noen steder. Jeg tenkte et øyeblikk tanken på å finne meg et sugerør og satse på at døpefonten var fylt da jeg kom inn i kirken faktisk hehe.</p>
+    <p>Nerver til tross &mdash; da dørene endelig åpnet seg og jeg så min kjære tilkommende ektemann stå oppe i koret, så var jeg bare fullstendig sikker på at dette var det helt riktige å gjøre. Nervøs som fy var jeg fortsatt &mdash; men veldig veldig trygg på at dette var mannen jeg vil være sammen med resten av livet. Brudepikene og brudesvennen vår var fantastisk flinke forresten. Og utrolig vakre 🙂</p>
+    <p>Jeg ble fulgt til alteret av faren min, slik tradisjonen er &mdash; men jeg hadde også en til som fulgte meg opp &mdash; mannen i mitt liv &mdash; sønnen vår Theo. Seks år gammel og knakende kjekk i dress og cowboyboots! Det var nok utallige gammeltanter og andre som ble litt blanke i øynene da gitt 🙂 Jentene var også utrolig vakre, og gjorde en super jobb med å være brudepiker.</p>
+    <p>Vielsen var nydelig, og solistene var drivende dyktige. En barytontrio bestående av min bror, svigerinne og far spilte Highland Cathedral før vielsesseremonien (broren og svigerinna spilte også inngangsmarsjen «bruremarsj av J.M. Førde» sammen med organisten), og etter vielseseremonien sang nydelige Christin Sjødal «Fields of Gold» med Phillipe Toso på gitar. Vanvittig flinke alle sammen!</p>
+    <p>Litt snubling i ord ble det da vi avla løftene, men det er da ikke så nøye 🙂</p>
+    <p>Så kunne vi endelig titulere oss Hr og Fru Triger &mdash; og hele ungeflokken byttet i samme øyeblikk navn til Triger også. Det har de ventet på lenge 🙂</p>
+    <p>Etter festen bar det avgårde til fotografering med Michael Ringdal og assistent Truls Ødegård. En veldig artig shoot i parken som vi gleder oss til å se resultatet av hehe.</p>
+    <p>Etter fotograferingen var det klart for barbeque-fest på Eftang sammen med 90 gjester. Toastmaster Daniel gjorde en strålende jobb. Brudgommen holdt en vakker tale. Den nydelige bryllupskaken var laget av Hege H. Grøndalen, og brudebuketten av Conny Martensen. Brudevalsen &mdash; wienervals selvfølgelig &mdash; ble danset, og så skiftet musikken og hele familien Triger kastet seg ut i linedance til alles overraskelse!</p>
+    <p>Tusen takk til alle som delte dagen med oss, alle som hjalp til med å gjøre dagen perfekt &mdash; foreldrene våre, solistene, bakeren, blomsterdekoratøren, toastmasteren, barna våre, venner og familie, fotografen og assistenten, kjøkkenhjelperne og sist men absolutt ikke minst &mdash; våre to HELT utrolige forlovere Caroline og Thomas. Dere gjorde en kjempejobb, og vi er SÅ glade i dere! Noen flere bør også nevnes &mdash; Gry, Mona, Nancy&hellip; dere sprang jo nesten bena av dere&hellip; fantastiske jentene!</p>
+    <p>Varme klemmer fra hr og fru Triger.</p>
+    <p><em>Og til min nybakte ektemann &hellip; jeg elsker deg av hele mitt hjerte.</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">2. august 2010, kl. 19:23</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>02.aug.2010</h2>
+    <p>Nå er det under 3 uker igjen til den store dagen! Mye har kommet på plass, men det gjenstår en del enda &mdash; sånn som å sy ferdig jentenes kjoler, lage maten, kaker og diverse småtterier. Kjolene til jentene er underveis...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">29. juli 2010, kl. 19:45</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Før og etter</h2>
+    <p>Bare kjapt innpå med før og etter bilder av huset. Nå er det straks ferdig utvendig og det forhatte stillaset er ENDELIG historie! Deilig å kunne åpne alle dører og vinduer uten å smelle de rett i stillaset...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">11. juli 2010, kl. 14:08</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Wienervals er mer avansert enn wienerpølser gitt</h2>
+    <p>Her rusler og går det framover med bryllupsplanleggingen. Det meste er faktisk mer eller mindre under kontroll. Eller... det ser i det minste ut som det er under kontroll, men det får vi neppe vite før selve dagen...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">5. juli 2010, kl. 15:46</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Hjelp, vi gifter oss!</h2>
+    <p>Bloggingen går visst treigt her i huset, men du allverden sånn tempo det er på alt annet! Etter planen skulle vi giftet oss neste sommer. Men etter et mislykket prøverørsforsøk nå i juni, så ble planen endret og bryllupet ble fremskyndet...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">13. mai 2010, kl. 15:04</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Konfirmasjon 08. Mai</h2>
+    <p>Lørdag 8. mai ble eldstejenta vår konfirmert i Sandefjord Kirke i strålende solskinn. En kjempefin dag med familie og gode venner. I stedet for å skrive side opp og side ned så slenger vi ut noen bilder fra den fine dagen...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">17. april 2010, kl. 22:06</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Sommeren nærmer seg</h2>
+    <p>Ja endelig nærmer sommeren seg og vi tok en liten familietur på Ula. Det er en del som er gravd opp der ute så det er litt mye jørme og slikt, og det ser ikke like pent ut som det kanskje hadde burde gjort...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">15. april 2010, kl. 00:28</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>dream imagine &amp; believe</h2>
+    <p>Endelig er også Kines rom ferdig. I kveld har vi kranglet på plass wall-decals på veggen hennes, og det ble jo faktisk veldig fint til slutt også! Utgangspunktet var en helt hvitmalt vegg uten tapet...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">13. april 2010, kl. 08:41</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Stue-griser og pølsehunder</h2>
+    <p>Det ble visst plutselig en aldri så liten pause i bloggingen da rommene til ungene ble ferdige. Vi landet vel litt etter den mega-innsatsen, og tillot oss å slappe av litt. Vent nå... slappe av? Nei...</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+  <article class="post">
+    <div class="post-meta">
+      <span class="post-date">5. april 2010, kl. 20:26</span>
+      <span class="post-tag">Blogg</span>
+    </div>
+    <h2>Overlykkelige overraskede unger er moro!</h2>
+    <p>Nå er påsken stort sett overstått, og vi har vel ikke akkurat hatt ferie denne uka. Ungene har vært på ferie hos faren sin på Hedmarken, og i mellomtiden har vi gjort ferdig rommene dems &mdash; og de ble overlykkelig overrasket da de kom hjem!</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+  </article>
+
+</main>
+
+<footer>
+  <p>✈️ Triger'n og Tiger'n &amp; resten av familien &mdash; Reiseblogg 2009&ndash;2014</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">Sandefjord &bull; Sardinia &bull; Madrid &bull; Amsterdam &bull; Danmark &bull; Vestlandet &bull; Finnskogen og mer</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem; color:#aaa;">Gjenopprettet fra web.archive.org</p>
+</footer>
+
+</body>
+</html>
