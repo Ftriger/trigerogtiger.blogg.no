@@ -1,0 +1,5 @@
+project/
+ ├─ index.html
+ ├─ sitemap.xml
+ ├─ robots.txt
+ └─ vercel.json
