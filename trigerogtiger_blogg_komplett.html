@@ -1,0 +1,3113 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triger'n og Tiger'n &amp; resten av familien suser verden rundt</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f3ee;
+  --surface: #fdfaf7;
+  --ink: #1c1410;
+  --ink2: #3d302a;
+  --muted: #7a6a62;
+  --border: #e2d9d0;
+  --accent: #c0622a;
+  --accent2: #e8a87c;
+  --gold: #b8904a;
+  --tag-travel: #e8f0e4;
+  --tag-travel-text: #3a5c2e;
+  --tag-blog: #e8eaf4;
+  --tag-blog-text: #2e3c6b;
+  --tag-kids: #f9ece4;
+  --tag-kids-text: #7a3018;
+  --tag-rec: #f4ede8;
+  --tag-rec-text: #5c3a20;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--ink);
+  color: #f0ebe4;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.masthead-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+}
+.masthead-text {}
+.masthead-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 0.75rem;
+}
+.masthead h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #f5efe7;
+  letter-spacing: -0.02em;
+}
+.masthead-sub {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #a89890;
+  margin-top: 0.9rem;
+  max-width: 520px;
+}
+.masthead-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: right;
+  padding-bottom: 0.25rem;
+}
+.stat-item {
+  font-family: 'Inter', sans-serif;
+}
+.stat-num {
+  display: block;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--accent2);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a6a62;
+}
+.masthead-rule {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 50%, transparent 100%);
+}
+
+/* ── NAV ── */
+nav {
+  background: #251c18;
+  border-bottom: 1px solid #3a2e28;
+}
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+nav a {
+  color: #a89890;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.25rem;
+  display: block;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+nav a:hover { color: #f0ebe4; border-bottom-color: var(--accent); }
+nav a.active { color: var(--accent2); border-bottom-color: var(--accent); }
+
+/* ── LAYOUT ── */
+.site-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 3rem;
+  align-items: start;
+}
+main { min-width: 0; }
+
+/* ── YEAR DIVIDER ── */
+.year-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+  margin: 3rem 0 -1rem;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+.year-label:first-child { margin-top: 0; }
+
+/* ── POST CARD ── */
+article {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+article:hover { box-shadow: 0 4px 24px rgba(28,20,16,0.08); }
+article::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: var(--border);
+}
+article.travel::before { background: linear-gradient(90deg, #5c8c3e, #9dc87a); }
+article.blog::before { background: linear-gradient(90deg, #3a5cb8, #8aaae8); }
+article.kids::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+article.rec::before { background: linear-gradient(90deg, var(--gold), #deb87a); }
+
+.post-inner { padding: 2rem 2.5rem 2.25rem; }
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.post-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.post-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 2px;
+}
+.tag-travel { background: var(--tag-travel); color: var(--tag-travel-text); }
+.tag-blogg { background: var(--tag-blog); color: var(--tag-blog-text); }
+.tag-barna, .tag-kids { background: var(--tag-kids); color: var(--tag-kids-text); }
+.tag-rec, .tag-test { background: var(--tag-rec); color: var(--tag-rec-text); }
+.tag-bryllupsreise { background: #f4ecf4; color: #5c2870; }
+
+article h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+article p {
+  color: var(--ink2);
+  margin-bottom: 1.1rem;
+  font-size: 1rem;
+}
+article p:last-child { margin-bottom: 0; }
+article a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent2); }
+article a:hover { border-bottom-color: var(--accent); }
+article em { font-style: italic; color: var(--muted); }
+
+.location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+}
+
+.recipe-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.recipe-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.recipe-box ul, .recipe-box ol { padding-left: 1.5rem; }
+.recipe-box li { margin-bottom: 0.35rem; font-size: 0.95rem; color: var(--ink2); }
+
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #cc2200;
+  border: 1px solid #f0c0b0;
+  background: #fff8f6;
+  padding: 0.4rem 0.85rem;
+  border-radius: 3px;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  margin: 0.5rem 0 1rem;
+  transition: background 0.15s;
+}
+.video-link:hover { background: #ffeeea; }
+
+/* ── SIDEBAR ── */
+aside { position: sticky; top: 2rem; }
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.sidebar-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+.about-names {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.about-names strong { color: var(--ink2); font-weight: 600; }
+.about-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+.archive-list { list-style: none; }
+.archive-list li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--border);
+  padding: 0.4rem 0;
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink2);
+}
+.archive-list li:last-child { border-bottom: none; }
+.archive-count {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.places-list { list-style: none; }
+.places-list li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  padding: 0.3rem 0;
+  color: var(--ink2);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.places-list li::before { content: '→'; color: var(--accent); font-size: 0.7rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  color: #7a6a62;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+footer strong { color: var(--accent2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .site-body { grid-template-columns: 1fr; }
+  aside { position: static; }
+  .masthead-inner { grid-template-columns: 1fr; }
+  .masthead-stats { flex-direction: row; text-align: left; }
+  .post-inner { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-text">
+      <p class="masthead-eyebrow">Reiseblogg · 2008–2014 · Sandefjord</p>
+      <h1>Triger'n og Tiger'n<br>suser verden rundt</h1>
+      <p class="masthead-sub">Finn Magne og Tina legger ut på eventyr med friskt mot, null stedsans og rykende fersk blogg — med hele bingen!</p>
+    </div>
+    <div class="masthead-stats">
+      <div class="stat-item">
+        <span class="stat-num">8</span>
+        <span class="stat-label">i familien</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">6</span>
+        <span class="stat-label">år med minner</span>
+      </div>
+    </div>
+  </div>
+  <div class="masthead-rule"></div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="active">Alle innlegg</a>
+    <a href="#">Reise</a>
+    <a href="#">Blogg</a>
+    <a href="#">Barna</a>
+    <a href="#">Oppskrifter</a>
+  </div>
+</nav>
+
+<div class="site-body">
+<main>
+
+<div class="year-label">2014</div>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">10. april 2014</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Mitt beste reiseminne</h2>
+    <p>Det er én tur som topper alt vi har vært på: Sharm El Sheikh høsten 2012. Første store utenlandstur med alle seks barna. Det som gjorde denne turen så spesiell var at vi møtte venner vi ble kjent med da vi voksne var i Sharm i 2008, og at vi fikk en masse nye venner som vi fortsatt har masse kontakt med.</p>
+    <p>Sol, sommer og bading i både basseng og hav var naturligvis en stor del av turen. Vennene våre tok oss med på private sightseeingturer, hvor vi fikk komme tett innpå lokalbefolkningen, fikk spise genuin egyptisk mat og fikk se steder andre turister aldri får se. Til alt overmål arrangerte vennene våre supriseparty for Finn Magne da han fylte 34 år!</p>
+    <p>Vår beste reise var da vi slapp alle fordommer og hemninger, og ble godt og grundig kjent med de lokale. Det er virkelig verdens beste måte å reise på. Vi er klar for ny Egypt-tur så snart som mulig!</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">8. januar 2014</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Vil dere hjelpe flotte barn og unge med en stemme?</h2>
+    <p>En jury har plukket ut vårt skolekorps, Tjodalyng Skolekorps, som en av tre finalister i en konkurranse om å vinne fyrverkerishow til 50.000 kroner. Korpset vårt feirer 60 år i år, og denne flotte gjengen barn, unge, ildsjeler, foreldre og andre som støtter opp om korpset fortjener virkelig en pang-avslutning på jubileumsfesten.</p>
+    <p>Det er enkelt nok å stemme &mdash; det eneste kriteriet er at man må logge inn med Facebook-kontoen sin. Vi er en liten bygd og er oppe mot hard konkurranse, så å vinne dette ville vært helt utrolig moro. Hver eneste stemme teller, så på forhånd tusen takk til de som vil stemme på oss og til de som er så snille å dele oppfordringen videre!</p>
+    </div>
+  </article>
+
+<div class="year-label">2013</div>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Snart ut på tokt igjen — Tyrkia!</h2>
+    <div class="location-badge">📍 Belek, Tyrkia</div>
+    <p>Jammen skal vi snart ut på heisatur igjen! Ikke hele gjengen denne gangen, men foreldre og twinsa. Vi vant faktisk en tur for to til Tyrkia! Og twinsa reiser gratis enda, så de fikk være med på lasset.</p>
+    <p>Vi visste ikke helt hva vi skulle før billettene dumpet ned i posten — et femstjerners hotell utenfor Belek, og to netter i Pamukkale med de berømte hvite kalkfjellene og varme kilder. Og en tur til basaren i Antalya. Gudameg som vi gleder oss! Det blir nok litt godt med et pusterom i bakken før eksamensinnspurt, flytting og festivalforberedelser.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Og så gikk turen til Tyrkia! ✈️</h2>
+    <div class="location-badge">📍 Belek, Tyrkia</div>
+    <p>Dagen startet som den skulle, med å få ungene avgårde på skolen og så var det fysiobesøk for Storm, før vi pakket det siste lille og satte kursen nordover. Vi skulle først droppe av bagasjen til de store ungene, og så var det avgårde til flyplassen. Billetter, barneseter, tvillingvogn og alt det som hører med en reise med ettåringer.</p>
+    <p>Flyturen gikk knirkefritt, og da vi landet i Antalya møtte vi deilig varm luft og blinkende sol. Hotellbussen tok oss direkte til femstjerners-hotellet utenfor Belek. Første reaksjon da vi kom inn på rommet: WOW. Svømmebasseng rett utenfor verandadøra. Twinsa oppdaget det umiddelbart. Vi måtte holde dem igjen med nebb og klør til vi fikk skiftet dem.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 2 — surrehuene er på tur igjen! 😄</h2>
+    <div class="location-badge">📍 Belek, Tyrkia</div>
+    <p>Sa jeg at vi gledet oss til en god frokost i dag? Ja, så feil kan man ta. For vi greide å forsove oss til både frokosten og informasjonsmøtet vi. Slik er livet. Så da vi kom ned i resepsjonen, hadde de andre turistene ryddet tallerkener og det hele. Vi fikk tak i litt mat fra buffeten som sto igjen, og lo godt av oss selv. Surrehuer til fingerspissene.</p>
+    <p>Resten av dagen tilbrakte vi ved bassenget. Twinsa er som fisker i vannet og elsker det. Storm skremte seg selv litt med vannet til å begynne med, men etter ti minutter var han ikke til å stoppe. Ariane hoppet rett i uten å nøle — hun er den modigste av de to.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 3 — Antalya 🕌</h2>
+    <div class="location-badge">📍 Antalya, Tyrkia</div>
+    <p>I dag var det opp relativt tidlig for å rekke frokosten før bussen dro til Antalya. Vi våknet til solskinn og veldig varmt vær, men en vind ut av en annen verden. Så det var på med jakker uansett hva termometeret viste.</p>
+    <p>Antalya er en nydelig by — gamlebyen med de smale steingatene, de gamle murene og de fargerike butikkene er magisk. Vi gikk oss nesten vekk et par ganger, men det er jo poenget med slike byer. Bazaren er nesten overveldende med alt det fargerike som henger og lyser og lokker. Vi kom hjem med lommene fulle av krydder og en del andre ting vi strengt tatt ikke trengte.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Side — eller nei, Alanya faktisk! 🚗</h2>
+    <div class="location-badge">📍 Alanya, Tyrkia</div>
+    <p>Søndag morgen pakket vi tingene våre og fikk utlevert leiebilen. En helt utmerket Hyundai Accent komplett med to barneseter. Et øyeblikk trodde vi at bilen på bildet under var leiebilen, siden den sto rett foran oss — men det var heldigvis ikke det. Vår lille Accent var mer passende for veiene vi skulle kjøre.</p>
+    <p>Planen var Side, men tvillingene sovnet i bilen og vi kjørte forbi avkjøringen uten å merke det. Slik endte vi i Alanya i stedet — noe som viste seg å være en riktig god idé. Alanya er vakkert med sin gjenkjennelige klippe og det blå havet nedenfor. Middelalderfestningen på toppen er imponerende, og utsikten er fantastisk.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>En slakk dag i Alanya og retur til Side 🌊</h2>
+    <div class="location-badge">📍 Alanya → Side, Tyrkia</div>
+    <p>Vi våknet i fornuftig tid og hadde en stille og rolig morgen med frokost og pakking. Det som var å pakke, hadde jo de søte små hjulpet til med dagen før — ved å trekke alt ut av koffertene og spre det utover rommet. Veldig hjelpsomt.</p>
+    <p>Strandtur med twinsa, og en god lunsj på en lokal restaurant før vi satte kursen mot Side. Side er som tatt ut av et postkort — romertempelruiner rett ved havet, smale gater og turistfeller side om side med ekte tyrkisk hverdagsliv. Vi koste oss stort.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Gamlebyen i Side og retur til Belek 🏛️</h2>
+    <div class="location-badge">📍 Side → Belek, Tyrkia</div>
+    <p>Etter en natt med vingling på sengekanten, pakket vi i bilen igjen, før vi ruslet en tur i gamlebyen i Side. Det er noe eget med å gå mellom to tusen år gamle søyler mens tvillingene kjappere enn du aner forsvinner inn mellom ruinene. Ariane prøvde å klatre opp på en antikk marmorsøyle. Vi stoppet henne i tide.</p>
+    <p>Så satte vi kursen tilbake til Belek og hotellet for de siste dagene. Twinsa sovnet i bilen og vi fikk noen fredelige timer med kaffekopp og utsikt over Middelhavet. Slik er ferie.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">20. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Siste innspurt i Tyrkia 🌅</h2>
+    <div class="location-badge">📍 Belek/Pamukkale, Tyrkia</div>
+    <p>Ja, da var siste hele dag i Tyrkia kommet, og den måtte jo selvfølgelig utnyttes til fulle. Derfor sørget vi for å forlenge leien på bilen med en dag, rett etter frokost. Kjekt å ha bilen tilgjengelig da vi ville til Pamukkale.</p>
+    <p>Pamukkale er magisk. De hvite kalkterrasse-formasjonene mot blå himmel er som et annet-verdens-landskap. Vi klatret opp på de hvite trinnene barbeint (det er påkrevd), og badet i de varme kildene. Twinsa var fullstendig fascinert av det hvite «snøet» som ikke var snø. Storm smakte på det. Kalkholdige mineraler er tydeligvis ikke hans greie. Hirapolis like ved er også spektakulær — en hel romersk by i ruiner.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">22. mars 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>The long way home 🏠</h2>
+    <div class="location-badge">📍 Belek → Norge</div>
+    <p>Ja, da sitter vi omsider hjemme i stua etter en lang tur fra Belek i dag. Den hadde vel ikke trengt å bli så lang, men som alltid ble det litt kluss og komplikasjoner på veien. Ingenting dramatisk, men tvillingene hadde sin mening om flyreiser og lotteriet med seter og barnevogn på flyplassen.</p>
+    <p>Men Tyrkia har virkelig imponert oss. Maten, menneskene, historien — og ikke minst Pamukkale som ingen bilder gjør rettferdighet. Vi SKAL tilbake, den gangen med hele familien. Storm og Ariane husker nok ikke så mye av turen, men bildene vil fortelle dem om det siden. Og hva de selv fant på der nede — det glemmer vi ikke med det første.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">9. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Idol Live 🎤</h2>
+    <p>I går var jeg og Emma på Idol og fikk se første delfinale live. Takket være at vi vant to billetter hos Pizzabakeren for noen få dager siden! Hurra for Pizzabakeren, sier bare jeg.</p>
+    <p>Jeg hadde vel egentlig ikke de høyeste forventningene, men det var faktisk veldig, veldig bra! Atmosfæren i salen var god, lyd og lys var fantastisk, og det å se det hele live er en helt annen opplevelse enn å se det på TV. Emma derimot hadde knallhøye forventninger, og ble ikke skuffet. Absolutt verdt turen til Oslo!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Påskeferien så langt</h2>
+    <p>Vi påsto jo at vi skulle bli flinkere til å blogge, så da får vi vel prøve å følge opp da. Påskeferien er jo godt i gang, ihvertfall for ungene, og de to mellomste har reist på ferie til Hedmark med sin far. De to store er hjemme, og tvillingene er som alltid i sitt eget lille univers.</p>
+    <p>Vi koser oss hjemme med påskekos, god mat og masse familietid. Det er ikke alltid man trenger reise langt for å ha det godt!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">28. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Ren skjær skjærtorsdag</h2>
+    <p>Første offisielle påske-fridag. Som i grunnen ikke ble en fridag for gubben, siden han fikk den strålende ideen at han skulle på en av de fem påkrevde prøveturene med redningsskøyta i dag. Og for en tur det ble — de holdt på fra tidlig morgen til langt på kveld, men kom hjem med glitrende øyne og skryt om storslagen fjord og perfekte forhold.</p>
+    <p>Selv tilbrakte jeg dagen med å gjøre det man gjør i påsken: ingenting fornuftig. Det er faktisk ganske tilfredsstillende!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">30. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>God mat gir kreative hjerner 🦃</h2>
+    <p>Langfredag i heimen. Min kjære var i gang med middagen fra han sto opp omtrent, for når han lager kalkun overlates ingenting til tilfeldighetene. Og resultatet blir deretter. Den mannen kan lage mat, det er det ingen tvil om. Sausen er legendarisk.</p>
+    <p>Gry var her over påsken, og etter en lang dag med god mat og gode samtaler endte kvelden med terningspill, latter og alt for mange timer oppe. Slik påske liker vi!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Påskekos med Sophie! 🐣</h2>
+    <p>Heeei! Nå i kveld er jeg (også kalt Tiril) på overnatting hos Sophie Nordal Bull! Mamma ba meg blogge litt herfra. Så — vi holder på med det vi jenter gjør best på overnatting: spiser snacks, ser film, fletter hår og snakker i timevis. Ingen party, men masse kos. Påsken er fin!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Dagens middag — kalkun med kjærlighet 🦃</h2>
+    <p>Dagens middag krever litt kjærlighet og det får den mens damene rydder og koser seg i påsken. Det skal sies at kalkun får litt i overkant mye kjærlighet — men det blir jo også deilig smak og en saftig fylde som er vanskelig å slå. Finn Magnes spesialsaus er selve høydepunktet. Vi spiser godt i dette huset.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">30. mars 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fargerik påskeaften 🥚</h2>
+    <p>I formiddag forlot Gry sine synder — enkelt forklart forlot hun OSS og reiste hjem til det blide sørland. Tenk forlate oss på den måten da... sukk, hehe. Jeg elsker når Gry er på besøk, for hun er en av de menneskene som bare lyser opp et rom.</p>
+    <p>Påskeaften ble feiret i god stil med egg-maling, påskenøtter og påskefilm. Tvillingene fikk møte påskeharen for første gang og var ikke helt sikre på hva de synes om ham. Storm kikket mistenksomt, Ariane lo.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">1. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Aprilsnarr!</h2>
+    <p>Eller ikke. Jeg er ikke kreativ nok til å dra i gang en skikkelig røverhistorie her i dag kjenner jeg, men jeg har moret meg stort over noen av de mer eller mindre intelligente krumspringene på nettet i dag. VG hadde en fin en, og noen bloggere var heller ikke sene.</p>
+    <p>Beste aprilsnarren jeg selv har opplevd var da kjæresten min ringte meg fra jobb og fortalte at han hadde skadet seg og måtte på sykehuset. Jeg løp halve veien til bilen. Det er IKKE lov.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>God morgen fra Kjerringvik ☀️</h2>
+    <p>Sola stråler over fjorden utenfor Kjerringvik og det ser ut til å bli en nydelig vårdag! De fire store ungene er godt på vei til skolen, de to små og pappan sover enda, og jeg er klar for en ny dag. Vi bor altså i Kjerringvik nå — og utsikten herfra er bare helt nydelig om morgenen.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">3. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Det er VÅR!! Harry is back! 🐱</h2>
+    <p>Ja, nå er det ingen tvil om at våren har kommet til Kjerringvik! Vårtegnene står i kø: Pus kommer hjem med fuglelopper, Kine klør som besatt, lysene i kandelaberen krøller seg ut av sokkelen, og Harry — katten som er halvveis vår — har dukket opp igjen etter vinterdvalen.</p>
+    <p>Harry er egentlig naboens katt, men har bestemt seg for at han tilhører oss. Han sitter utenfor vinduet og ber om mat, og av og til tar han seg en tur inn og inspiserer sofaen. I dag satt han og kikket på oss gjennom vinduet mens vi spiste middag. Herlig skapning.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">6. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Hektisk fredag 🏅</h2>
+    <p>Hektisk fredag i Triger-heimen! Noen dager så skjer bare alt på en gang. Fredagen var absolutt ikke noe unntak. Først og fremst vant jeg to billetter til Justin Bieber-konserten på Telenor Arena 17. april! Og siden vi snakker om de to store jentene — hvem skulle vel heller ikke ta dem med dit? Jo, meg selvfølgelig.</p>
+    <p>Utover det var det håndbball, korps-møte, tvillingkaos og middag som skulle lages. En vanlig fredag med andre ord. Vi er eksperter på å jonglere!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">7. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Tvillinglykke 👶👶</h2>
+    <div class="location-badge">📍 Kjerringvik</div>
+    <p>Nei nei nei, ikke enda et par tvillinger — men tvillinglykke med de tvillingene vi allerede har! Vi fant ikke speilrefleksen etter vi kom hjem fra Tyrkia, og selv om vi lette på alle tenkelige og utenkelige steder, så dukket den ikke opp. Men i dag — der lå den! Og nå har vi blitt gjenforent med et par meget fornøyde tvillinger som koser seg i vårsolskinnet.</p>
+    <p>Storm og Ariane er snart to år, og utvikler seg i rekordfart. De kommuniserer med hverandre på sitt eget hemmelige tvillingspråk, og er til stadighet i sin egen verden. Helt magisk å se på.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">7. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fin vårdag ☀️</h2>
+    <p>I dag har det vært strålende sol, og ganske varmt ute, så tvillingene har vært ute og gått lang tur med pappa mens mamma studerte. Helt ned til havna og opp igjen — og så mye spennende som det er langs veien! Steiner, fugler, biler og båter. Alt er eventyrlig når man er snart to år.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">8. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Torky-moments 📸</h2>
+    <p>Jeg tenkte jeg skulle delta på en konkurranse hos en blogg, hvor temaet er «Torky-moments» — altså de rare, komiske og litt meningsløse øyeblikkene som bare skjer. Problemet mitt var at jeg har ALT FOR mange slike øyeblikk. Vi er Triger-familien. Hvert eneste dager har minst ett Torky-moment. Det er vanskelig å velge ett.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">9. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Hva i alle dager skjer med den videregående skolen?? 🏫</h2>
+    <p>Det er mulig jeg er for en antikvitet å regne når det gjelder videregående, siden det er noen år siden jeg gikk der selv. Men det som beskrives fra Kines og Tirils skole om dagen er ting jeg aldri opplevde i min tid. Fravær som ikke følges opp. Elever som gjør ingenting og allikevel består. Prøver som bare... forsvinner. Noe er galt. Og det bekymrer meg som mamma.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">12. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Hva skjedde underveis? 🤔</h2>
+    <p>Man kan jo lure noen ganger. Se på de to her: våre to eldste døtre. Oppvokst på samme sted, i samme miljø, med felles gener, felles familie — felles alt. Så hva i alle dager skjedde underveis?? To mer forskjellige personligheter skal man lete lenge etter. Den ene snakker i ett kjør, den andre kan gå timevis i stillhet. Den ene er presis, den andre lever i sin egen tidssone. Vi elsker begge like mye. Det er bare fryktelig morsomt.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Vårfornemmelser 🌸</h2>
+    <p>Å det er så deilig med VÅR! Man trenger ikke stappe på seg fire lag med klær før man går ut, ungene leker ute i timesvis uten å fryse, og... ATSJO! Det er pollensesong. Ja, men det gjør ikke så mye. Vårens ankomst veier opp for alt. Tvillingene oppdager hagen på nytt hver dag, som om alt er nytt og ajabendes.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Klar for kaos? 🎤</h2>
+    <p>Bare tre dager til Justin Bieber kommer til Norge. Er egentlig Norge klar for kaoset? Forrige gang han var i Norge var det jo nesten unntakstilstand i hovedstaden. Tiril er i sjuende himmel. Kine later som hun er avslappet men er det egentlig ikke. Og jeg — mor sjøl — synes det er genuint morsomt å se ungdomshysteriet utfolde seg.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Hva skjuler seg i krokene? 🗄️</h2>
+    <p>Vi mennesker er rare. Tenk så mye rart vi tar vare på gjennom et liv. Noen vil kalle det samlemani, andre kaller det å ta vare på ting for ettertiden. Jeg kaller det «greier». Vi har en kasse full av greier fra de store barnas barndom — tegninger, småstein, første tannen i en liten boks, en haug billetter fra konserter og kino... Alt helt verdiløst og uerstattelig på samme tid.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Skam og vanære... 😳</h2>
+    <p>Noen ganger blir jeg så flau på andres vegne at det nesten gjør vondt. Det er så man krymper seg i sofaen og ønsker seg et stort hull å falle ned i, uten at man selv er skyld i elendigheten. En kjendis sa noe så utrolig dumt på TV i dag at jeg måtte skru av. Bare for å bevare troen på menneskeheten.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Dunno — ærlig og rett fra levra</h2>
+    <p>Da vi bestemte oss for å begynne å blogge mer regelmessig, og ikke bare skrive reisebrev via bloggen, hadde vi en liten diskusjon om hva vi skulle ha på bloggen. Skulle det være et fast tema, begrenset til én ting? Nei — for vi er ikke én ting. Vi er en familie på 8, med alt det innebærer av kaos, glede, bekymringer, humor og hverdagslighet. Og det er det vi skriver om.</p>
+    <p>Noen ganger er innleggene alvorlige. Andre ganger tullete. Og det synes vi er helt greit. Det er livet.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bursdag og idrettsskader 🤾</h2>
+    <p>I dag startet vi friskt med håndballkamp. Vi spilte ikke altså, men vi var i Larvik og så Maiken spille. Maiken er altså niesa og kusina vår — ei frøken som uten tvil har store talenter som håndballspiller. Stolt av henne!</p>
+    <p>Hjemveien ble litt dramatisk da én av de store ungene skadet armen under lek. Ikke alvorlig, men nok til å kreve et legebesøk og en del trøst. Sånne dager er det godt å ha en stor familie rundt seg.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bieber-news — er'n her eller der? 🎵</h2>
+    <p>Oioi, nå har startskuddet gått for hysteriet! Og som ekte nysgjerrig belieber-mamma så må jeg jo følge med på hva som foregår. Justin Bieber lander i Norge, og allerede er det folkemasser på Gardermoen. Kine er ikke der — heldigvis for henne, for det ser litt kaotisk ut.</p>
+    <p>Konserten er om noen dager, og forventningene i huset er på topp. Tiril teller ned!</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. april 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Bieber-mania og en stor overraskelse! 🎤</h2>
+    <div class="location-badge">📍 Telenor Arena, Fornebu</div>
+    <p>Ja, så var den store dagen her da. Justin Bieber kommer til Norge! Og jeg følger jo med, ikke fordi jeg er blodfan akkurat, men fordi det er morsomt å følge med på galskapen. Og fordi to av ungene mine er i sjuende himmel.</p>
+    <p>Overraskelsen: Finn Magne ordnet VIP-billetter! De to jentene fikk møte-og-hilse-garderobepass. Reaksjonen da de fikk vite det var verdt hvert eneste øre. Tiril ble helt stille i tre sekunder — noe som aldri skjer — og så eksploderte hun i gledesrop.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. april 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Endelig på JB-konsert! 🎶</h2>
+    <div class="location-badge">📍 Telenor Arena, Fornebu</div>
+    <p>I går var altså den store Bieber-dagen. Så snart Finn Magne var ferdig på jobb, kastet vi oss i bilen og kjørte til Fornebu. Jeg forventet ganske kaotiske tilstander, både med parkering og kø-kjøring, men det gikk faktisk veldig greit. Politi og vakter hadde god kontroll.</p>
+    <p>Konserten i seg selv var imponerende. Produksjonen var enorm — lasere, pyro, løfteplattformer og to timer med musikk. Bieber er faktisk flink til å underholde, det må man bare innrømme. Jentene var i ekstase, og det smitter! En minneverdig kveld.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. april 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Utsikten fra Telenor Arena 🏟️</h2>
+    <div class="location-badge">📍 Telenor Arena, Fornebu</div>
+    <p>Telenor Arena er imponerende stor. Fra våre plasser hadde vi god oversikt over hele gulvet og scenen — og det var nesten like moro å se på de 15 000 fremmøtte fansen som å se på selve showet. Et hav av lysende telefoner, skrik og jubel. Sånne kvelder glemmer man ikke!</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. april 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Do I believe? Bieber-konserten 🎤</h2>
+    <div class="location-badge">📍 Telenor Arena, Fornebu</div>
+    <p>Nå er den over. Den store Bieber-kvelden. Og spørsmålet er — tror jeg? Tja. Jeg tror på at det er et veldig godt show. Jeg tror på at Bieber faktisk kan synge. Jeg tror absolutt på at jentene våre hadde den beste kvelden i sine unge liv. Og det er egentlig nok for meg. En stolt mamma her!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bieber has left the building 🚌</h2>
+    <p>Det har vært litt av noen dager, ikke sant? Tenke seg til at en 19-åring fra Canada kunne lage så mye oppstyr i lille Norge. Jeg klarer fortsatt ikke helt forstå greia jeg altså. Men jeg innrømmer at det var morsomt å følge med. Nå er han borte igjen, og hverdagen senker seg. Tiril er tilbake på jord. Mer eller mindre.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Pinky is back! 💗</h2>
+    <p>Pinky har vært veldig fraværende det siste halvåret. En smurf tok over plassen hennes midlertidig. Men i går kom Pinky delvis tilbake! For de som er mektig forvirra over hva jeg snakker om: Pinky er Tirils alteår-favorittfarge. Rosa er tilbake i garderoben hennes. Mamma er fornøyd. Det er et morsomt syn.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">22. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Dette er skapt for jenter! 💍</h2>
+    <p>Er det noen fler enn meg som er utsatt for smykkefloker som er så ille at man gir opp å ha på seg smykker? Jeg tror det bor noen små vesner i smykkeskuffene mine som har gjort det til sitt levebrød å nøste halslenker, armband og øredobber inn i hverandre. En ny metode som faktisk funker — heng dem på knappenåler på en korkplate. Enkelt, genialt og litt for åpenbart til at jeg skjønte det selv.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">23. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Reisebrev fra Harry 🐱</h2>
+    <p>Harry har glimret med sitt fravær et par dager, og i dag fikk jeg forklaringen. Han har vært på ferie. På slektstreff faktisk. Harry sendte et «reisebrev» fra turen — eller rettere sagt, han dukket opp på verandaen med et uttrykk som sa «jeg har hatt det fantastisk, og det er egentlig ikke din sak». Typisk katt. Typisk Harry.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">20. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Nettmobbing 😠</h2>
+    <p>En ting er å være tenåring. En ting er å være umoden og enda ikke helt klar over hva som er rett og galt. En HELT annen ting er å være komplett idiot og ute av stand til å oppføre seg som normale mennesker. Jeg kom over en nettside konstruert nesten bare for å mobbe ungdommer — hvor eieren aktivt oppfordret besøkende til å legge inn nedlatende og sårende kommentarer om navngitte elever fra lokale skoler.</p>
+    <p>Jeg ble forbanna. Ordentlig forbanna. Slikt er ikke greit, uansett alder. Vi anmeldte siden, og håper den ryker raskt.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Jammen nytter det å anmelde! ✊</h2>
+    <p>For de som fikk det med seg: jeg skrev et mildt sagt forbanna innlegg forrige dag om en nettside som var konstruert nesten bare for å mobbe ungdommer. Vi anmeldte siden. Og i dag — siden er nede! Noen kan kanskje si at én anmeldelse ikke gjør noe, men kombinert med mange andres anmeldelser og trykk fra foreldre og skole, så skjer det altså noe. Det nytter å si ifra!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">25. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Er det OK å være drittsekk mot andre hvis man er russ? 😤</h2>
+    <p>Jeg tenkte egentlig jeg skulle la dette ligge, men etter å ha lest om en hendelse fra min gamle ungdomsskole i dag, fant jeg ut at jeg ikke klarte å la det ligge. En gjeng russ hadde behandlet yngre elever på en måte som ikke kan beskrives som annet enn skremmende. Frihet og fest er fint — men det gir ingen rett til å trakassere andre. Russ er ikke en fribillet til å oppføre seg som man vil. Det er ikke greit, og det er ikke morsomt.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">25. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bloggutfordringen 30 days ✍️</h2>
+    <p>Ja, hvorfor ikke? Jeg ser den bloggutfordringen gå sin seiersgang over bloglovin om dagen, og fant ut at jeg skulle hive meg på jeg også. Men, siden dette i utgangspunktet er en familieblogg, så skriver ikke bare jeg — her får alle i familien bidra etter tur!</p>
+    <p>Dag 1: Introduser deg selv med 20 fakta. Her er Tinas liste:<br>
+    1. Jeg er født i Danmark<br>2. Jeg har dyskalkuli<br>3. Jeg elsker å reise<br>4. Kaffe er mat<br>5. Jeg har vært korpsleder i 3 år<br>6. Jeg er sterk på norsk, svak på matte<br>7. Jeg er stolt av alle 6 ungene mine<br>8. Finn Magne er verdens beste ektemann<br>9. Jeg ler lett<br>10. Sharm El Sheikh er mitt favorittsted i verden</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">26. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>La nå 17. Mai få forbli Norges nasjonaldag 🇳🇴</h2>
+    <p>Altså, jeg er ingen rasist, så ikke misforstå dette innlegget fullstendig. Ja, jeg er vel i utgangspunktet innvandrer selv, siden jeg er født i Danmark. Men dette handler ikke om folk — det handler om en dag. 17. mai er Norges nasjonaldag, og den bør forbli det. Det er en dag for å feire Norges grunnlov og det norske demokratiet — og det er noe alle som bor i Norge kan feire, uansett bakgrunn. Mangfold og nasjonaldag er ikke motsetninger.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">26. april 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Bloggutfordringen dag 2 — og vår helt egen Emil i Lønneberg 😄</h2>
+    <p>Dag 2 i bloggutfordringen: beskriv tre relasjoner du har. Men før det — det hendte noe i dag som bare KAN beskrives som en skikkelig Emil i Lønneberg-situasjon. Storm — snart to år — klarte på mesterlig vis å låse seg inne på badet. Alene. Og var strålende fornøyd med det. Det tok oss 20 minutter å få ham ut igjen (med hjelp av et kredittkort og en del kreativitet). Han lo hele veien.</p>
+    <p>Tre forhold jeg er takknemlig for: Finn Magne, som er mitt anker. Ungene, som er min grunn til alt. Og venninnen Gry, som er min tvillingsøster-av-hjertet.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bloggutfordringen dag 3 — noen du savner 💙</h2>
+    <p>Dagens bloggutfordring: noen eller noe du savner. Jadda, DET er enkelt nok å svare på. Jeg savner bestisen min noe veldig — Fay. Vi har kjent hverandre i mange år, og avstand gjør ikke vennskapet mindre, men det gjør savnet større. Og jeg savner farmor. Og litt av det enklere livet vi hadde da ungene var små og bekymringene ikke var så store.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Huller i grunnloven? ⚖️</h2>
+    <p>For en stund siden kom jeg over en side hvor en komiker oppfordret folk til å sende inn forslag til endringer i grunnloven. Bare for moro liksom, ikke for at det sett er noe galt med grunnloven. Men det er moro å tenke på hva man VILLE ha puttet inn om man fikk lov. Mitt forslag: rett til rimelig kaffe på alle arbeidsplasser. Ufravikelig og grunnlovsfestet.</p>
+    </div>
+  </article>
+
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. april 2013</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>Test av Maybelline Rocket Volume Express mascara 💄</h2>
+    <p>Vi fikk for noen dager siden tilsendt en Maybelline Rocket Volume Express mascara for å teste den. Og her følger resultatet av testen vår. Den er testet av Kine, Tiril og meg selv, og Emma har også kommentert (med sin sedvanlige ærlighet). Konklusjon: God volum, lett å påføre, holder seg bra utover dagen. Ikke vanntett, men godt nok for hverdagsbruk. Kine er mest fornøyd av oss alle.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">28. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Klapp igjen om du ikke er enig med meg? 🤐</h2>
+    <p>Hold meningene dine for deg selv. Ti stille om du har noe kritisk å komme med. Ikke prøv deg på å mene noe om noe som helst, for da KAN du tråkke noen på tærne. På meg virker det litt som om det er den filosofien som råder i deler av internett om dagen. Og jeg er grunnleggende uenig i den. Meninger er ikke farlige. Det er måten man uttrykker dem på som avgjør om det er konstruktivt eller destruktivt.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">28. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bloggutfordringen dag 4 🎵</h2>
+    <p>Dine 3 yndlingssanger akkurat nå. Her får Tiril lov til å slå til med sine tre favoritter: Justin Bieber (naturligvis), en norsk artist hun er stum om og ville bli flau av at vi nevnte, og en gammel 90-tallshit som hun synger høyt i stua. Mamma er enig i sistnevnte. Vi er ikke alltid så ulike, Tiril og jeg.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">30. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bloggutfordringen dag 10 — én ting jeg aldri vil gjøre 🚫</h2>
+    <p>Normalt prøver jeg hva som helst, for jeg kan jo ikke vite hvordan noe er, før jeg faktisk har prøvd det. Og gjerne to ganger, for det er jo muligheter for at jeg har gjort det feil første gang. Men én ting vet jeg med sikkerhet at jeg aldri vil gjøre: hoppe i strikk. Uansett høyde. Uansett sikkerhetsutstyr. Uansett hvem som ber meg. Det svaret er og forblir et rungende NEI.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. april 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Denne jenta skal det bli noe stort av! 🌟</h2>
+    <p>Bloggutfordringen dag 5: noe du er stolt av. Det er ikke vanskelig å finne noe å være stolt av i dette huset. Men i dag er det Kine som får plassen i søkelyset. Kine fikk nemlig en tilbakemelding fra læreren sin i dag som vi er umåtelig stolte av. Hun er kreativ, arbeidssom, og har en evne til å se løsninger der andre ser problemer. Den jenta kommer langt.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. april 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Ready, set, GO! 📚</h2>
+    <p>Da går startskuddet for årets eksamensperiode. Fra i dag og til starten av juni skal jeg igjennom ti eksamener, hvorav fire muntlige. Det går nok greit på et vis, tenker jeg. Det er motivasjonen som driver meg fremover — og motivasjonen er stor.</p>
+    <p>Parallelt med eksamen: flytte-innspurt, Peter Wessel-forberedelser og tvillinger som alltid trenger oppmerksomhet. Livet er ikke kjedelig her i huset!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Den nye formen for eksamen 📚</h2>
+    <p>Nå er kroppsøvingseksamen overstått endelig. Etter timesvis med teoretisk pugging og notater herfra til månen. Det gikk forsåvidt bra tror jeg, selv om jeg ikke har fått karakter enda. MEN, jeg skal si at det er en underlig greie å ta muntlig kroppsøvingseksamen. Man pugger teori om muskelgrupper og treningsmetoder og bevegelsesmønstre — og sitter i et eksamensrom og snakker om det. Mens man absolutt ikke driver med kroppsøving. Det er på en måte selve ironien i skoleverket.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bloggutfordringen dag 7 og dag 8 ✍️</h2>
+    <p>Ja, jeg må ta begge på en gang, for i går hadde jeg særdeles gyldig fravær på grunn av lesing til dagens eksamen. Dag 7: Favorittmaten din. Veldig lett å svare på — Finn Magnes hjemmelagde kalkunstek med den deilige sausen. Ingen ting slår det. Dag 8: En ting du ikke kan leve uten. Familie og kaffe, i den rekkefølgen. Kaffe er mat.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">7. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Unntakstilstand!! 📦</h2>
+    <p>Nå er det et salig kaos uten like i heimen. Men det er et kontrollert kaos, tror jeg. Bloggingen har kommet litt i bakgrunnen siden dagene har vært rimelig hektiske, men det skal bli skjerpings snart. Vi er midt i flytte-innspurt, eksamenstrykk og korps-forberedelser på en og samme gang. Husker du da livet var enkelt? Nei, jeg heller ikke.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">12. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fronter du dine saker på en måte som hjelper? 🐾</h2>
+    <p>På Facebook dukker jo det meste opp fra tid til annen, men det er en ting som rett og slett plager meg grenseløst når jeg får det sleng i ansiktet gang på gang: bildene som noen av pelsmotstanderne legger ut. Jeg er like opptatt av dyrevelferd som de fleste, men å spre de mest grusomme bildene man kan finne er ikke veien å gå. Det skaper ikke engasjement — det skaper avsky og scrolling forbi. Man overbeviser ingen med å traumatisere dem.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Den ikke så rolige dagen allikevel</h2>
+    <p>Det ble plutselig litt av en dag. Avisoppslaget om korpsmamma-innlegget i Østlandsposten i går har skapt ringvirkninger jeg ikke forventet. Meldingene strømmer inn fra korpsforeldre og dirigenter fra hele landet. Det varmer. Korpssaken trenger alle stemmer den kan få.</p>
+    </div>
+  </article>
+
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. mai 2013</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>Grand opening JULA Sandefjord 🛒</h2>
+    <p>I dag åpner altså Jula Sandefjord dørene for offentligheten, og denne butikken har like mye moro for kvinner og barn som for gutta. Vi var der oppe på VIP-åpningen i går, og fikk sett litt på utvalget. Det er en stor og fin butikk med alt fra verktøy til hageutstyr, sportsutstyr og sykkeldeler. Og yes — de har barnesykler. Det kan jo hende vi stikker innom snart igjen.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fritidsproblemer, jeg? ⏰</h2>
+    <p>Ja, jeg har vel egentlig fritidsproblemer. Jeg har litt for lite fritid. Det er stadig noe som skjer, og døgnet har ganske ofte ikke mange nok timer, men det er jo en av følgene av å ha en stor familie, en jobb, studier, korpsarbeid og et sosialt liv. Men jeg klager ikke — livet er bra fullt.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. mai 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Kine: «Jeg kom opp til matteeksamen» 😂</h2>
+    <p>Nå følte jeg (Kine) for å lage et lite blogginnlegg fordi jeg har hatt det veldig gøy. Jeg går 2. år på videregående som barne- og ungdomsarbeider. Og som de fleste vet er det noen fag man IKKE har på det programmet — blant annet matematikk. Så da trakk jeg matteeksamen til muntlig eksamen, lo vi alle ganske hjertelig. Det er ikke akkurat vanlig. Kontaktlæreren sjekket tre ganger. Joda, matte. For en Kine som har dyskalkuli. Livet er humoristisk.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. mai 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Jeg ble lurt. Grundig lurt! 😄</h2>
+    <p>Eplet faller ikke langt fra stammen. Eller pæra fra hesten — fritt valg. Men her i huset er det akkurat bevist at eldstejenta har tatt lærdom av mammas, og bestefars, krumspring. Og de er gode. Vi fikk en aprilsnarr i mai — Kine leverte et stykke med seriøst ansikt og trodde fullt og fast at mamma ville gå på det. Det gjorde mamma. Kine strålte.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Jeg er overveldet! 📰</h2>
+    <p>Gårsdagen var helt surrealistisk, etter oppslaget om korpsmamma-innlegget mitt i Østlandsposten i går. Jeg har fått enormt mange positive tilbakemeldinger fra korpsmennesker og andre, og lesertallaene er like svimlende som de er uforklarlige for meg. Jeg er bare en mamma som hadde noe på hjertet. Men når det treffer så mange — da er det verdt det.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Bedre sent enn aldri 🇳🇴</h2>
+    <p>Nå er vi ferdige med alle må-gjøre-tingene til 17. mai. Omsider. Litt forsinket kanskje? Nja, klokka er jo bare rett før 2 på natta, så vi klarer å få oss fire fantastiske timer med søvn før førstemarsjen. Det er nok. Vi er Trigere. Vi klarer oss med lite søvn og mye kaffeinntak.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. februar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Landing in London 🇬🇧</h2>
+    <div class="location-badge">📍 London, England</div>
+    <p>Så bar det ut på tur igjen! Denne gangen til London, siden de to store jentene fikk London-tur i julegave. Vi reiste i går kveld, og flyturen gikk veldig bra denne gangen også. Vel fremme i England måtte vi finne en måte å komme oss til London fra Gatwick på. Valget falt på speedtoget &mdash; men kan man kalle det et speedtog da man atpåtil blir forbikjørt av et godt gammeldags lokaltog?</p>
+    <p>Langs veien til hotellet fant vi massevis av det vi forbinder med London: telefonkiosker, postkasser, dobbeltdekker-busser. Rommet vårt var ikke særlig stort, men rent og greit, og med rom i første etasje slipper vi å bære tvillingvogna opp og ned. Etter å ha installert oss tok vi bena fatt for å finne noe å spise &mdash; men siden det var søndag og lovlig mye, var det masse stengte kafeer. Det ble McDonalds. Neste dag: Madame Tussauds, Carnaby Street, Ripley's Believe It or Not og London Eye. Vi LOVE London!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. februar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Harry Potter — sånn etterhvert ihvertfall...</h2>
+    <div class="location-badge">📍 Watford / London</div>
+    <p>Jojomensann, nå har vi vært på susetur igjen! Planen var å dra rett til Watford og Harry Potter-studioet i dag. Men det ble litt eventyrlig å komme seg dit — feil tog, feil stasjon, taxi som ikke visste veien, til slutt løp vi til toget i siste sekund. Men vi kom oss dit!</p>
+    <p>Og selve omvisningen på studioet kan ikke kalles annet enn magisk. HELT fantastisk. Den vil vi anbefale til alle som legger turen til London og omegn. Alle kulissene er bevart, kostymene, de magiske rekvisittene &mdash; man føler seg virkelig inni filmene. Etterpå fant vi plattform 9¾ på Kings Cross stasjon, og avsluttet kvelden på Hard Rock Cafe. God mat og to fornøyde jenter!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">8. februar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Tower of London og Chinatown</h2>
+    <div class="location-badge">📍 London</div>
+    <p>Denne dagen tok vi turen til Tower of London. En fantastisk underholdende Beefeater-guide tok oss med gjennom historien om alle henrettelsene, ravnene som ikke må fly bort (da kollapser monarkiet, ifølge legenden), og kronjuvelene. Anne Boleyns siste skritt, Bloody Tower, og kanonene som avfyrte 69 skudd til ære for dronning Elisabeths jubileum da vi var der. Helt rått!</p>
+    <p>Etterpå tok vi taxi til Chinatown &mdash; det var kinesisk nyttår om noen dager, så pyntingen var i full gang. En kinesisk restaurant, nydelig mat (bortsett fra én mysteriumsgreie som smakte som kanelbolle med pølsefyll), og så susa vi rundt i Soho og Carnaby Street resten av kvelden.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">9. februar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Litt shopping før hjemreisen</h2>
+    <div class="location-badge">📍 London → Hjem</div>
+    <p>Alle påstår at London er en super shoppingby. Det hadde vi faktisk ikke sett stort til mens vi var der &mdash; til vi fant Primark på Oxford Street. En enorm butikk med alt av klær til hele familien til helt latterlig lave priser. Vi drasse ut med en proppfull bag og betalte bare rundt 250 pund for det hele!</p>
+    <p>Dagen startet med vaktskiftet på Buckingham Palace &mdash; masse pomp og prakt og hornmusikk. Og på vei hjem mistet vi nesten koffertene, forsov oss på hotellet, og kom akkurat med flyet i siste liten. Men WE LOVE LONDON og vi skal definitivt tilbake!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. januar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Ut på tur — Paris! 🗼</h2>
+    <div class="location-badge">📍 Paris, Frankrike</div>
+    <p>Ja da bar det avgårde på tur igjen for Triger'n og Tiger'n! Denne gangen til Paris med Emma, Theo, Storm og Ariane. Turen er en del av ungenes julegave. Vi kom oss avgårde «bare» en halvtime forsinket, og rakk båten fra Horten til Moss &mdash; nesten. Det ble en ny båt, ny rute og full fart mot Rygge. Og jammen rakk vi flyet! Akkurat. De hadde ventet på oss i fem minutter.</p>
+    <p>Vel fremme i Paris måtte vi ta metroen til hotellet vårt nær Montmartre. Metroen i Paris er ikke akkurat tilrettelagt for tvillingvogner &mdash; trapper, trapper og atter trapper! Men Paris er fantastisk, folket er hyggelig (særlig innvandrerne som alltid hjelper oss med vogna), og kvelden ble avsluttet med indisk takeaway på rommet.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. januar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Kan det værra nødvendig med SÅ mange trapper da??</h2>
+    <div class="location-badge">📍 Paris — Louvre, Eiffeltårnet, Sacré-Cœur</div>
+    <p>Sightseeing-dagen! Vi startet med Louvre, fant Eiffeltårnet (Emma og Finn Magne gikk opp, jeg og Theo med tvillingene frøs nede), Triumfbuen &mdash; som vi fant ved et rent uhell da vi hadde rotet oss bort på Champs-Élysées. Og til slutt Sacré-Cœur, som krevde et UHYRLIG antall trappetrinn. Emma overtalte meg til å gå opp. Jeg angrer.</p>
+    <p>Avsluttet med pannekaker med Nutella fra en utebod og indisk takeaway. Paris er fantastisk, men trappetrinnene i metroen er en prøvelse med tvillingvogn og fire barn!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. januar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>When you wish upon a star — Disneyland!</h2>
+    <div class="location-badge">📍 Disneyland Paris</div>
+    <p>Endelig dagen for Disneyland Paris! Togturen ut ble litt eventyrlig, men vi kom frem. Og Disneyland er MAGISK. Gjennomført ned til minste detalj, i farger, lys og lyd. Man føler at man vandrer rundt i en Disney-film. Akkurat da vi gikk inn, kom jubileumstoget med alle de mest kjente Disney-figurene ombord. Ungene fikk komplett hakeslipp.</p>
+    <p>Karusseller, møte med Mikke Mus, katten fra Puss in Boots, pirater og et fyrverkeri-show ved slottet på slutten som var så fantastisk at vi sluttet å fryse. Søteste Theo kom bort til oss da showet var ferdig og sukket henført: «tusen takk for den aller beste dagen i mitt liv». Vi hadde en bleie-krise på vei hjem (fant til slutt 6 bleier i en bag vi ikke hadde sjekket), men det får gå. En perfekt dag!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. januar 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Hjem igjen fra Paris</h2>
+    <div class="location-badge">📍 Paris → Norge</div>
+    <p>Vi fikk kommet oss ut av hotellet til tiden og kom oss på metroen &mdash; ingen ble gjenglemt denne gangen. Emma passet på som en hauk at alle kom på metroen før den kjørte. Flyturen hjem gikk strålende, og alle ungene storkoste seg og fikk se ned på verden under oss i klarvær. Da vi nærmet oss innflygningen gikk sola ned over et dunlett skylag &mdash; rosa som en drøm.</p>
+    <p>Nå er vi hjemme igjen hos de flinke store jentene våre som klarte seg utmerket bra. Stay tuned &mdash; snart legger vi kursen mot London!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">26. oktober 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Facebookgiraffen er ufarlig</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-8-1382799519879" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>De fleste som er på Facebook har vel fått med seg giraffbildene som florerer om dagen. Disse dukker opp hos folk som ikke har klart riktig svar på en gåte. En morsom liten ting på Facebook, i likhet med bh-farger, hjerter og gud vet hva annet som går rundt der innimellom.</p>
+    <p>Og så er det en gjøk som sitter og ser dette og tenker «dette kan gi meg supre lesertall uten at jeg faktisk trenger å skrive bra innlegg». Han la ut en advarsel om at disse giraffbildene var et hackerangrep og at alle kunne se passordet til de som hadde byttet til giraffbilde. Med minimalt med datakunnskap skjønner man at dette ikke er tilfelle.</p>
+    <p>Seriøst dere&hellip; giraffbildene er bare akkurat det det så ut som: et morsomt lite innslag på Facebook. God helg fra alle oss &mdash; og fra giraffen!</p>
+    </div>
+  </article>
+
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">4. september 2013</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>Min kjære er ute med en ny sak på reismedbarn.no!</h2>
+    <p>Min kjære har vært ute på skriveren igjen og denne gangen fikk hun forsideplass på reismedbarn.no med en artikkel om Ula i Tjodalyng &mdash; verdens mest barnevennlige camping.</p>
+    <p>Ula er en virkelig perle hvor telt er hovedfokus. Å våkne til fullstendig stillhet, gå barbeint ned til stranda og ta et morgenbad i det friske saltvannet &mdash; det er spesielt. Strendene er barnevennlige med silkemyk finkornet sand og ganske langgrunt vann.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">3. september 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Boller i ovnen og andre boller</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1378193343280" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193347908" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193352070" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193356208" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193407819" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193411834" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+6 bilder til</span>
+</div>
+    <p>Jeg er garantert ikke den eneste som har opplevd et utall stusslige bolleoppskrifter. Bollene kan være gode nok da de er nystekte, men etter bare noen timer er de tørre og harde. Jeg hadde nærmest gitt opp å bake boller &mdash; før jeg kom over denne oppskriften.</p>
+    <div class="recipe-box">
+      <h3>Verdens beste boller (ca. 40 stykker)</h3>
+      <ul>
+        <li>1 liter melk</li>
+        <li>300 gram melange/smør</li>
+        <li>250 gram melis</li>
+        <li>2 poser tørrgjær</li>
+        <li>0,5 ts kardemomme</li>
+        <li>1,5 kg hvetemel</li>
+        <li>Egg til pensling</li>
+      </ul>
+      <br>
+      <ol>
+        <li>Ha melk, melange/smør og melis i en kjele. Kok opp, og avkjøl til ca. 37 grader.</li>
+        <li>Bland mel, kardemomme og gjær i bakebollen. Tilsett melkeblandingen og elt deigen smidig og glatt. <em>NB: Deigen skal IKKE forheves.</em></li>
+        <li>Trill ut ca. 40 boller. Ønsker du rosiner, knas de inn nå.</li>
+        <li>Sett bollene på bakepapirkledde plater og la heve ca. 1 time.</li>
+        <li>Pensle med sammenvispet egg.</li>
+        <li>Stek midt i ovnen på 250°C i ca. 10 minutter til de er gyldenbrune.</li>
+        <li>Avkjøl på rist og nyt!</li>
+      </ol>
+    </div>
+    <p><em>Vulkanboller:</em> Rør sammen mykt smør, sukker og kanel. Lag en liten grop i bollen og legg en klatt smørblandingen i gropen. Under steking bobler det opp som en vulkan.</p>
+    <p><em>Skoleboller:</em> Fyll med vaniljekrem, avkjøl, og smør på melisglasur og dypp i kokosmasse.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">31. august 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Siden sist</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-8-1377940715101" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377940939630" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377940963107" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941045631" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941050141" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941054454" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+4 bilder til</span>
+</div>
+    <p>Det ble plutselig en liten bloggpause, men årsaken var rett og slett skolestart, korpsstart og diverse andre happenings som krevde en del tid. Når jeg i tillegg konsekvent glemmer å ta bilder, ja da blir det lite å blogge om.</p>
+    <p>Svigermor fylte 60 den 26. august &mdash; hurra for svigermora! Hun hadde sagt klart ifra at hun IKKE ville ha noe supriseparty. Innen rimelighetens grenser. Vi måtte jo finne på noe. Og siden det var supriseparty hun ikke ville ha, så måtte vi jo trå til med et suprise-kaffeslabberas i stedet. Hun ble kjempeoverrasket!</p>
+    <p>Jølle (katten) har fortsatt på med interiørdesign og klatring i sypressen. Han klatrer ned med hodet først &mdash; noe katter jo ikke gjør. Emma fikk et lite kick og lagde forrett til oss med blomkål og rekesaus. Drivende dyktig til å lage mat!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">3. august 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Det var en gang en sprinkelseng...</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1375529034818" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529048245" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529052453" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529056466" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529060729" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529122323" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+5 bilder til</span>
+</div>
+    <p>Eller, mer korrekt, det var en gang TO sprinkelsenger &mdash; for vi har jo tvillinger. Men soverommet føltes litt klaustrofobisk med begge sengene der inne, så en alternativ løsning meldte seg. Ungene syns køyesenger er kjempemoro, så to sprinkelsenger ble &mdash; etter en liten time med snekkerinnsats fra pappa &mdash; til en tvillingkøyeseng! I miniformat.</p>
+    <p>Pappa og tvillingene trådde til med drill, sag og skruer. Og ja, de har pruser på hodet begge to. HMS er viktig vet dere. I mangel på hjelmer testet de de nye prinsessetrusene. De fungerte flott, syntes tvillingene.</p>
+    <p>Og for et fantastisk vær vi hadde i dag! Lyn og torden herjet. Nydelig innevær med stearinlys på bordet. Jeg som har vært redd tordenvær hele livet har nå funnet ut at det er det beste som finnes!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. august 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Ut på kjærestetur snart!</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-7-1375469052692" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469054192" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469056096" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469058347" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469059285" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <div class="location-badge">📍 Bodø</div>
+    <p>Om en snau uke skal bare jeg og min kjære ut på tur! Det er ikke hverdagskost. Jeg vant (ja, vant faktisk!) en reise i en konkurranse som Innovasjon Norge holdt. På bursdagen til twinsa ringte en hyggelig dame og fortalte at jeg skulle på langweekend til Bodø.</p>
+    <p>Vi skal fly til Bodø og overnatte tre netter. Anledningen er Arctic Race &mdash; verdens nordligste sykkelløp. I tillegg fikk vi fire billetter til valgfrie konserter under Nordland Musikkuke og et gavekort på 1000 kroner. Svigermor stilte velvillig opp som barnevakt!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">1. august 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Feiring i flere dager!</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1375387356758" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387370284" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387383932" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387388170" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387392352" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387396317" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+21 bilder til</span>
+</div>
+    <p>Tre av seks barn har bursdag i løpet av to dager, så da blir det en del baking og diverse. Twinsa fylte to år den 29. og Emma fylte 11 år den 30., så her feirer vi tett i tett. Ariane hjalp mamma å bake, og mamma glemte å følge med et halvt sekund. Poof&hellip; mel og egg er moro!</p>
+    <p>Dagen etter var det storesøster Emmas store dag, og den begynte, tradisjonen tro, med date på Jordbærpikene med pappa. Og KUN pappa. Det er Emma og pappas greie. Emma hadde ett ønske øverst på ønskelista: tritoms. Og hun fikk det! Strålte fra øre til øre.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">25. juli 2013</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Storm og Ariane på bortebesøk &mdash; mest bilder</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1374766849404" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766851935" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766854322" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766856791" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766859313" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766861968" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+11 bilder til</span>
+</div>
+    <p><em>Innlegg skrevet av Kine og Anders, som passet tvillingene mens mamma jobbet.</em></p>
+    <p>Ariane fant fort ut at Anders hadde bamser og det var jo gøy! Hun ble sittende i senga å peke rundt i rommet og si «Takk, takk». Storm var litt mer usikker på hva han skulle ta seg til &mdash; søstra hadde stukket av med alle bamsene på en gang.</p>
+    <p>Siden det var så varmt, fant vi ut at vi skulle ta dem med ut og leke med hageslangen. Noe de syntes var kjempegøy &mdash; særlig da de fant ut at det gikk an å sprute iskaldt vann på hverandre.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">24. juli 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Kattunge-liv</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-11-1374669962526" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374669977038" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374669991067" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374669996211" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670000840" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670827894" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+4 bilder til</span>
+</div>
+    <p>Lillepusen har fortsatt ikke noe navn... Om morgenen da vi står opp, kommer han i fullt firsprang og møter oss, sørger for å spenne ben på oss et par ganger underveis, og idet vi gjør et forsøk på å sette oss ned, smetter han under baken på oss. HVER gang.</p>
+    <p>Han har ramlet i bassenget en gang, fordi han var nysgjerrig på den gule badeanda. Plopp &mdash; så hadde vi en veldig våt og forbauset kattunge. Badekaret inne liker han derimot godt &mdash; han bruker det som skaterampe.</p>
+    <p>Han har til og med lekt med Lukas (storekatta) på gresset. Men da Lukas innså at vi så på ham, samlet han seg, rettet seg opp og spankulerte overlegent bort i skyggen og la seg. Katta ble faktisk flau.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">23. juli 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Ettermiddag på stranda</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1374531850909" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531855631" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531860040" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531874411" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531888630" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531893438" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+5 bilder til</span>
+</div>
+    <div class="location-badge">📍 Ula, Tjodalyng</div>
+    <p>På ettermiddagen tok vi en tur ut til Ula så twinsa skulle få badet litt. Når stranda ventet, var det ikke aktuelt å GÅ inn til campinga &mdash; da var løping eneste alternativ.</p>
+    <p>Storm fant «blomster» på havbunnen og måtte plukke noen til pappa som sto på land. Så bar det ut på løpetur bort på campingområdet for å hilse på gamle kjente &mdash; en herlig gjeng fra Bergen.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">22. juli 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Helg på Finnskogen &mdash; mest i bilder</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-8-1374442455073" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374442995655" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443000412" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443004920" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443009594" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443023584" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+34 bilder til</span>
+</div>
+    <div class="location-badge">📍 Finnskogen / Rotberget</div>
+    <p>I helga har vi vært på Finnskogen sammen med bestefar, onkel og tante. Anledningen var at vi skulle ha urnenedsettelse for mamma, som døde før jul i fjor. Det ble en veldig fin seremoni med bare de nærmeste til stede.</p>
+    <p>Noe merkelig skjedde ved gravstedet. Da vi stoppet ved oldeforeldrenes graver, skjøt tvillingene fart og sprang rett bort til en annen gravsten litt lengre borte &mdash; akkurat oldeforeldrenes gravsten! Som om noen hadde ropt på dem. Vi var fler som tenkte at det var mer mellom himmel og jord akkurat da.</p>
+    <p>Finn Magne fikk seg en skikkelig Finnskog-opplevelse sent på kvelden: han hørte ulven hyle i det fjerne. DET er spesielt.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. juli 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Roadtrip dag 2 og 3</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1374096016622" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096022867" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096048441" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096060545" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096066717" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096071496" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+19 bilder til</span>
+</div>
+    <div class="location-badge">📍 Stavanger → Vestlandet → Kristiansand</div>
+    <p>Tirsdag morgen satte vi kursen mot Madla. Nede ved stranda i Madla står det som kalles «sverd i stein» &mdash; et minnesmerke over slaget ved Hafrsfjord. Et veldig imponerende syn. Og på stranda lå det en diger knoppsvane. Jeg listet meg bort for å ta noen bilder, og fikk den gode ideen å prøve å klappe den. Fullstendig hårreisende dum idé. Men jeg lyktes! Forresten &mdash; svaner lukter ikke særlig godt.</p>
+    <p>Vi kjørte mil etter mil langs vestlandsfjorder uten telefondekning. Klokka var rundt halv 11 på kvelden og vi var i Røldal. Vi bestemte oss for å krysse Haukelifjell om natta. Haukeli by night er et utrolig flott syn. Til slutt parkerte vi på en rasteplass langt nede i Setesdalen og sov noen timer i bilen.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. juli 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Roadtrip dag 1 &mdash; Larvik til Stavanger</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-11-1373926877215" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926879104" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926962292" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926966586" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926970828" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926974891" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+16 bilder til</span>
+</div>
+    <div class="location-badge">📍 Larvik → Telemark → Stavanger</div>
+    <p>Første dag av roadtripen er unnagjort! Turen fra Larvik til Stavanger tok nærmere 10 timer. I Ulefoss tok vi en avstikker for å se på slusene. Akkurat mens vi var der, var Victoria på vei ned gjennom slusene, så Tiril fikk se hvordan det fungerte i praksis.</p>
+    <p>I Seljord var det jo obligatorisk å se etter sjøormen. Og jeg er HELT sikker på at vi så den. I Morgedal stoppet vi ved OL-ilden. Så fant vi Eidsborg stavkirke &mdash; skikkelig søt liten kirke med tonnevis av trespiker og tyske turister. Turen ned til Dalen gikk via hårreisende bratte hårnålsvinger. Men opp kom vi!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. juli 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Pornopung!</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-7-1373836933354" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1373836935088" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1373836936574" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>Ja, altså ikke i form av et skjellsord, men filmen Pornopung. Vi fikk billetter til førpremieren på Bølgen i dag. Vi ante i grunnen ikke helt hva som ventet oss, men filmen var faktisk bra. De to tenåringene vi hadde med oss gapskrattet seg gjennom hele filmen.</p>
+    <p>Siden det var førpremiere var det både regissør og skuespillere til stede, og vi fikk hilse på dem etterpå. Tiril og Christin fikk ta bilde med «Karl» som har en av hovedrollene. Tiril spurte om klem opptil flere ganger hehe. Nå er det klart for litt pakking &mdash; jeg og Tiril legger ut på roadtrip i morgen!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. juli 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Susetur med Gry</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1373744475760" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744511433" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744544091" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744688724" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744693042" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744706135" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+2 bilder til</span>
+</div>
+    <div class="location-badge">📍 Tønsberg / Sandefjord</div>
+    <p>Aller besteste Gryen vår er på besøk i helga, og i dag tok vi en tur til Tønsberg og Sandefjord. I Tønsberg endte jeg opp med å buklande med bilen midt i gågata, for så å kjøre rett inn på en parkeringsplass som ikke hadde utkjøring i den andre enden. Nå har Gry sett både Farmandstredet, en masse enveiskjørte gater og deler av gågata &mdash; da anser jeg oppdraget utført.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">10. juli 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Roadtrip!</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-8-1373487004427" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487018165" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487031464" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487045040" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487049223" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487053730" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+4 bilder til</span>
+</div>
+    <p>Yepp, nå skal vi på tur igjen &mdash; meg og Tiril. Målet er å gjennomføre en skikkelig god gammeldags roadtrip ved bruk av kart i papirformat og uten altfor mange faste holdepunkter. Målet for turen er Stavanger, via Skien, Ulefoss, Bø og Seljord, videre over Haukelifjell, ned mot vestlandskysten og langs kysten ned mot Stavanger. Jeg har fått tak i et eksemplar av NAF veibok fra 1985! Tjohei, ut på tur!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">4. juli 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>To uker festival &mdash; stort sett i bilder</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1372933878675" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933883695" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933888835" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933893758" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933898612" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933902859" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+43 bilder til</span>
+</div>
+    <div class="location-badge">📍 Blokhus, Danmark</div>
+    <p>Da er vi vel hjemme etter to uker med festival i Danmark. Tre festivaler er overstått, og det meste gikk etter planen. For de som ikke kjenner til Nordsøfestivalen og Danmarkstreff: begge er for skolekorps, med musikkglede og moro som hovedfokus. Nordsøfestivalen feiret 25 års jubileum i år! Festivalene drives av vår familie &mdash; tre generasjoner Rasmussen/Triger.</p>
+    <p>I år hadde vi en «grand opening» av festivalen på torvet i Blokhus med sjonglører, musikk og taler. Og avfyring av den 200 år gamle kanonen! Fårup Sommerland hører også med, og tvillingene kjørte runde på runde med småtass-berg og dalbanen. Festivalene ble avsluttet med en fin middag på Restaurant Nordstjernen: nydelig mat og flamberte crepe suzettes. Perfekt finale!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. juni 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>So much to do og slikt</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-12-1371537165183" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1371537170382" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1371537171385" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>Det er en nydelig dag på Verningen i dag. Herlig varme i sola ute på trappa. Men mens jeg satt der og filosoferte, så jeg alle de tingene som må gjøres i hagen. Jaja, jeg får stikke fingeren i jorda &mdash; for jeg må innse at alt dette hagedillet ikke har jeg tid til akkurat nå. I morgen reiser vi til Danmark for 14 dager med korpsfestival igjen. Nordsøfestivalen feirer 25 år!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. juni 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Siden sist &mdash; og velkommen inn</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-8-1371454990804" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455003161" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455006922" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455014354" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455017902" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455022030" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+7 bilder til</span>
+</div>
+    <p>For to dager siden hadde Theo bursdag. Fylte hele 9 år! Det ble feiret med is og spesialbestilt tiramisu ala Anders. De som spiste opp hele herligheten var twinsa og Kine.</p>
+    <p>Og så et lite glimt fra heimen! Det første rommet er gangen, som jeg er veldig glad i. Et flott skap som den forrige eieren bare skulle kaste &mdash; det er hvitt og fint, med masse oppbevaringsplass. Og det kuleste paraplystativet: en anti-luftverns-hylse &mdash; en gigant-patron av massiv messing. Alle spør hva det er hehe.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. juni 2013</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Peter Wessel Festivalen 2013</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1371376384772" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376389449" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376394236" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376398647" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376402651" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376407318" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+14 bilder til</span>
+</div>
+    <div class="location-badge">📍 Tjodalyng / Larvik</div>
+    <p>En super helg med strålende vær, flinke unger, energiske voksne og mange dyktige mennesker. Ungene lærte å spille på gehør &mdash; med 80 barn i juniorkorps-alder var det helt fantastisk hva instruktørene fra Røshnes klarte å få til. På 2,5 timer lærte de å spille to New Orleans-jazz stykker og Idas Sang &mdash; utenat!</p>
+    <p>Søndag tok vi med ungene til Ula for marsjoppvisning og bading på storstranda. Festivalen ble avsluttet med oppmarsj fra Torget til Bøkeskogen i Larvik. Vel blåst, Tjodalyng Skolekorps!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">4. juni 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Still alive!</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1370299520312" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299538186" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299579073" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299601168" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299629484" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671576508" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+12 bilder til</span>
+</div>
+    <p>Det er vel nå man bare må beklage den totale mangelen på blogging, men det har vært hektisk. Siste flyttelass fra Kjerringvik er kjørt, eksamensperioden er over &mdash; og den bød på noen merkelige opplevelser.</p>
+    <p>Matte-eksamen gikk ikke så bra, for å si det mildt. Jeg har dyskalkuli &mdash; tallversjonen av dysleksi. Norsk-eksamen derimot &mdash; der er jeg på hjemmebane! Og jeg fikk til muntlig historie veldig bra.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">28. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Av alle merkelige...</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1369753388643" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>Jeg skulle ha eksamen i norsk skriftlig. Fant ikke fram (GPS nektet å laste inn kartet), og da jeg endelig fant gata &mdash; sto jeg foran en kirkedør med en lapp det sto «Eksamen» på. Jeg trodde nesten ikke mine egne øyne.</p>
+    <p>Og ganske riktig &mdash; i døra ble jeg møtt av en eksamensvakt. Inne i kirka var kirkebenkene byttet ut med pulter og stoler. Jesus kikket på oss fra alle kanter. Jeg har aldri hørt om noen som tar en vanlig videregående eksamen i en kirke. Men vi får tro at høyere makter var med oss!</p>
+    </div>
+  </article>
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">30. mai 2013</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>Vinn lyslenke! 🎁</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-7-1369911232527" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>Det er en kjempesøt konkurranse på gang! En av bloggene jeg leser fast lodder ut en nydelig lyslenke &mdash; perfekt til sommerkvelder på terrassen eller som hygge i stua. Stikk innom og vær med!</p>
+    </div>
+  </article>
+
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Den som sover synder ikke..</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-12-1369151431381" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151483566" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151488004" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151531892" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151580445" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151652819" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+3 bilder til</span>
+</div>
+    <p>Jeg og gubbis brukte lang tid på å sette opp et stort veggord i gangen i det nye huset. Lille frøken Ariane fant veldig raskt ut at hennes små fingre kunne løsne bokstavene fra veggen, og ordene ble mer og mer forkortet. Det er slitsomt å være bokstavplukker &mdash; plutselig bare sovnet hun rett ut på gulvet.</p>
+    <p>Fint er det forresten å ha fått hobbitt-peis i huset! Vi fikk fyrt litt i den, og katta, den lille rødstripete puseklatten, trives like godt som resten av familien i det nye huset.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Nomade-liv</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1369089926288" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369089931313" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369089935909" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369090021936" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369090353487" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>Det føles nesten sånn, her vi flytter alt fra ett sted til et annet. Aner dere hvor mye ting en familie på 8 har? Vi kjørte det første flyttelasset på kvelden 17. Mai. Katta ble med på flyttelasset selvfølgelig &mdash; løs i bilen. Ikke helt etter boka altså, men katta egnet seg godt som papegøye på skuldra.</p>
+    <p>Og så varmt som det var i pinsehelga! Høysommer-temperaturer &mdash; og vi passet på å legge flyttinga midt i varmebølgen. Vi svettet oss igjennom helga, men nå har vi et hus som faktisk har normaltemperatur. Vi tror vi kan komme til å trives veldig godt her i tyrolerhuset vårt.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>En korpsmammas bekjennelser</h2>
+    <p>Nå er det jo snart 17. Mai igjen, med skoletog, brus, is, pølser, bunader og ikke minst korpsmusikk. Hvordan ville 17. Mai vært uten korpsenes deltagelse egentlig? Kan vi i det hele tatt forestille oss skoletoget uten korps? Jeg ihvertfall ikke det. Det hører jo med, enten man liker korpsmusikk eller ikke. Det er en helt naturlig del av 17. Mai feiringen i Norge.</p>
+    <p>Dessverre viser et kjapt søk på google at det er flere bygder og småbyer som må gå over til korps-på-boks, det vil si boomblaster, i stedet for et ekte korps. Det må være en ganske trist opplevelse. Ingen boomblaster kan gi det samme inntrykket som et virkelig korps kan.</p>
+    <p>Det mange kanskje ikke tenker over, er at mange skolekorps i Norge sliter kraftig med rekrutteringen. Og det er ikke bare fordi foreldre ikke vil melde barna sine inn. Det er mange myter om korps som florerer, og som gjør at foreldre holder ungene sine borte. La meg ta noen av de vanligste mytene:</p>
+    <p><em>«Det er dyrt»</em> — Ja, det koster litt å være i korps. Men instrumentet får man låne gratis, og kontingenten er som regel svært rimelig. Det finnes støtteordninger for de som trenger det. Det er absolutt ikke «de rikes aktivitet».</p>
+    <p><em>«Barnet mitt har ikke talent»</em> — Korps er ikke for de talentfulle. Korps er for alle. Man lærer å spille. Man trenger ikke kunne spille fra før, og man trenger ikke ha «talent» for å ha det gøy og lære seg noe. Det handler om øvelse og vilje.</p>
+    <p><em>«Det tar for mye tid»</em> — En øvelse i uka, pluss opptredener. Det er ikke mer enn fotball, håndball eller turn. Og utbyttet er minst like stort.</p>
+    <p>Jeg har selv to barn i korps. En spiller baryton i aspirantkorpset til Tjodalyng Skolekorps, og ei spiller trommer i juniorkorpset. Og disse to ungene har fått venner for livet, lært seg å spille instrument, lært disiplin og samarbeid &mdash; og de koser seg. Det er det eneste som teller for meg. Om jeg kan få bare ETT barn til å begynne i korps med dette innlegget, så har jeg gjort jobben min.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">22. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fine fine dagen 🎂</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-12-1369250467289" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250471005" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250634372" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250638119" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250646775" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250650687" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+1 bilder til</span>
+</div>
+    <p>Dagen i dag kan ikke sies å ha vært annet enn perfekt! Heldige meg som har så fin familie!</p>
+    <p>Jeg har altså bursdag i dag, og planen var egentlig å forbigå den i stillhet, siden jeg skulle tilbringe hele kvelden med korpset. Men helt stillhet ble det jo ikke da.</p>
+    <p>Korpset hadde rekrutteringskveld i dag, og jeg hadde sagt ja til å være med som vakt/hjelper. Det kom masse spente 2. klassinger for å prøve instrumenter! Etter en times tid med masse lyd og happy unger, så hadde vi så langt 10 nye aspiranter registrert på lista vår &mdash; det må vi si oss veldig fornøyde med! Et ekstra pluss for meg var at ihvertfall én av de nye aspirantene var der fordi mora hadde lest blogginnlegget mitt om korps og blitt overbevist. Da er målet mitt oppnådd!</p>
+    <p>Etter rekrutteringskvelden og et møte i reisekomiteen, var det endelig tid for å dra hjem. Og hjemme hadde det skjedd mye mens jeg var borte! På kjøkkenbenken sto hjemmelagd dessert, og i kjøleskapet fant jeg både tiramisu og panna cotta. Hjernen bak godbitene var faktisk Anders! Ikke dumt å ha en svigersønn som går restaurant og matfag nei! Så nå sjekker jeg ut herfra, og skuffer innpå dessert til den store gullmedalje.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. mai 2013</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>1-0 til dyskalkulien</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-10-1369667831723" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667836524" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667840539" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667845151" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667846108" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+</div>
+    <p>Den langvarige stillheten fra oss er rett og slett på grunn av at den verste eksamensuka mi har startet nå. I tillegg til flytte-innspurt, så blir det litt lite tid til overs gitt.</p>
+    <p>I dag hadde jeg første skriftlige eksamen, og denne runden var det IKKE jeg som vant ihvertfall. For første gang har jeg opplevd å levere en eksamensoppgave hvor jeg ikke har svart på alle spørsmålene. Faget i dag var matte &mdash; og det forklarer egentlig hvorfor. Jeg har dyskalkuli, altså tall-versjonen av dysleksi. Der dyslektikere ikke får helt styring på bokstavene, sliter vi med å holde styr på tallene. Og i dag slo dyskalkulien til for fullt. Da den virkelig slår inn, blir det bare helt mørkt.</p>
+    <p>Forøvrig har både jeg og Kine dyskalkuli, så det er tydeligvis smittsomt. Heldigvis har jeg ikke smittet de andre ungene &mdash; de er mattegenier alle sammen. Jeg og Kine stiller nok mye sterkere i språklige disipliner enn i matematiske ihvertfall.</p>
+    <p>Det er viktig å huske på at de som har dyskalkuli eller dysleksi ikke er dumme. Langt derifra. Det har ingenting med intelligensnivå å gjøre i det hele tatt. Men det er så fort gjort å bli stemplet som dum eller lat. Det har nok både jeg og Kine opplevd i mattetimen, og far i huset, som har dysleksi, har opplevd det i norsk-timen.</p>
+    <p>MEN &mdash; selv om jeg gikk på en vaskeekte dyskalkuli-smell i dag, så kom det positive dyskalkuli-nyheter også! For Kine skal få utredning for sin dyskalkuli, og da blir det SÅ mye lettere for henne fremover. Jeg gleder meg ihvertfall til i morgen &mdash; Norsk eksamen! Yay, da er jeg på hjemmebane!</p>
+    </div>
+  </article>
+
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">8. juni 2013</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>PW avspark! 🎺</h2>
+    <div class="location-badge">📍 Tjodalyng</div>
+    <p>Da er Peter Wessel Festivalen offisielt i gang, med haugevis med glade korpsunger og ledere. Moro!</p>
+    <p>Korpsene ankom i går kveld, og ble innlosjert på sine respektive sovesteder, før vi hadde et ledermøte med litt informasjon. Utover det var det ikke så mye aktiviteter for korpsene, siden vi ikke startet før kl. 19 på kvelden. Men i dag blir det fullt kjør med instruksjon, Jippi Lekeland, grilling, sangkonkurranse og disco. Vi gleder oss! Foreldrene er bare store smil i solskinnet, så dette ser ut til å bli en veldig bra festival.</p>
+    <p>Vi var hjemme klokka 1 i natt, og på plass igjen 7.15 i dag &mdash; akkurat slik vi liker å ha det. Men jammen kom vi til låst dør. Eller... Finn Magne kom til åpen dør, og smekket den igjen rett foran nesa på oss andre. Makan til festivalsjef liksom. Men været var jo strålende, så vi led ingen nød allikevel!</p>
+    <p>En hyggelig detalj i dag var at Østlandsposten hadde skrevet et innlegg om festivalen. De har blitt helt utrolig flinke til å fremme korpssaken de siste ukene. Thumbs up for ØP! To be continued!</p>
+    </div>
+  </article>
+
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. mai 2013</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>Vår 17. Mai i bilder</h2>
+<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
+<img src="image/298046-9-1368871821047" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871830545" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871839155" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871846654" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871856412" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871865836" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+28 bilder til</span>
+</div>
+    <div class="location-badge">📍 Tjodalyng / Sandefjord</div>
+    <p>17. Mai starter alltid tidlig her i huset. Emma var førstemann ut, med spilling ved flaggheisingen på sykehjemmet i Tjølling kl. 8. Så var det skoletoget med Tjodalyng Skolekorps Juniorkorps &mdash; i strålende sommervær!</p>
+    <p>Ariane presterte forresten å sove seg gjennom hele skoletoget. Den jenta har et enormt sovehjerte! Avslutningen ble grilling hos bestemor, og årets familiebilde ble tatt. Å få 8 personer til å sitte pent og se i kamera er så godt som umulig. Men vi klarte det &mdash; nesten. Storm er akkurat på vei til å stikke av.</p>
+    </div>
+  </article>
+
+<div class="year-label">2012</div>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">9. oktober 2012</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Liten test før vi reiser til Egypt med alle barna 🧪</h2>
+    <p>Vi skal snart avgårde til Egypt med alle seks barna — noe vi aldri har gjort før! For å sjekke at vi ikke er helt gale som tar på oss det, har vi hatt en liten intern «stresstest» i heimen. Resultat: Vi er ganske gale. Men vi gjør det likevel. Gleder oss enormt, og ler godt av at vi har klart å booke en såpass stor reise med en så stor gjeng. Det blir en historisk tur!</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. oktober 2012</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Håndballkamp — Andreas Folkstrand i aksjon! 🤾</h2>
+    <p>I dag har vi vært på håndballkamp og sett lille onkelungen spille håndball i Sandefjord. Det skal sies at han spiller toppnivå håndball i Sverige og Danmark nå — og spiller i Halden i eliteserien. Det var kjempegøy å se ham i aksjon! Ungene våre var mektig imponert over onkelungen, og han ga en flott forestilling.</p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. oktober 2012</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Halden vs Sandefjord i Runar-hallen 🏟️</h2>
+    <p>Håndballkamp i Runar-hallen — Halden mot Sandefjord. En spennende kamp å se, og ekstra morsomt når man kjenner en av spillerne! Stemningen i hallen var god, og det ble en minnerik ettermiddag for hele familien.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. oktober 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Da har ferien startet!</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Vi ankom Hege og Jørn rundt 20.30, litt senere enn planlagt, men alt normalt etter sirkus Triger. Som i 2008 starter vi hjemme hos venner før avreise. Barna koser seg, og vi har fått hotellet servert — gleder oss!</p>
+    </div>
+  </article>
+
+  <article class="rec">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">23. november 2012</span>
+      <span class="post-tag tag-rec">Test/anbefaling</span>
+    </div>
+    <h2>Vinn lykter fra Min Josefine 🕯️</h2>
+    <p>Jeg vil gjerne tipse om en konkurranse som pågår hos den flotteste interiørbloggen (etter min mening) på nettet. Det er snakk om noen nydelige lykter fra et lite, sjarmerende norsk firma — akkurat den typen hjemme-hyggelig pynt som passer perfekt til den mørke årstiden. Stikk innom og se!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">3. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>De første dagene i Egypt</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Jadda, nettet i Egypt er ikke kjent for å være samarbeidsvillig, men nå har vi et lite snev av nett endelig, så vi skal prøve å få blogget litt. Det første innlegget blir bare et oppsummeringsinnlegg, for det er mye å ta igjen.</p>
+    <p>Turen til Sharm gikk veldig greit, og alle seks ungene holdt seg rolige på flyet — det er faktisk litt imponerende med tanke på at det er to toåringer, en ni-åring, en ti-åring, en tolv-åring og en seksten-åring. Hotellet er fantastisk og alle er fornøyde. Korallrevet er rett utenfor hotellet, og snorkling og bading dominerer hverdagen.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Lørdag — det regnet i Sharm!</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>På lørdag opplevde vi noe som de færreste har opplevd i Sharm — det regnet! Altså, det kom pittelitt vann fra oven med jevne mellomrom, men for en nordmann kan man knapt kalle det regn. Men det var nok til at araberne holdt seg innendørs og nesten var i krisemodus. Vi fant det hele ganske morsomt. Det hindret ikke oss i å kose oss på stranden!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">6. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Søndag — Old Market med naboene</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Søndag morgen dryppet det litt igjen. Araberne holdt seg innendørs og hadde atpåtil lagt ut sandsekker i bakkene rundt hotellet. For oss var det litt komisk, men de har vel sine grunner. Vi ble godt kjent med naboene på hotellet — en hyggelig gjeng som tok oss med til Old Market for shopping og moro. Typisk egyptisk marked med alt mulig av suvenirer, krydder og tekstiler.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">6. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Mandag — Glassbåt og egyptisk aften med Hamdy</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Mandag morgen skinte sola med full styrke igjen, så vi løp rett til bassenget så snart frokosten var fortært. Vi hadde planer om å ta en tur ut med glassbunnbåtene denne dagen. Hamdy, vennen vår fra 2008, organiserte alt og fulgte med oss. Det er noe helt spesielt med å se korallrevet nedenfra, med alle de fargerike fiskene svømmende tett på glasset.</p>
+    <p>På kvelden arrangerte Hamdy en ekte egyptisk aften med lokal mat, musikk og dans. Ungene elsket det, og vi fikk kjenne på den ekte egyptiske gjestfriheten som vi ble kjent med i 2008.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">7. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Tirsdag — Firhjuling, shopping og Alf Leila Wa Leila</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Tirsdagen startet rolig med bading i bassenget etter å ha sovet over hele frokosten. Vi spiste en god lunsj og ble underholdt av de superhyggelige kelnerne. Utpå ettermiddagen fikk de store ungene prøve firhjuling — stor stas! På kvelden dro vi til det berømte showet Alf Leila Wa Leila (Tusen og en natt) med kostymerte dansere, akrobater og alt som hører til. En magisk kveld!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Onsdag — El Fanar og shopping</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Onsdagen dro foreldre og de fire yngste til El Fanar beach for å bade og snorkle. De to store jentene hadde lyst til å bli igjen på hotellet, så det fikk de lov til. El Fanar er kjent for fantastisk snorkling rett fra stranden, og ungene var i sjøen fra de kom frem til det var tid for å dra. Korallrevet her er enda bedre enn ved hotellet!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Torsdag — GRATULERER MED DAGEN FINN MAGNE! 🎂</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Torsdag hadde verdens beste pappa og ektemann bursdag! Vaskefolka lagde nydelige dekorasjoner på sengene denne dagen — hjerter og blomster av håndklær. Etter frokost hadde vi booket time til bursdagsbarnet i beauty-shopen på hotellet. Og så &mdash; SUPRISE! Vennene fra 2008 hadde organisert et skikkelig bursdagsselskap om kvelden med kake, ballonger, konfetti og hele pakka. Finn Magne ble totalt tatt på senga!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Fredag — Fanar og siste tur til Old Market</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Fredagen tilbrakte vi bare som familie, siden det var siste hele dag i Sharm. Vi tok en siste tur til Fanar Beach for å snorkle — man får ikke nok av det korallrevet! Vi fant Hassan, og han tok oss med til de beste plassene. Siste shopping-runde i Old Market, og pakking på kvelden. Tungsindig å tenke på at vi skulle reise neste dag.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Lørdag — hjem igjen til kulda</h2>
+    <div class="location-badge">📍 Sharm El Sheikh → Norge</div>
+    <p>Lørdag måtte vi tidlig opp for å pakke siste rest, selv om vi hadde lagt oss lovlig sent natten før. Alle var trette i trynet og halvveis skjelyde da vi gikk til frokostsalen — men litt god frokost hjelper på det meste. Så bar det avgårde til flyplassen, og tilbake til norsk høst. Kuldesjokket var komplett. Men vi tar med oss solen i hjertet og massevis av gode minner fra den aller beste familieturen vi har hatt!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. november 2012</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>De første dagene i Egypt — del 2</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Onsdag brukte vi formiddagen til å plaske rundt i bassenget, siden vi skulle på beduin-aften i regi av Apollo på ettermiddagen. Klokken to ble vi hentet av en buss utenfor hotellet, og så bar det inn i ørkenen. En ekte beduinleir i solnedgangen, kamelridning, tradisjonell mat kokt over bål og stjernehimmel uten like. Ungene syntes det var magisk, og det hadde de rett i.</p>
+    </div>
+  </article>
+
+<div class="year-label">2011</div>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. april 2011</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Double trouble</h2>
+    <p>Jada, jada, jeg vet... treige på bloggefronten igjen. Men som alltid har vi en GOD unnskyldning. Vi har nemlig startet på et nytt eventyr! Vi har vært i gang med prøverørsbehandling en periode, og etter et par feilskjær bestemte vi oss for å ta et nytt forsøk før jul. Og jadda! FULL POTT!</p>
+    <p>1. desember ble to perfekte små embryo satt inn, og jammen... en drøy uke senere lyste det blå krysset mot oss. Og ikke i vår villeste fantasi ville vi trodd at vi rett før jul skulle få beskjed om at vi venter tvillinger!! TO små trigertigere jo!!</p>
+    <p>For noen uker siden fikk vi vite hvem det er som bor i magen. <strong>Tvilling 1 er en liten gutt som skal hete Storm Julian.</strong> Og <strong>tvilling 2 er ei lita jente som skal hete Ariane Isabell.</strong> Snakker om full uttelling &mdash; en av hvert! Det er nesten så vi ikke kan tro hvor heldige vi har vært.</p>
+    <p>Så i august blir vi en skikkelig storfamilie. Ungene gleder seg vanvittig til de små kommer, og de tre besteforeldrene er også elleville over familieforøkningen. Heldige småtroll som får så snille besteforeldre.</p>
+    </div>
+  </article>
+
+<div class="year-label">2010</div>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. januar 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Hus cabriolet</h2>
+    <p>Ok... i forrige innlegg, for halvannen måned siden, så braket det løs med store nyheter. Og så ble det plutselig stille hehehe &mdash; imponerende blogging, spør du meg! Men en kjapp oppdatering: Vi er i gang med å bygge hus! Vi har kjøpt tomt på Verningen i Tjodalyng, og byggeprosjektet er i full gang. Akkurat nå er taket lagt, men husene er ennå ikke lukket &mdash; derav «hus cabriolet». En litt kald løsning i januar, men spennende tider! Bilder kommer.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">22. februar 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Nå har det skjedd MYE! 🏗️</h2>
+    <p>Ok, det har skjedd MYE siden sist! Huset er i full sving — det er murt, isolert, og nå begynner det faktisk å ligne noe. Vi har brukt hver eneste ledig stund på byggeplassen, og det begynner å bli litt trøtt i beina. Men gleden over å se huset ta form gjør det verdt det.</p>
+    <p>I tillegg: vi har satt bryllupsdato! 24. august 2010 gifter vi oss. Nå er det fullt kjør med planlegging — og det er ikke lite som skal på plass. Men vi er begge to av typen som tar det litt i ro, for det viktigste er jo festen etterpå, ikke sant?</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">8. mars 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Et hjem tar form 🏠</h2>
+    <p>Huset begynner virkelig å ta form nå! Vi har vært innom byggeplassen nesten hver dag, og det er en helt spesiell følelse å se veggene reise seg. Ungene er også beggeveisbegeistret — de løper rundt og fikser på detaljer vi aldri hadde tenkt over. Storm og Ariane er ennå ikke med på badet, men de øvrige fire har allerede bestemt hvem som skal ha hvilket rom.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. mars 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Det er VÅR!! ☀️</h2>
+    <p>Endelig! Snøen er borte, sola skinner og temperaturen kryper oppover. Ungene er ute fra morgen til kveld, og vi voksne koser oss med kaffe på trappa og nyter at vi ikke trenger lue lenger. Det er en helt annen energi i huset når våren kommer.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. mars 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Man får det man betaler for...</h2>
+    <p>Kjøpte noe billig på nett. Det var billig. Og det viste seg. Noen ganger er det verdt å betale litt mer, og det har jeg lært nå. Lesjon lært — og en fin anledning til å le av seg selv.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. mars 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Puppy love 🐕</h2>
+    <p>Vi har fått hund! Eller — vi har fått en midlertidig hund. En venninne trengte noen til å passe Vanessa en periode, og vi sa ja. Vanessa er en herlig, litt kaotisk hund som har blitt fullstendig adoptert av ungene. Spesielt de to mellomste er helt fra seg av begeistring. Vi er ikke sikre på om det er lurt å la dem bli så glad i den hunden — det kan bli tårer når hun skal tilbake.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. april 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Overlykkelige, overraskede unger er moro! 🎁</h2>
+    <p>Det er noe eget med å overraske ungene. Vi fikk tak i billetter til et show de hadde hatt lyst til å se lenge, og holdt det hemmelig til siste øyeblikk. Reaksjonen da de fikk vite det var gull. Ren, uforfalsket barnlig glede. Det er sånne øyeblikk man husker.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. september 2010</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Litt mere videoblogg fra oss</h2>
+    <div class="location-badge">📍 Sardinia</div>
+    <a href="https://www.youtube.com/watch?v=a-6xkkU5iC8" target="_blank" class="video-link">▶ Se videoen på YouTube</a>
+    <p>I dag går turen til Neptune's Cave, så da får dere bare smøre dere med tålmodighet og vente på neste oppdatering. Kommentarer er alltid hyggelig når vi blogger &mdash; hint hint!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. september 2010, kl. 19:16</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Liten video blogg igjen</h2>
+    <div class="location-badge">📍 Sardinia</div>
+    <a href="https://www.youtube.com/watch?v=BGwvsEYH8LM" target="_blank" class="video-link">▶ Se videoen på YouTube</a>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. september 2010, kl. 18:11</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Sardinia dag 3 og litt dag 4</h2>
+    <div class="location-badge">📍 Alghero, Sardinia</div>
+    <p>Slæppåff-dager i Alghero. Vi har i grunnen ikke gjort så mye fornuftig. Ikke at vi pleier å gjøre fornuftige ting på ferie, men nå har vi bare susa rundt og kost oss og kikket på ting og tang og rare mennesker.</p>
+    <p>Jeg er skuffet over tørkesnorene&hellip; ærlig talt! De skal henge tvers over gata! Her henger de jo inntil husveggen &mdash; ikke sånn det er i «Lady og Landstrykeren». Og vi har enda ikke funnet noen restaurant med rødrutete duker og spaghetti med kjøttboller heller.</p>
+    <p>Huff&hellip; pasta-historien. I går kveld skulle vi ut og spise middag, altfor sent som vanlig. En plass holdt de åpent for oss og servitøren anbefalte den sardinske pasta-spesialiteten. Etter to sånne konsistensløse og svært syrlige pastaklumper ga jeg opp. Men vi kunne jo ikke la maten ligge igjen &mdash; så jeg fisket opp en pakke kleenex fra vesken, og driblet de forbaska pasta-klumpene inn i papir og ned i vesken, én etter én. Servitøren spurte «it was good, no?» &mdash; jada, vi løy overbevisende. I nærmeste søppelbøtte ble pastakladdene avlevert, og vi tuslet hjem og spiste potetgull i stedet. Dette skal vi IKKE prøve igjen!</p>
+    <p>I dag sneik vi oss inn og smugkikket på en katolsk messe. Vi er jo gift nå, så vi har vel ikke syndet så mye heller 😛</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 17:58</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Diverse sammensatte snutter fra oss</h2>
+    <div class="location-badge">📍 Sardinia</div>
+    <a href="https://www.youtube.com/watch?v=7rNdvRxkM4k" target="_blank" class="video-link">▶ Se videoen på YouTube</a>
+    <p><em>Følg med for flere artige snutter!</em></p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 14:33</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Utsikten fra leiligheten</h2>
+    <div class="location-badge">📍 Alghero, Sardinia</div>
+    <a href="https://www.youtube.com/watch?v=AsAn6U4PqR8" target="_blank" class="video-link">▶ Se videoen på YouTube</a>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 14:26</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Liten video fra Italia</h2>
+    <div class="location-badge">📍 Sardinia</div>
+    <a href="https://www.youtube.com/watch?v=UsTE9Uqw2yE" target="_blank" class="video-link">▶ Se videoen på YouTube</a>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 14:10</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 1 og 2 &mdash; Sardinia</h2>
+    <div class="location-badge">📍 Alghero, Sardinia</div>
+    <p>Utpå ettermiddagen ankom vi knøttlille Alghero flyplass. Den deilige varmen slo mot oss da vi gikk ut av flyet. Vi skulle egentlig bli hentet, men ventet og ventet uten at noen dukket opp &mdash; så det ble taxi. Heldigvis visste sjåføren veien.</p>
+    <p>Rommet var NYDELIG! Med eget bad, stor dobbeltdør ut til luftebalkongen og kjøkken gjemt inni et skap. Dette er ikke et hostell &mdash; det er et leilighetshotell.</p>
+    <p>Starten på stranden i Alghero: lang strand med støvete finkornet sand. Ut og teste vannet &mdash; det er jo viktig da man kommer til et nytt sted. Og vannet var svært behagelig! Vi var på gekkojakt! De små søte krapylene er slettes ikke sosiale.</p>
+    <p>På ettermiddagen på dag 2 hadde vi videosamtale med elsklingene hjemme. Emma har begynt i korps, så vi fikk en trombone-konsert over nett hehe. Jeg har tatt Finn Magne på fersken! Han tagger!! Det må jo være han som har skrevet «Ti amo Caro Tina» på veggen?? Hilsen fra varmen fra Hr. og Fru Triger på Sardinia! 🌞</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. september 2010, kl. 01:31</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Amsterdam</h2>
+    <div class="location-badge">📍 Amsterdam, Nederland</div>
+    <p>En ganske merkbar overgang fra 35 grader og stekende sol i Madrid til godt under 20-tallet, vind og regn i Amsterdam. Vi fikk til vår store skrekk beskjed om at vi bodde i toppetasjen &mdash; 5 etasjer opp med trapper så smale og skjeve at vi knapt hadde sett maken. Med nærmere 40 kilo bagasje totalt.</p>
+    <p>Vi fant en pitteliten indisk restaurant ved en byggeplass. Maten var nydelig &mdash; og det tøffeste: musikken. Fyren spilte indisk musikk på kassettspiller! Jeg ante ikke en gang at denslags eksisterte lenger. Etter maten tuslet vi ned mot red light district, men i regn og vind var det egentlig en heller trist affære. Taxi hjem og til køys. Forsov vi oss? Selvfølgelig. Amsterdam er et tilbakelagt kapittel. Vi har ett bilde. Av trikken vi sneik på hehe.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. september 2010</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Madrid!</h2>
+    <div class="location-badge">📍 Madrid, Spania</div>
+    <p>Vi ankom Madrid litt etter midnatt. Plaza Mayor: vi trodde det var et gammelt torg, men det var den opprinnelige tyrefekterarenaen! Deretter fant vi det lokale markedet &mdash; det er helt utrolig hvor stor frukten i Spania er.</p>
+    <p>Omvisning på Plaza del Toros de las Ventas &mdash; enormt stor! Grunnen til at kun 3 tyrefektere har mistet livet siden 1927: to operasjonssaler og 7 av Spanias fremste kirurger på plass under kampene. Vi fikk prøve å holde kappene: den rosa veier 15 kilo (silke og bly!), den røde bare 5 kilo. Halvannet hektisk døgn i Madrid var over &mdash; slitne i beina men fulle av minner.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. september 2010</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Nå forlater vi Alicante</h2>
+    <div class="location-badge">📍 Alicante, Spania</div>
+    <p>&hellip;og setter kursen mot Madrid. Og jeg måtte bare legge inn noen ord om vakringene som bor her hos David: Mira, Rex og Sita &mdash; tre nydelige pelsballer. Rex er en kjærlig sjel hehe. Og Finn Magne (han bor jo ikke her permanent, men vakring er han 😊)</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. september 2010, kl. 14:13</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 5 — Spania</h2>
+    <div class="location-badge">📍 Alicante, Spania</div>
+    <p>Nå har jeg hatt tre forsøk på å skrive bloggen fra dag 5, men blogg.no har bare lagd faenskap med tekniske feil og dritt, så nå blir det bare en kort oppsummering. Dagen ble brukt til å utforske Alicante sentrum, handle litt og nyte solen. Det er et fantastisk sted med en herlig blanding av gammelt og nytt.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. september 2010, kl. 01:21</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 4 — Spania</h2>
+    <div class="location-badge">📍 Alicante, Spania</div>
+    <p>Dagen startet med en leteaksjon fordi Rex hadde stukket av med begge sandalene til Finn Magne. Kun én av de dukket opp igjen, så vi satte kursen mot Torrevieja for å skaffe nye sandaler. En fin tur med mye sightseeing på veien. Finn Magne fikk nye sandaler, vi spiste god mat, og kvelden ble tilbragt med venner hos David.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">12. september 2010</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 3 — Spania</h2>
+    <div class="location-badge">📍 Alicante, Spania</div>
+    <p>Vi våknet til tuting og høylytt prating i gata utenfor hotellet vårt, altfor sent til å rekke frokosten (selvfølgelig), men i det minste i tide til å få dusjet og komme oss ut. Stranda i Alicante er fantastisk &mdash; hvit sand og varmt, blått vann. Finn Magne og jeg koste oss i vannet mens vi nøt solen og det spanske temperamentet rundt oss.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. september 2010</span>
+      <span class="post-tag tag-travel">Reise</span>
+    </div>
+    <h2>Dag 1 og 2 — Spania</h2>
+    <div class="location-badge">📍 Alicante, Spania</div>
+    <p>Ja, nå er vi på plass i Spania i sol og varme! Vi ankom Alicante på ettermiddagen, ble hentet av David, og fikk komme oss til en leilighet som er... merkelig. Men sjarmerende. Det er varmt, sola skinner, og vi er på bryllupsreise!</p>
+    <p>Dag 2 brukte vi til å utforske nærmiljøet. Alicante er en vakker by med en imponerende festning høyt oppe på fjellet. Vi spiste god tapas, vandret langs strandpromenaden og nøt den spanske sommernatta. Livet er godt!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. august 2010</span>
+      <span class="post-tag tag-bryllupsreise">Bryllupsreise</span>
+    </div>
+    <h2>Snart bryllupsreise!!</h2>
+    <p>Nå legger vi jammen snart ut på tur igjen! Det er i grunnen på høy tid også, for vi har ikke vært de mest aktive på reisefronten egentlig. Muligens fordi det har vært andre ting som skulle prioriteres &mdash; vi giftet oss jo nettopp! Men nå er det bryllupsreise som gjelder, og vi gleder oss!</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="kids">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. september 2010</span>
+      <span class="post-tag tag-barna">Barna</span>
+    </div>
+    <h2>Back to the 80s 🎉</h2>
+    <p>I dag fyller vår kjære datter Tiril Linnea 11 år! Blir en skikkelig «elvis» med andre ord. I går holdt vi bursdagsselskap for klassen hennes hjemme i hagen, og Tiril hadde fått velge tema for festen selv. 80-tallstema! Og for en 10-11-åring å velge 80-tallstema — det er jo nesten litt for moro å se på.</p>
+    <p>Ungene dukket opp i det de hadde funnet av 80-tallsinspirert pynt og klær — neonfarger, skrufrisyrer og breie skuldre. Vi voksne hjalp til med å dekorere, og det ble en aldri så liten utgraving i egne klesskuffer. Det man finner der &mdash; det er ikke alltid like klokt å ta frem igjen. Men humoren var på topp og stemningen strålende.</p>
+    <p>Tiril er rett og slett en av de menneskene som lyser opp et rom med bare sin tilstedeværelse. 11 år og allerede så mye personlighet! Vi er veldig stolte av deg, lille frøken.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">24. august 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Just married 💍</h2>
+    <p>Nå er vi endelig gift! På lørdag ble vi viet i Sandefjord Kirke, og dagen ble HELT fantastisk! Morgenen bøttet regnet ned, men solen tittet gradvis fram, og til slutt var det strålende vær!</p>
+    <p>Brudebilen var en rålekker mørk rosa cadillac! Eldstejentas svigerfar stilte som sjåfør &mdash; med cowboyhatt og det hele. Vi kastet oss ut av døren og satte kursen mot kirka. Jeg tror alvorlig talt aldri en brudekjole har blitt snørt så fort før hehe.</p>
+    <p>Da dørene endelig åpnet seg og jeg så min kjære tilkommende ektemann stå oppe i koret, var jeg bare fullstendig sikker på at dette var det helt riktige å gjøre. Brudepikene og brudesvennen vår var fantastisk flinke forresten. Og utrolig vakre!</p>
+    <p>Jeg ble fulgt til alteret av faren min, slik tradisjonen er &mdash; men jeg hadde også en til som fulgte meg opp: sønnen vår Theo. Seks år gammel og knakende kjekk i dress og cowboyboots! Det var nok utallige gammeltanter som ble litt blanke i øynene da.</p>
+    <p>Vielsen var nydelig. En barytontrio bestående av min bror, svigerinne og far spilte Highland Cathedral, og nydelige Christin Sjødal sang «Fields of Gold» med Phillipe Toso på gitar. Vanvittig flinke alle sammen! Litt snubling i ord ble det da vi avla løftene, men det er da ikke så nøye.</p>
+    <p>Så kunne vi endelig titulere oss Hr og Fru Triger &mdash; og hele ungeflokken byttet i samme øyeblikk navn til Triger også. Det har de ventet på lenge! Barbeque-fest på Eftang med 90 gjester, wienervals, og hele familien Triger kastet seg ut i linedance til alles overraskelse!</p>
+    <p>Tusen takk til alle forloverne, solistene, bakeren, blomsterdekoratøren, toastmasteren og ikke minst Caroline og Thomas. Dere gjorde en kjempejobb!</p>
+    <p><em>Og til min nybakte ektemann &hellip; jeg elsker deg av hele mitt hjerte.</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. august 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>02.aug.2010</h2>
+    <p>Nå er det under 3 uker igjen til den store dagen! Mye har kommet på plass, men det gjenstår en del enda &mdash; sånn som å sy ferdig jentenes kjoler, lage maten, kaker og diverse småtterier.</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. juli 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Før og etter</h2>
+    <p>Bare kjapt innpå med før og etter bilder av huset. Nå er det straks ferdig utvendig og det forhatte stillaset er ENDELIG historie! Deilig å kunne åpne alle dører og vinduer uten å smelle de rett i stillaset.</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. juli 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Wienervals er mer avansert enn wienerpølser gitt</h2>
+    <p>Her rusler og går det framover med bryllupsplanleggingen. Det meste er faktisk mer eller mindre under kontroll &mdash; eller det ser i det minste ut som det er under kontroll!</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. juli 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Hjelp, vi gifter oss!</h2>
+    <p>Bloggingen går visst treigt her i huset, men du allverden sånn tempo det er på alt annet! Etter planen skulle vi giftet oss neste sommer. Men etter et mislykket prøverørsforsøk nå i juni, så ble planen endret og bryllupet ble fremskyndet.</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. mai 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Konfirmasjon 08. Mai</h2>
+    <p>Lørdag 8. mai ble eldstejenta vår konfirmert i Sandefjord Kirke i strålende solskinn. En kjempefin dag med familie og gode venner.</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">17. april 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Sommeren nærmer seg</h2>
+    <p>Ja endelig nærmer sommeren seg og vi tok en liten familietur på Ula. Det er en del som er gravd opp der ute så det er litt mye jørme og slikt, og det ser ikke like pent ut som det kanskje hadde burde gjort.</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. april 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>dream imagine &amp; believe</h2>
+    <p>Endelig er også Kines rom ferdig. I kveld har vi kranglet på plass wall-decals på veggen hennes, og det ble jo faktisk veldig fint til slutt også!</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. april 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Stue-griser og pølsehunder</h2>
+    <p>Det ble visst plutselig en aldri så liten pause i bloggingen da rommene til ungene ble ferdige. Vi landet vel litt etter den mega-innsatsen, og tillot oss å slappe av litt.</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">5. april 2010</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Overlykkelige overraskede unger er moro!</h2>
+    <p>Nå er påsken stort sett overstått. Ungene har vært på ferie hos faren sin på Hedmarken, og i mellomtiden har vi gjort ferdig rommene dems &mdash; og de ble overlykkelig overrasket da de kom hjem!</p>
+    <p><em>[Innlegget fortsetter &mdash; full tekst ikke tilgjengelig i arkivet]</em></p>
+    </div>
+  </article>
+
+<div class="year-label">2009</div>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. august 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Winds of change 🌬️</h2>
+    <p>Det skjer store ting i Triger-heimen! Vi har kjøpt tomt og skal bygge hus! Ikke noe lite prosjekt akkurat, men vi er begge typen som liker å kaste oss ut i ting. Og nå kaster vi oss ut i det største prosjektet vi noensinne har tatt på oss. Spent er ikke dekkende nok et ord.</p>
+    <p>Tomta er på Verningen i Tjodalyng — et nydelig sted med god plass, rolige omgivelser og god beliggenhet for ungene og skolen. Vi gleder oss enormt, og ungene er allerede i gang med å diskutere hvem som skal ha hvilket rom.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">24. august 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Sandkasse for store gutter? 🏗️</h2>
+    <p>Anleggsarbeidet på tomta har startet! Gravemaskin, lastebil og masse støy — og Finn Magne i sjuende himmel. Det er noe med menn og store maskiner. Ungene er heller ikke sene — de har stilt seg opp ved gjerdet og heiet på gravemaskinen i timevis. Vi begynner å se konturene av tomta nå, og det er utrolig gøy!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">25. august 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Preview 👀</h2>
+    <p>Første glimt av tegningene til huset! Arkitekten har vært her og vi har sett gjennom planene. Det blir et flott hus — god planløsning, nok rom til alle, og en skikkelig romslig stue. Vi er strålende fornøyde. Nå er det bare å vente på at det faktiske huset dukker opp!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. august 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Første glimt av tegningene 📐</h2>
+    <p>Tegningene er klare og vi er kjempefornøyde! Huset blir stort nok til å romme alle åtte — og ja, det er virkelig behov for det. Seks barn krever plass. Vi har brukt kvelden på å fantasere om hvem som får hvilket rom, og vi er allerede uenige om farger på veggene. Typisk.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">1. september 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Da er tegningene klare! 📋</h2>
+    <p>Endelige tegninger er godkjent og vi er i gang! Det er en merkelig blanding av skrekk og glede å se på disse tegningene og tenke «dette blir huset vårt». Det er stort. Det er dyrt. Og det er akkurat det vi trenger. Frem med sparebøssen!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">1. september 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Du får kjøpt alt på Ebay! 🛒</h2>
+    <p>I jakten på de beste prisene på materialer og utstyr til huset, har vi oppdaget at man faktisk kan finne mye på Ebay. Finn Magne er blitt en ivrig netthandler, og jeg må innrømme at jeg er litt imponert over hva han finner. Selv om det av og til betyr at vi får tilsendt noe som er litt annerledes enn forventet...</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">10. september 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Sakte fremover... 🐢</h2>
+    <p>Husbyggingen går sakte men sikkert fremover. Det er mange ting som tar tid — byggesøknader, leveranser, håndverkere som ikke alltid dukker opp når de skal. Men vi ser fremgang, og det er det viktigste. Tålmodighet er en dyd. Det prøver vi å huske på.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">13. september 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Dagen før dagen ⚡</h2>
+    <p>I morgen skjer det noe stort på byggeplassen — grunnmuren legges! Vi har gledet oss til dette i ukevis. Det er noe veldig konkret og tilfredsstillende med å se grunnmuren komme på plass. Nå begynner det faktisk å ligne noe!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. september 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Nå går det unna, ja! 🚀</h2>
+    <p>Grunnmuren er på plass og det begynner virkelig å ta form! Reisverket er bestilt og vi regner med at det kommer i løpet av kort tid. Finn Magne er på byggeplassen nesten hver dag og rapporterer ivrig hjem. Det er en litt magisk følelse å se noe vokse frem fra ingenting.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">23. september 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Det begynner å ta form! 🏠</h2>
+    <p>Reisverket er oppe! Huset tar form — det er faktisk vegger nå! Vi dro hele familien på byggeplassvisitt i dag, og ungene var helt ville av begeistring. Det å stå der inne i det som snart skal bli stuen og si «her skal vi bo» er en veldig spesiell følelse.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">30. august 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fra sjømat til varmekabler 🦐➡️🔌</h2>
+    <p>Vi hadde opprinnelig planlagt en sommer med mer fritid, men det ble altså noe helt annet. Husprosjektet tok over fra dag én. Men vi har klart å skvise inn noen hverdagsgleder: god mat, gode naboer, og en og annen kveld ute ved sjøen med fisk. Det er slik man overlever et byggeprosjekt!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">1. oktober 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Flisespikkeri 🔍</h2>
+    <p>Vi holder på med å velge fliser. Det er ikke så enkelt som det høres ut. Det finnes en milliard varianter, priser fra billig til sprøtt dyrt, og alle i familien har en mening. Vi er blitt eksperter på begreper som «rektangulær matt grå» og «hvit blank metro». Håper vi snart finner noe alle kan enes om!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">10. oktober 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>10. okt. 2009</h2>
+    <p>Liten oppdatering fra byggefronten: taket er lagt! Nå er huset tett, og fra nå av kan arbeidet fortsette uavhengig av vær. Det er en milepæl, og vi er strålende fornøyde. Snart begynner innvendig arbeid — og da begynner det virkelig å bli gøy!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. oktober 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Støv, lyd, lys og porselenstelefoner 📞</h2>
+    <p>Innvendig arbeid er i gang! Elektriker, rørlegger og flislegger jobber side om side — og støvnivået er deretter. Vi besøker byggeplassen daglig og prøver å holde styr på hva som skjer. Det er mye å bestemme seg for, og det krever konstante valg: stikkontakter her, lysbryter der, baderomsflis opp eller ned... Hodet er fullt!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. oktober 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Ren og pen! ✨</h2>
+    <p>Malerne har vært i huset! Plutselig ser alt mye mer «ferdig» ut med hvite vegger og tak. Det er utrolig hva litt maling gjør for et hus — plutselig blir det et hjem. Vi begynner å se slutten av tunnelen, og det er en god følelse!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">24. november 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Nå bråker det løs! 🎉</h2>
+    <p>VI HAR OVERTATT HUSET! Endelig! Etter måneder med planlegging, bygging, valg og atter valg, er vi nå eiere av et splitter nytt hus på Verningen. Nøklene ble overlevert i dag, og vi gikk gjennom dør etter dør med store smil. Nå begynner den neste store jobben: flytte inn og gjøre det til et hjem. Men det er en herlig jobb å ha!</p>
+    </div>
+  </article>
+
+  <div class="year-label">2008</div>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">31. desember 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Snart nyttår gitt! 🎆</h2>
+    <p>I dag har vi sosialisert på høyt nivå (ihvertfall i forhold til nivået tidligere i romjula). Vi greide å karre oss ut av senga i noenlunde anstendig tid, og det var på en merkelig måte litt godt. Ungene er på ferie på Hedmarken hele romjula og er visstnok i beste velgående der oppe. Vi savner de naturligvis, men det er jo hyggelig at de også koser seg med bestemor og bestefar der oppe. Aller beste ønsker for det nye året til alle som leser bloggen vår! 🥂</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">30. desember 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>The fine art of sofa-slakking 🛋️</h2>
+    <p>Jepp, det er den nye sportsgrenen i Casa del Triger. Nuhvel, ny er den vel ikke, men vi har bare videreutviklet den til en kunstform de siste dagene. Er vi late? Neida, overhode ikke. Vi bare vet hvordan vi skal prioritere. Og akkurat nå er sofaen høyt prioritert. Finn Magne fordyper seg i de filmene han fikk i julegave. Jeg leser. Katten sover. Livet er bra.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">28. desember 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Romjuls-happenings 🎄</h2>
+    <p>Tja, hva har skjedd i romjula da? Ikke så over seg mye egentlig, vi har tatt livet med ro men fått tid til en fest eller to også midt i all sofaliggingen vår. Ungene er på ferie på Hedmarken hele romjula og er visstnok i beste velgående der oppe. Vi savner de naturligvis, men det er jo hyggelig at de også koser seg med bestemor og bestefar. Vi har hatt besøk av venner, spist god mat, og generelt kost oss i julestemningen. Ikke så dumt det heller.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">28. desember 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Så var det jul igjen ja 🎅</h2>
+    <p>Er vel kanskje på tide at vi begynner oppdatere hva som skjer etter vi faktisk kom hjem fra ferie. Vi skal nemlig bli flinke nå til å følge opp og blogge fra hverdagslivet til Triger og Tiger også! Jula har vært nydelig. Ungene fikk det de ønsket seg, og stemningen rundt julebordet var upåklagelig. Finn Magne lagde sin berømte saus og alt ble fint. Nå venter romjula med avslapping og hygge.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. desember 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 13 — dronningen av Pizza Hut 🍕</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Denne dagen hadde vi ingen planer egentlig. Så vi tok det rolig, og slev rundt i byen uten mål og mening. Tina hadde vurdert å få rastafletter slik at hun skulle slippe å få så mye hår i dykkemasken — men det ble med tanken. Til slutt endte vi på Pizza Hut, som faktisk var en ganske stor og fin restaurant. Tina inntok sin plass ved bordet med en suveren ro og selvtillit som bare en som virkelig behersker menyen kan ha. Dronningen av Pizza Hut, simpelthen.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. desember 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 14 — ørkenrally og pizzaparty 🏜️</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Siste hele dag i Sharm El Sheikh. Vi begynte å pakke ting og tang som vi skulle ha med hjem, og innså fort at koffertene våre slettes ikke var dimensjonert for å få plass til alle greiene som skulle med. Finn Magne har kjøpt dykkecomputer, og den tar plass. Men vi løste det. Etterpå tok vi en siste kjøretur rundt i Sharm — et lite ørkenrally på taxi, med sjåfør som åpenbart hadde sin egen oppfatning av hva et stoppskilt betyr.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">2. desember 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 15 — hjemreise ✈️</h2>
+    <div class="location-badge">📍 Sharm El Sheikh → Sandefjord</div>
+    <p>Så var hjemreisedagen her. Lysten til å reise fra vakre Sharm var ikke overveldende stor, men vi måtte jo. Det var mange som ventet på oss hjemme tross alt. Alt var pakket og koffertene var registrert. Tina er kurert for flyskrekk og helt rolig — det er fremgang det. Vi er slitne, solbrente og fulle av minner. To uker i Egypt — dykking, Cairo, pyramider, bazarer og noen av de snilleste menneskene vi har møtt. Vi kommer tilbake.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">3. desember 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Fotoutfordringen! 📷</h2>
+    <p>Før vi reiste til Egypt fikk vi en fotoutfordring av Mr. Killerabbit. Femten forskjellige foto-objekter skulle finnes og knipses, og selvfølgelig tok vi utfordringen. Skulle bare mangle! Så her er resultatet — femten bilder fra Egypt, alle med sitt eget tema. Noen er enkle, andre krevde litt kreativitet. Men vi fikk dem alle! Og nå har vi nettopp fått høre at oppdraget ble godkjent. Hurra!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">3. desember 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Oppdraget ble godkjent! ✅</h2>
+    <p>Mottok nettopp denne fra Kaninfoto aka Killerabbit — godkjentstempel på fotoutfordringen vi leverte fra Egypt! Takker og bukker på vegne av begge for utmerkelsen. Det var gøy å ha et kreativt prosjekt å jobbe med mens vi var på tur. Neste gang tar vi enda flere bilder.</p>
+    </div>
+  </article>
+
+  <!-- NOVEMBER 2008 — oppstarten + Egypt mobilblogg -->
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">29. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 12 — Ras Um Sid og skumparty? 🤿</h2>
+    <div class="location-badge">📍 Ras Um Sid, Sharm El Sheikh</div>
+    <p>Vi tilbrakte hele dagen på Ras Um Sid for å få dykket litt mer før vi skulle hjem. Vi hadde med oss Sayed igjen, så det var mye skravling, kaos og moro. Uttrykket «shut up and dive» passer bra når Sayed er guide — han klarer aldri tie stille. Men det er jo en del av sjarmen. Et fantastisk dykk på et fantastisk sted, som en passende avslutning på alle dykkene på denne turen.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 11 — susedag ☀️</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>I dag har vi bare sust... og sust og sust. Vår kjære ryddegutt Achmed måtte låse oss inn igjen på hotellrommet da vi hadde sittet i formiddagssolen og døren hadde blåst igjen. Han tok det med ro. Etter de intense Cairo-dagene trengte vi et rolig dykke-pausedag. Basseng, sol, god mat og litt shopping i hotellets butikker. Slik skal det være.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 10 — Cairo dag 2 🏛️</h2>
+    <div class="location-badge">📍 Sakkara + Cairo, Egypt</div>
+    <p>Vi startet grytidlig med frokost på hotellet, og de søte gamle gubbene som serverte og bukket og neide i alle retninger. Så hoppet vi på bussen og satte kursen mot Sakkara for å se på verdens aller første pyramide — trappepyramiden. Den er eldre enn Giza-pyramidene og nesten litt underkjent, men veldig imponerende. Etterpå tilbake til Cairo for å se mer av denne enorme, kaotiske, fantastiske byen.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 9 — Cairo! 🐪</h2>
+    <div class="location-badge">📍 Cairo, Egypt</div>
+    <p>Endelig var tiden inne til å dra til Cairo. Forventningene var ganske store, og sånn i ettertid kan man vel si at de ble godt og grundig innfridd også. Cairo Tower med roterende restaurant på toppen. Giza-pyramidene. Sfinxen. Bazaren Khan el-Khalili med alt sitt fargerike kaos. Cairo er en by av kontraster — fattigdom og rikdom side om side, gammelt og nytt, rolig og kaotisk. En opplevelse for livet.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 8 — Nama Bay 🌊</h2>
+    <div class="location-badge">📍 Nama Bay, Sharm El Sheikh</div>
+    <p>Endelig fant vi ut at det var på tide å utforske selve hoveddelen av Sharm El Sheikh, nemlig Nama Bay. Vi sov lenge for en gangs skyld, før vi sakte men sikkert tuslet oss avgårde med taxi til Nama Bay. En kjempefin strandpromenade med masse butikker, restauranter og folk. Vi spiste god egyptisk mat, og Finn Magne fant selvsagt en butikk med dykke-utstyr. Selvfølgelig. 🤿</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">27. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 6 og 7 — enda mer dykking! 🐠</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Ja vi dykker til det kjedsommelige, og nettet er så himla tregt at bloggoppdateringene kommer altfor sent også. Men nå gjør vi en seriøs innsats for å få ting på plass igjen. Dag 6 tilbrakte vi ute på Jackson Reef og Woodhouse Reef — to av de mest spektakulære dykkestedene i Rødehavet. Sikt på 20–30 meter, fargerike koraller og fisk i alle mulige varianter. Finn Magne er blitt helt hektet.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">25. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Pyramidene! 🔺</h2>
+    <div class="location-badge">📍 Giza, Egypt</div>
+    <p>Vi var ved pyramidene i Giza i dag. Ord strekker ikke til. De er mye større enn man tror. Bilder gjør dem ikke rettferdighet. Å stå ved foten av Kheopspyramiden og se opp — å vite at dette ble bygget for over 4500 år siden — er en av de merkeligste og mest fantastiske opplevelsene vi har hatt. Og Sfinxen rett ved siden av. Cairo og Egypt overrasker oss hele veien.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">24. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Ferie fra dykkinga — Irish Coffee i Nama Bay ☕</h2>
+    <div class="location-badge">📍 Nama Bay, Sharm El Sheikh</div>
+    <p>Lenge siden mobilblogg, så nå er dykkingen lagt litt til side og vi har ferie. Vi er nå i Nama Bay og som dere ser drikker Tina Irish Kaffe klokka 2 om dagen. Ja, vi er på ferie, så det er lov da. Finn Magne er i butikker og ser på dykke-utstyr. Noe annet hadde overrasket. Vi storkoser oss og nyter de siste dagene i dette fantastiske landet.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">22. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 5 — Thistlegorm-vrakdykking 🚢</h2>
+    <div class="location-badge">📍 Rødehavet, Egypt</div>
+    <p>Dykking igjen da. Bli vi vant til det — det er det vi holder på med nå om dagen. Finn Magne dro ut tidlig på morgenen til ett av de flotteste stedene for vrakdykking i verden: Vraket Thistlegorm. Et britisk forsyningsskip fra Andre verdenskrig som ble senket i 1941 og nå ligger 30 meter nede — med motorsykler, jeeper og ammunisjon fortsatt ombord. Han er måpende begeistret. Vi er stolte av ham!</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">21. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 4 — dykking igjen 🤿</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Finn Magne startet dagen tidlig — allerede kl 8.45 skulle han møte opp hos Orbit Divers, men der ble han sittende og vente til nærmere kl 10. Da fikk de kommet seg i bussen og ble kjørt ned til havnen. To dykk i dag — Jackson Reef og en til. Tina tilbrakte dagen ved bassenget og leste. Begge er fornøyde med sine respektive aktiviteter.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">20. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 3 — dykking i teori og praksis 🐡</h2>
+    <div class="location-badge">📍 Jackson Reef, Sharm El Sheikh</div>
+    <p>Bare en rask oppsummering og bilder fra dag to i nydelige Sharm El Sheikh. Tiden flyr litt fort nå som vi kurser og dykker og styrer, så derfor blir det ikke alltid tid til å blogge på kveldene. Men i dag var Finn Magne ute på Jackson Reef for fri dykking — og for første gang helt uten kursinstruktør. Han kom hjem strålende fornøyd. Vannet er deilig, fisken er fargerik, og Egypt er magisk.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">19. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Dag 2 — Sandefjord vs Egypt 🌞</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>Da er dag to av vår forunderlige reise i vakre Egypt unnagjort, og den har vært utrolig innholdsrik og morsom. Vi startet dagen med en veldig god frokost på hotellet, med mye merkelige matvarer som vi ikke helt visste hva var — men smakte. Finn Magne begynte dykke-kurset, og fikk sin første ekte dykkeopplevelse i Rødehavet. Tina tilbrakte dagen ved bassenget med bok og solkrem. En perfekt arbeidsfordeling.</p>
+    </div>
+  </article>
+
+  <article class="travel">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">18. november 2008</span>
+      <span class="post-tag tag-travel">Egypt</span>
+    </div>
+    <h2>Nå er vi endelig i Egypt! 🇪🇬</h2>
+    <div class="location-badge">📍 Sharm El Sheikh, Egypt</div>
+    <p>En kort oppsummering av denne dagen ville være en komplett umulighet — så det blir en lang en. Etter et noe turbulent fly (Tina liker fortsatt ikke å fly, men klarer det!), landet vi i Sharm El Sheikh til varm luft, palmetrær og et hotell som tok pusten fra oss. Fem stjerner betyr visst noe her. Bassenget er enormt, rommet er fabelaktig og utsikten fra verandaen er over Rødehavet. Vi klypte oss i armen begge to.</p>
+    <p>Vi spaserte langs strandpromenaden om kvelden, røykte shisha på en pub i fjellskråningen med masse lys og utsikt over byen og havet. Alt er nytt, spennende og litt overveldende. Egypt er ikke som vi hadde forestilt oss — det er bedre.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">16. november 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Voodoo-dukker og avreise 🧸</h2>
+    <p>Kine og Tiril (Tinas to eldste døtre) har strikket voodoo-dukker til oss som skal bringe lykke på reisen. De er litt søte da! Den til venstre er Tinas tiger-voodoo-dukke som Tiril har strikket, og den til høyre er Finn Magnes. De to jentene tok dette meget seriøst. Vi tok dukkene med oss til Egypt. Man vet aldri.</p>
+    <p>Tina er rastløs — alt er ferdig pakket, klappet og klart. Finn Magne er på jobb i Moss og kommer hjem snart. I morgen tidlig drar vi til Oslo — og derfra til Egypt. Det er nesten ikke til å tro!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">15. november 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Ferdig pakket! 🧳</h2>
+    <p>Endelig ferdig med pakkingen. Og jeg tror jammen det ble ganske fornuftig også jeg. Men da jeg bar koffertene ut fra soverommet ble jeg seriøst skeptisk — de var tunge. Veldig tunge. Sjekket en gang til at vi ikke hadde pakket ned unødvendig mye, men neida — alt er nødvendig. Ihvertfall det Tina mener er nødvendig. Finn Magne har knapt pakket noe — to t-skjorter og et par shorts. Menn.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">14. november 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Halvpakket! 🎒</h2>
+    <p>Endelig fikk jeg rotet meg over fjorden og fått pakket for Finn Magne. Det var den enkle delen av pakkingen — mannfolk er greie sånn, de trenger ikke mye. Det var verre med min egen koffert. Pakkingen pågår i intervaller med lange pauser for å spørre seg selv «trenger jeg egentlig dette?» Svaret er som oftest ja. Bare to dager igjen nå — Egypt nærmer seg!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">12. november 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Kolera med bringebærsmak?? 🤢</h2>
+    <p>I dag fant våre kloke hoder plutselig ut at vi skulle ta Dukoral-vaksinen allikevel, til tross for at helsesenteret sa den var overflødig. Så ja — vi sto i apoteket og kjøpte vaksinen som skal beskytte mot kolera og reisediare. Den løses opp i vann og skal smake bringebær. Smaker det bringebær? Nei. Ikke i det hele tatt. Men vi tok den begge to, og nå er vi «beskyttet». Forhåpentlig.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. november 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Velkommen til min blogg! 🌍</h2>
+    <p>Dette er den første posten på min nye blogg! Vi legger snart ut på tur til Egypt — Finn Magne og Tina — og tanken er at denne bloggen skal følge oss på eventyrene våre. Nå er det Egypt og Rødehavet som venter, men hvem vet hva som kommer etterpå? Vi er en familie som liker å reise, oppleve og fortelle videre. Velkommen med på turen!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">11. november 2008</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Reiseblogg faktisk 🗺️</h2>
+    <p>Ja, så måtte det jo bli en reiseblogg også, siden Tina er bloggaholiker og vi skal ut på tur. Skal vi på jordomseiling, eller på fottur i Sibir et år? Neida, ikke enda ihvertfall. Vi legger kursen mot Egypt og Rødehavet. Finn Magne skal ta dykkesertifikat og Tina skal dokumentere alt. Og blogge. Vi er klare!</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">12. januar 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Ut med jula og inn med Rockband!</h2>
+    <p>Så er jula endelig kastet på dør og livet er tilbake til normalt hverdags-modus med alt hva det medfører. Juletreet holdt seg utrolig bra i år, til tross for at det bare fikk vann to ganger &mdash; de to første dagene. Vi brukte nyttårsfeiringen på å spille Rockband til langt på natt, og det ble en veldig koselig avslutning på julen.</p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">6. januar 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Psssst...</h2>
+    <p>Du Triger... litt puddelkrøllete suppemusikk på natta tror jeg passer veldig bra nå. Glad i deg. &mdash; <em>Tiger'n</em></p>
+    <p><em>(Et lite romantisk innlegg fra Finn Magne til Tina midt på natten i romjula)</em></p>
+    </div>
+  </article>
+
+  <article class="blog">
+    <div class="post-inner">
+    <div class="post-meta">
+      <span class="post-date">1. januar 2009</span>
+      <span class="post-tag tag-blogg">Blogg</span>
+    </div>
+    <h2>Godt nyttår! 🎆</h2>
+    <p>I dag har vi hatt en koselig avslappende nyttårsfeiring i Casa del Triger. Noen timer ble selvfølgelig tilbragt på kjøkkenet, som det seg hør og bør. Finn Magne var kalkunekspert (sausen hans er bare himmelsk), og vi koste oss med god mat og godt selskap. Happy new year fra oss alle!</p>
+    </div>
+  </article>
+
+</main>
+
+<aside>
+  <div class="sidebar-card">
+    <span class="about-emoji">✈️</span>
+    <h3>Om bloggen</h3>
+    <div class="about-names">
+      <p><strong>Finn Magne</strong> — alltid optimistisk, eventyrlysten, øl-elskende, uten stedsans</p>
+      <br>
+      <p><strong>Tina</strong> — snakkesalig, eventyrlysten, nysgjerrig, susete, uten stedsans</p>
+      <br>
+      <p>Sammen er vi dynamitt! Se opp for eksplosjoner! Og om dette ikke var nok: <strong>Kine, Tiril, Emma, Theo, Storm og Ariane</strong> er med på ferden.</p>
+      <br>
+      <p style="color:#a89890; font-size:0.72rem;">Sandefjord · 2008–2014<br>Gjenopprettet fra web.archive.org</p>
+    </div>
+  </div>
+
+  <div class="sidebar-card">
+    <h3>Arkiv</h3>
+    <ul class="archive-list">
+      <li><span>2014</span><span class="archive-count">2</span></li>
+      <li><span>2013</span><span class="archive-count">58</span></li>
+      <li><span>2012</span><span class="archive-count">11</span></li>
+      <li><span>2011</span><span class="archive-count">1</span></li>
+      <li><span>2010</span><span class="archive-count">30</span></li>
+      <li><span>2009</span><span class="archive-count">3</span></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-card">
+    <h3>Steder vi har vært</h3>
+    <ul class="places-list">
+      <li>Sardinia, Italia</li>
+      <li>Madrid, Spania</li>
+      <li>Alicante, Spania</li>
+      <li>Amsterdam, Nederland</li>
+      <li>London, England</li>
+      <li>Paris, Frankrike</li>
+      <li>Tyrkia (Belek/Pamukkale)</li>
+      <li>Blokhus, Danmark</li>
+      <li>Bodø, Norge</li>
+      <li>Stavanger, Norge</li>
+      <li>Finnskogen, Norge</li>
+      <li>Sharm el Sheikh, Egypt</li>
+    </ul>
+  </div>
+</aside>
+
+</div>
+
+<footer>
+  <p><strong>Triger'n og Tiger'n &amp; resten av familien suser verden rundt</strong></p>
+  <p style="margin-top:0.5rem;">Finn Magne &amp; Tina · Sandefjord · 2008–2014</p>
+</footer>
+
+</body>
+</html>
