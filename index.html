@@ -120,6 +120,9 @@ body {
 nav {
   background: #251c18;
   border-bottom: 1px solid #3a2e28;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 .nav-inner {
   max-width: 900px;
@@ -295,7 +298,7 @@ article em { font-style: italic; color: var(--muted); }
 .video-link:hover { background: #ffeeea; }
 
 /* ── SIDEBAR ── */
-aside { position: sticky; top: 2rem; }
+aside { position: sticky; top: 4rem; }
 .sidebar-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -458,6 +461,7 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
 .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
 .lb-count { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font: 500 0.8rem 'Inter', sans-serif; color: #a89890; }
+main article { scroll-margin-top: 4rem; }
 </style>
 <meta name="description" content="Familieblogg og reiseblogg fra Vestfold: Tina og Finn Magne Triger og seks barn på tur i Egypt, Tyrkia, Paris, London, Spania og Sardinia – pluss korps, 17. mai, bryllup og hverdagskaos 2008–2014.">
 <link rel="canonical" href="https://trigerogtiger.no/">
