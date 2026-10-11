@@ -10,10 +10,6 @@
       "use": "@vercel/static"
     },
     {
-      "src": "sitemap.xml",
-      "use": "@vercel/static"
-    },
-    {
       "src": "robots.txt",
       "use": "@vercel/static"
     },
@@ -28,6 +24,20 @@
     {
       "src": "*.js",
       "use": "@vercel/static"
+    },
+    {
+      "src": "llms.txt",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "index.html",
+          "lib/**"
+        ]
+      }
     }
   ],
   "routes": [
@@ -36,8 +46,20 @@
       "dest": "/admin.html"
     },
     {
+      "src": "/innlegg/(?<slug>[^/?#]+)/?",
+      "dest": "/api/innlegg?slug=$slug"
+    },
+    {
       "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
+      "dest": "/api/sitemap"
+    },
+    {
+      "src": "/(rss\\.xml|feed|rss)/?",
+      "dest": "/api/rss"
+    },
+    {
+      "src": "/llms.txt",
+      "dest": "/llms.txt"
     },
     {
       "src": "/robots.txt",

@@ -1,5 +1,37 @@
+# Alle søkemotorer og KI-tjenester er velkomne til å lese bloggen
 User-agent: *
 Allow: /
 Disallow: /admin
+
+# KI-søk og -assistenter (eksplisitt velkommen)
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
 
 Sitemap: https://trigerogtiger.no/sitemap.xml
