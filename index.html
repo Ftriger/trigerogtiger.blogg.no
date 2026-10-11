@@ -428,6 +428,27 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
 @media (max-width: 700px) {
   .search-wrap { padding: 1.5rem 16px 0; }
 }
+
+/* ── LIGHTBOX ── */
+.post-gallery img { cursor: zoom-in; transition: opacity .15s; }
+.post-gallery img:hover { opacity: .85; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(20, 14, 11, 0.94);
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem 16px;
+}
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 3px; box-shadow: 0 8px 40px rgba(0,0,0,.5); }
+.lb-btn {
+  position: absolute; border: none; background: rgba(255,255,255,.1); color: #f0ebe4;
+  width: 44px; height: 44px; border-radius: 50%; font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.lb-btn:hover { background: rgba(255,255,255,.22); }
+.lb-close { top: 12px; right: 12px; }
+.lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+.lb-count { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font: 500 0.8rem 'Inter', sans-serif; color: #a89890; }
 </style>
 </head>
 <body>
@@ -455,11 +476,11 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
 
 <nav>
   <div class="nav-inner">
-    <a href="#" class="active">Alle innlegg</a>
-    <a href="#">Reise</a>
-    <a href="#">Blogg</a>
-    <a href="#">Barna</a>
-    <a href="#">Oppskrifter</a>
+    <a href="#alle" class="active">Alle innlegg</a>
+    <a href="#reise">Reise</a>
+    <a href="#blogg">Blogg</a>
+    <a href="#barna">Barna</a>
+    <a href="#oppskrifter">Oppskrifter</a>
   </div>
 </nav>
 
@@ -1373,7 +1394,7 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Facebookgiraffen er ufarlig</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-8-1382799519879" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1382799519879.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>De fleste som er på Facebook har vel fått med seg giraffbildene som florerer om dagen. Disse dukker opp hos folk som ikke har klart riktig svar på en gåte. En morsom liten ting på Facebook, i likhet med bh-farger, hjerter og gud vet hva annet som går rundt der innimellom.</p>
     <p>Og så er det en gjøk som sitter og ser dette og tenker «dette kan gi meg supre lesertall uten at jeg faktisk trenger å skrive bra innlegg». Han la ut en advarsel om at disse giraffbildene var et hackerangrep og at alle kunne se passordet til de som hadde byttet til giraffbilde. Med minimalt med datakunnskap skjønner man at dette ikke er tilfelle.</p>
@@ -1401,13 +1422,18 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Boller i ovnen og andre boller</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1378193343280" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1378193347908" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1378193352070" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1378193356208" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1378193407819" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1378193411834" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+6 bilder til</span>
+<img src="image/298046-9-1378193343280.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193347908.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193352070.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193356208.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193407819.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193411834.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193415747.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193417258.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193421397.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193425361.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193430485.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1378193435154.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Jeg er garantert ikke den eneste som har opplevd et utall stusslige bolleoppskrifter. Bollene kan være gode nok da de er nystekte, men etter bare noen timer er de tørre og harde. Jeg hadde nærmest gitt opp å bake boller &mdash; før jeg kom over denne oppskriften.</p>
     <div class="recipe-box">
@@ -1445,13 +1471,16 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Siden sist</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-8-1377940715101" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1377940939630" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1377940963107" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1377941045631" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1377941050141" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1377941054454" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+4 bilder til</span>
+<img src="image/298046-8-1377940715101.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377940939630.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377940963107.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941045631.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941050141.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941054454.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941114967.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941119574.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941133397.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1377941137836.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Det ble plutselig en liten bloggpause, men årsaken var rett og slett skolestart, korpsstart og diverse andre happenings som krevde en del tid. Når jeg i tillegg konsekvent glemmer å ta bilder, ja da blir det lite å blogge om.</p>
     <p>Svigermor fylte 60 den 26. august &mdash; hurra for svigermora! Hun hadde sagt klart ifra at hun IKKE ville ha noe supriseparty. Innen rimelighetens grenser. Vi måtte jo finne på noe. Og siden det var supriseparty hun ikke ville ha, så måtte vi jo trå til med et suprise-kaffeslabberas i stedet. Hun ble kjempeoverrasket!</p>
@@ -1467,13 +1496,17 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Det var en gang en sprinkelseng...</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1375529034818" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375529048245" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375529052453" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375529056466" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375529060729" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375529122323" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+5 bilder til</span>
+<img src="image/298046-9-1375529034818.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529048245.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529052453.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529056466.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529060729.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529122323.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375528909270.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529135325.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529139444.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529171743.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375529176092.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Eller, mer korrekt, det var en gang TO sprinkelsenger &mdash; for vi har jo tvillinger. Men soverommet føltes litt klaustrofobisk med begge sengene der inne, så en alternativ løsning meldte seg. Ungene syns køyesenger er kjempemoro, så to sprinkelsenger ble &mdash; etter en liten time med snekkerinnsats fra pappa &mdash; til en tvillingkøyeseng! I miniformat.</p>
     <p>Pappa og tvillingene trådde til med drill, sag og skruer. Og ja, de har pruser på hodet begge to. HMS er viktig vet dere. I mangel på hjelmer testet de de nye prinsessetrusene. De fungerte flott, syntes tvillingene.</p>
@@ -1489,11 +1522,11 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Ut på kjærestetur snart!</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-7-1375469052692" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-7-1375469054192" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-7-1375469056096" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-7-1375469058347" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-7-1375469059285" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469052692.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469054192.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469056096.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469058347.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1375469059285.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Bodø</div>
     <p>Om en snau uke skal bare jeg og min kjære ut på tur! Det er ikke hverdagskost. Jeg vant (ja, vant faktisk!) en reise i en konkurranse som Innovasjon Norge holdt. På bursdagen til twinsa ringte en hyggelig dame og fortalte at jeg skulle på langweekend til Bodø.</p>
@@ -1509,13 +1542,33 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Feiring i flere dager!</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1375387356758" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375387370284" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375387383932" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375387388170" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375387392352" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1375387396317" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+21 bilder til</span>
+<img src="image/298046-9-1375387356758.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387370284.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387383932.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387388170.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387392352.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387396317.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387400419.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387413809.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387418584.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387504680.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387520273.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387524708.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387528905.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387533082.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387537322.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387541718.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375387546031.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388552873.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388557844.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388562115.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388566516.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388570938.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388575186.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388579404.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388592837.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388606556.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1375388620294.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Tre av seks barn har bursdag i løpet av to dager, så da blir det en del baking og diverse. Twinsa fylte to år den 29. og Emma fylte 11 år den 30., så her feirer vi tett i tett. Ariane hjalp mamma å bake, og mamma glemte å følge med et halvt sekund. Poof&hellip; mel og egg er moro!</p>
     <p>Dagen etter var det storesøster Emmas store dag, og den begynte, tradisjonen tro, med date på Jordbærpikene med pappa. Og KUN pappa. Det er Emma og pappas greie. Emma hadde ett ønske øverst på ønskelista: tritoms. Og hun fikk det! Strålte fra øre til øre.</p>
@@ -1530,13 +1583,23 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Storm og Ariane på bortebesøk &mdash; mest bilder</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1374766849404" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374766851935" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374766854322" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374766856791" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374766859313" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374766861968" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+11 bilder til</span>
+<img src="image/298046-10-1374766849404.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766851935.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766854322.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766856791.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766859313.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766861968.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766864658.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766867506.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766870092.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766872842.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766875566.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766878215.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766880860.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766883256.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766885743.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766888338.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374766890814.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p><em>Innlegg skrevet av Kine og Anders, som passet tvillingene mens mamma jobbet.</em></p>
     <p>Ariane fant fort ut at Anders hadde bamser og det var jo gøy! Hun ble sittende i senga å peke rundt i rommet og si «Takk, takk». Storm var litt mer usikker på hva han skulle ta seg til &mdash; søstra hadde stukket av med alle bamsene på en gang.</p>
@@ -1552,13 +1615,16 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Kattunge-liv</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-11-1374669962526" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1374669977038" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1374669991067" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1374669996211" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1374670000840" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1374670827894" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+4 bilder til</span>
+<img src="image/298046-11-1374669962526.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374669977038.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374669991067.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374669996211.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670000840.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670827894.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670832686.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670837545.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670842559.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1374670847583.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Lillepusen har fortsatt ikke noe navn... Om morgenen da vi står opp, kommer han i fullt firsprang og møter oss, sørger for å spenne ben på oss et par ganger underveis, og idet vi gjør et forsøk på å sette oss ned, smetter han under baken på oss. HVER gang.</p>
     <p>Han har ramlet i bassenget en gang, fordi han var nysgjerrig på den gule badeanda. Plopp &mdash; så hadde vi en veldig våt og forbauset kattunge. Badekaret inne liker han derimot godt &mdash; han bruker det som skaterampe.</p>
@@ -1574,13 +1640,17 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Ettermiddag på stranda</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1374531850909" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374531855631" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374531860040" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374531874411" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374531888630" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1374531893438" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+5 bilder til</span>
+<img src="image/298046-10-1374531850909.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531855631.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531860040.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531874411.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531888630.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531893438.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531897634.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531901981.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531906186.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531910679.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1374531915111.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Ula, Tjodalyng</div>
     <p>På ettermiddagen tok vi en tur ut til Ula så twinsa skulle få badet litt. Når stranda ventet, var det ikke aktuelt å GÅ inn til campinga &mdash; da var løping eneste alternativ.</p>
@@ -1596,13 +1666,46 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Helg på Finnskogen &mdash; mest i bilder</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-8-1374442455073" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1374442995655" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1374443000412" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1374443004920" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1374443009594" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1374443023584" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+34 bilder til</span>
+<img src="image/298046-8-1374442455073.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374442995655.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443000412.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443004920.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443009594.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443023584.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443028175.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443032408.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443046023.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443059666.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443073492.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443077937.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443082338.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374443903891.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444026338.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444040360.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444053733.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444067954.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444072423.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444086603.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444091185.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444628137.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444632792.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444636971.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444641565.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444646923.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444651475.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444655956.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444660410.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444675776.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444689709.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444694104.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444698634.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444703260.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444707545.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444711837.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444716084.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444729399.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444742934.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1374444747277.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Finnskogen / Rotberget</div>
     <p>I helga har vi vært på Finnskogen sammen med bestefar, onkel og tante. Anledningen var at vi skulle ha urnenedsettelse for mamma, som døde før jul i fjor. Det ble en veldig fin seremoni med bare de nærmeste til stede.</p>
@@ -1619,13 +1722,31 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Roadtrip dag 2 og 3</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1374096016622" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1374096022867" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1374096048441" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1374096060545" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1374096066717" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1374096071496" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+19 bilder til</span>
+<img src="image/298046-9-1374096016622.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096022867.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096048441.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096060545.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096066717.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096071496.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096077516.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096096850.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096108782.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096116066.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096126203.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096133232.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096138516.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096143912.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096149718.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096165830.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096171787.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096177938.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096186076.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096206633.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096276033.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096281471.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096286162.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096292298.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1374096307860.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Stavanger → Vestlandet → Kristiansand</div>
     <p>Tirsdag morgen satte vi kursen mot Madla. Nede ved stranda i Madla står det som kalles «sverd i stein» &mdash; et minnesmerke over slaget ved Hafrsfjord. Et veldig imponerende syn. Og på stranda lå det en diger knoppsvane. Jeg listet meg bort for å ta noen bilder, og fikk den gode ideen å prøve å klappe den. Fullstendig hårreisende dum idé. Men jeg lyktes! Forresten &mdash; svaner lukter ikke særlig godt.</p>
@@ -1641,13 +1762,28 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Roadtrip dag 1 &mdash; Larvik til Stavanger</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-11-1373926877215" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1373926879104" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1373926962292" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1373926966586" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1373926970828" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-11-1373926974891" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+16 bilder til</span>
+<img src="image/298046-11-1373926877215.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926879104.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926962292.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926966586.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926970828.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926974891.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926979259.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926983364.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926987310.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926991347.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926995450.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373926999604.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927012428.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927025691.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927030154.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927034243.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927038384.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927042612.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927046952.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927050723.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927078737.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-11-1373927083231.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Larvik → Telemark → Stavanger</div>
     <p>Første dag av roadtripen er unnagjort! Turen fra Larvik til Stavanger tok nærmere 10 timer. I Ulefoss tok vi en avstikker for å se på slusene. Akkurat mens vi var der, var Victoria på vei ned gjennom slusene, så Tiril fikk se hvordan det fungerte i praksis.</p>
@@ -1663,9 +1799,9 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Pornopung!</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-7-1373836933354" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-7-1373836935088" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-7-1373836936574" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1373836933354.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1373836935088.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1373836936574.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Ja, altså ikke i form av et skjellsord, men filmen Pornopung. Vi fikk billetter til førpremieren på Bølgen i dag. Vi ante i grunnen ikke helt hva som ventet oss, men filmen var faktisk bra. De to tenåringene vi hadde med oss gapskrattet seg gjennom hele filmen.</p>
     <p>Siden det var førpremiere var det både regissør og skuespillere til stede, og vi fikk hilse på dem etterpå. Tiril og Christin fikk ta bilde med «Karl» som har en av hovedrollene. Tiril spurte om klem opptil flere ganger hehe. Nå er det klart for litt pakking &mdash; jeg og Tiril legger ut på roadtrip i morgen!</p>
@@ -1680,13 +1816,14 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Susetur med Gry</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1373744475760" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1373744511433" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1373744544091" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1373744688724" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1373744693042" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1373744706135" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+2 bilder til</span>
+<img src="image/298046-10-1373744475760.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744511433.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744544091.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744688724.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744693042.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744706135.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744754069.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1373744805435.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Tønsberg / Sandefjord</div>
     <p>Aller besteste Gryen vår er på besøk i helga, og i dag tok vi en tur til Tønsberg og Sandefjord. I Tønsberg endte jeg opp med å buklande med bilen midt i gågata, for så å kjøre rett inn på en parkeringsplass som ikke hadde utkjøring i den andre enden. Nå har Gry sett både Farmandstredet, en masse enveiskjørte gater og deler av gågata &mdash; da anser jeg oppdraget utført.</p>
@@ -1701,13 +1838,16 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Roadtrip!</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-8-1373487004427" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1373487018165" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1373487031464" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1373487045040" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1373487049223" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1373487053730" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+4 bilder til</span>
+<img src="image/298046-8-1373487004427.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487018165.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487031464.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487045040.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487049223.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487053730.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487067123.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487071341.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487075609.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1373487080403.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Yepp, nå skal vi på tur igjen &mdash; meg og Tiril. Målet er å gjennomføre en skikkelig god gammeldags roadtrip ved bruk av kart i papirformat og uten altfor mange faste holdepunkter. Målet for turen er Stavanger, via Skien, Ulefoss, Bø og Seljord, videre over Haukelifjell, ned mot vestlandskysten og langs kysten ned mot Stavanger. Jeg har fått tak i et eksemplar av NAF veibok fra 1985! Tjohei, ut på tur!</p>
     </div>
@@ -1721,13 +1861,55 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>To uker festival &mdash; stort sett i bilder</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1372933878675" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1372933883695" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1372933888835" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1372933893758" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1372933898612" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1372933902859" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+43 bilder til</span>
+<img src="image/298046-9-1372933878675.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933883695.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933888835.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933893758.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933898612.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933902859.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933916162.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933920682.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933923025.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933925159.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933927415.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933929630.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933931999.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933934136.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933936439.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933938745.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372933941195.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934740076.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934745068.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934750161.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934755322.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934759311.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934763621.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934777135.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934781276.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934785352.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934789447.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934793713.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934798212.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934802627.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934806952.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934820415.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934833753.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934838062.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934851375.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934864792.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934869304.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934961604.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934963341.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934966077.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934968413.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934970955.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934973312.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934975492.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934977803.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934980163.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934982430.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934984809.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1372934986574.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Blokhus, Danmark</div>
     <p>Da er vi vel hjemme etter to uker med festival i Danmark. Tre festivaler er overstått, og det meste gikk etter planen. For de som ikke kjenner til Nordsøfestivalen og Danmarkstreff: begge er for skolekorps, med musikkglede og moro som hovedfokus. Nordsøfestivalen feiret 25 års jubileum i år! Festivalene drives av vår familie &mdash; tre generasjoner Rasmussen/Triger.</p>
@@ -1743,9 +1925,9 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>So much to do og slikt</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-12-1371537165183" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1371537170382" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1371537171385" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1371537165183.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1371537170382.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1371537171385.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Det er en nydelig dag på Verningen i dag. Herlig varme i sola ute på trappa. Men mens jeg satt der og filosoferte, så jeg alle de tingene som må gjøres i hagen. Jaja, jeg får stikke fingeren i jorda &mdash; for jeg må innse at alt dette hagedillet ikke har jeg tid til akkurat nå. I morgen reiser vi til Danmark for 14 dager med korpsfestival igjen. Nordsøfestivalen feirer 25 år!</p>
     </div>
@@ -1759,13 +1941,20 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Siden sist &mdash; og velkommen inn</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-8-1371454990804" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1371455003161" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1371455006922" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1371455014354" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1371455017902" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-8-1371455022030" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+7 bilder til</span>
+<img src="image/298046-8-1371454990804.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455003161.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455006922.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455014354.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455017902.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455022030.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371454995679.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455029506.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455036842.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455044193.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455051701.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455059585.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455063175.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-8-1371455070427.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>For to dager siden hadde Theo bursdag. Fylte hele 9 år! Det ble feiret med is og spesialbestilt tiramisu ala Anders. De som spiste opp hele herligheten var twinsa og Kine.</p>
     <p>Og så et lite glimt fra heimen! Det første rommet er gangen, som jeg er veldig glad i. Et flott skap som den forrige eieren bare skulle kaste &mdash; det er hvitt og fint, med masse oppbevaringsplass. Og det kuleste paraplystativet: en anti-luftverns-hylse &mdash; en gigant-patron av massiv messing. Alle spør hva det er hehe.</p>
@@ -1780,13 +1969,26 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Peter Wessel Festivalen 2013</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1371376384772" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1371376389449" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1371376394236" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1371376398647" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1371376402651" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1371376407318" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+14 bilder til</span>
+<img src="image/298046-10-1371376384772.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376389449.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376394236.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376398647.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376402651.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376407318.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376414711.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376418201.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376421778.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376425119.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376428924.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376432905.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376436544.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376440403.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376443846.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376447325.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376451128.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376454525.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376458149.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1371376459295.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Tjodalyng / Larvik</div>
     <p>En super helg med strålende vær, flinke unger, energiske voksne og mange dyktige mennesker. Ungene lærte å spille på gehør &mdash; med 80 barn i juniorkorps-alder var det helt fantastisk hva instruktørene fra Røshnes klarte å få til. På 2,5 timer lærte de å spille to New Orleans-jazz stykker og Idas Sang &mdash; utenat!</p>
@@ -1802,13 +2004,24 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Still alive!</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1370299520312" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1370299538186" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1370299579073" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1370299601168" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1370299629484" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1370671576508" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+12 bilder til</span>
+<img src="image/298046-10-1370299520312.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299538186.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299579073.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299601168.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1370299629484.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671576508.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671580477.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671584132.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671587235.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671590346.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671596741.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671603221.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671606649.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671609902.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671613010.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671616026.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671620199.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1370671623825.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Det er vel nå man bare må beklage den totale mangelen på blogging, men det har vært hektisk. Siste flyttelass fra Kjerringvik er kjørt, eksamensperioden er over &mdash; og den bød på noen merkelige opplevelser.</p>
     <p>Matte-eksamen gikk ikke så bra, for å si det mildt. Jeg har dyskalkuli &mdash; tallversjonen av dysleksi. Norsk-eksamen derimot &mdash; der er jeg på hjemmebane! Og jeg fikk til muntlig historie veldig bra.</p>
@@ -1823,7 +2036,7 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Av alle merkelige...</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1369753388643" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1369753388643.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Jeg skulle ha eksamen i norsk skriftlig. Fant ikke fram (GPS nektet å laste inn kartet), og da jeg endelig fant gata &mdash; sto jeg foran en kirkedør med en lapp det sto «Eksamen» på. Jeg trodde nesten ikke mine egne øyne.</p>
     <p>Og ganske riktig &mdash; i døra ble jeg møtt av en eksamensvakt. Inne i kirka var kirkebenkene byttet ut med pulter og stoler. Jesus kikket på oss fra alle kanter. Jeg har aldri hørt om noen som tar en vanlig videregående eksamen i en kirke. Men vi får tro at høyere makter var med oss!</p>
@@ -1837,7 +2050,7 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Vinn lyslenke! 🎁</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-7-1369911232527" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-7-1369911232527.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Det er en kjempesøt konkurranse på gang! En av bloggene jeg leser fast lodder ut en nydelig lyslenke &mdash; perfekt til sommerkvelder på terrassen eller som hygge i stua. Stikk innom og vær med!</p>
     </div>
@@ -1852,13 +2065,15 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Den som sover synder ikke..</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-12-1369151431381" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369151483566" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369151488004" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369151531892" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369151580445" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369151652819" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+3 bilder til</span>
+<img src="image/298046-12-1369151431381.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151483566.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151488004.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151531892.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151580445.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151652819.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151670950.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151770516.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369151822100.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Jeg og gubbis brukte lang tid på å sette opp et stort veggord i gangen i det nye huset. Lille frøken Ariane fant veldig raskt ut at hennes små fingre kunne løsne bokstavene fra veggen, og ordene ble mer og mer forkortet. Det er slitsomt å være bokstavplukker &mdash; plutselig bare sovnet hun rett ut på gulvet.</p>
     <p>Fint er det forresten å ha fått hobbitt-peis i huset! Vi fikk fyrt litt i den, og katta, den lille rødstripete puseklatten, trives like godt som resten av familien i det nye huset.</p>
@@ -1873,11 +2088,11 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Nomade-liv</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1369089926288" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369089931313" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369089935909" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369090021936" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369090353487" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369089926288.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369089931313.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369089935909.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369090021936.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369090353487.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Det føles nesten sånn, her vi flytter alt fra ett sted til et annet. Aner dere hvor mye ting en familie på 8 har? Vi kjørte det første flyttelasset på kvelden 17. Mai. Katta ble med på flyttelasset selvfølgelig &mdash; løs i bilen. Ikke helt etter boka altså, men katta egnet seg godt som papegøye på skuldra.</p>
     <p>Og så varmt som det var i pinsehelga! Høysommer-temperaturer &mdash; og vi passet på å legge flyttinga midt i varmebølgen. Vi svettet oss igjennom helga, men nå har vi et hus som faktisk har normaltemperatur. Vi tror vi kan komme til å trives veldig godt her i tyrolerhuset vårt.</p>
@@ -1909,13 +2124,13 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Fine fine dagen 🎂</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-12-1369250467289" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369250471005" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369250634372" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369250638119" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369250646775" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-12-1369250650687" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+1 bilder til</span>
+<img src="image/298046-12-1369250467289.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250471005.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250634372.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250638119.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250646775.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250650687.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-12-1369250854950.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Dagen i dag kan ikke sies å ha vært annet enn perfekt! Heldige meg som har så fin familie!</p>
     <p>Jeg har altså bursdag i dag, og planen var egentlig å forbigå den i stillhet, siden jeg skulle tilbringe hele kvelden med korpset. Men helt stillhet ble det jo ikke da.</p>
@@ -1932,11 +2147,11 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>1-0 til dyskalkulien</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-10-1369667831723" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369667836524" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369667840539" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369667845151" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-10-1369667846108" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667831723.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667836524.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667840539.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667845151.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-10-1369667846108.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <p>Den langvarige stillheten fra oss er rett og slett på grunn av at den verste eksamensuka mi har startet nå. I tillegg til flytte-innspurt, så blir det litt lite tid til overs gitt.</p>
     <p>I dag hadde jeg første skriftlige eksamen, og denne runden var det IKKE jeg som vant ihvertfall. For første gang har jeg opplevd å levere en eksamensoppgave hvor jeg ikke har svart på alle spørsmålene. Faget i dag var matte &mdash; og det forklarer egentlig hvorfor. Jeg har dyskalkuli, altså tall-versjonen av dysleksi. Der dyslektikere ikke får helt styring på bokstavene, sliter vi med å holde styr på tallene. Og i dag slo dyskalkulien til for fullt. Da den virkelig slår inn, blir det bare helt mørkt.</p>
@@ -1969,13 +2184,40 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
     </div>
     <h2>Vår 17. Mai i bilder</h2>
 <div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">
-<img src="image/298046-9-1368871821047" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1368871830545" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1368871839155" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1368871846654" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1368871856412" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<img src="image/298046-9-1368871865836" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
-<span style="align-self:center;font-size:0.82rem;color:#a89890;padding:4px 8px;background:rgba(168,152,144,.1);border-radius:4px;">+28 bilder til</span>
+<img src="image/298046-9-1368871821047.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871830545.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871839155.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871846654.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871856412.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871865836.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871876106.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871884752.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871891856.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871898264.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871904096.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871916475.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871927192.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871939319.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871945629.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871951056.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871961940.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871973139.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871979168.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368871990154.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872081716.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872087359.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872092569.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872098052.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872109810.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872121729.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872132782.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872144445.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872156674.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872161771.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872167205.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872178604.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872184295.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
+<img src="image/298046-9-1368872463455.jpg" alt="" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">
 </div>
     <div class="location-badge">📍 Tjodalyng / Sandefjord</div>
     <p>17. Mai starter alltid tidlig her i huset. Emma var førstemann ut, med spilling ved flaggheisingen på sykehjemmet i Tjølling kl. 8. Så var det skoletoget med Tjodalyng Skolekorps Juniorkorps &mdash; i strålende sommervær!</p>
@@ -3292,19 +3534,68 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
   input.addEventListener('keydown', function (e) { if (e.key === 'Escape') { input.value = ''; apply(); } });
   clearBtn.addEventListener('click', function () { input.value = ''; apply(); input.focus(); });
 
-  navLinks.forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      category = navMap[a.textContent.trim().toLowerCase()] || 'all';
-      navLinks.forEach(function (x) { x.classList.toggle('active', x === a); });
-      apply();
+  function fromHash() {
+    var key = (window.location.hash || '').replace('#', '').toLowerCase();
+    category = navMap[key] || 'all';
+    navLinks.forEach(function (x) {
+      var k = x.getAttribute('href').replace('#', '');
+      x.classList.toggle('active', (navMap[k] || 'all') === category);
     });
-  });
+    apply();
+  }
+  window.addEventListener('hashchange', fromHash);
 
   try {
     var initial = new URL(window.location.href).searchParams.get('q');
-    if (initial) { input.value = initial; apply(); }
+    if (initial) input.value = initial;
   } catch (e) {}
+  if (input.value || window.location.hash) fromHash();
+})();
+</script>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Bildevisning">
+  <img id="lbImg" alt="">
+  <button type="button" class="lb-btn lb-close" id="lbClose" aria-label="Lukk">×</button>
+  <button type="button" class="lb-btn lb-prev" id="lbPrev" aria-label="Forrige bilde">‹</button>
+  <button type="button" class="lb-btn lb-next" id="lbNext" aria-label="Neste bilde">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+<script>
+/* Bildevisning */
+(function () {
+  var box = document.getElementById('lightbox'), img = document.getElementById('lbImg');
+  var count = document.getElementById('lbCount'), list = [], idx = 0, startX = null;
+  function show(i) {
+    idx = (i + list.length) % list.length;
+    img.src = list[idx].getAttribute('src');
+    img.alt = list[idx].alt || '';
+    count.textContent = list.length > 1 ? (idx + 1) + ' / ' + list.length : '';
+    document.getElementById('lbPrev').hidden = document.getElementById('lbNext').hidden = list.length < 2;
+  }
+  function close() { box.hidden = true; img.src = ''; document.body.style.overflow = ''; }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t.tagName === 'IMG' && t.closest('.post-gallery')) {
+      list = Array.prototype.slice.call(t.closest('.post-gallery').querySelectorAll('img'));
+      box.hidden = false; document.body.style.overflow = 'hidden';
+      show(list.indexOf(t));
+    }
+  });
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function () { show(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function () { show(idx + 1); });
+  box.addEventListener('click', function (e) { if (e.target === box) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
+  box.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX; startX = null;
+    if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+  });
 })();
 </script>
 </body>

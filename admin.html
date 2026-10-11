@@ -30,24 +30,18 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
-header {
-  background: var(--ink);
-  color: #f5efe7;
-}
+header { background: var(--ink); color: #f5efe7; }
 .head-inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.25rem 16px;
+  padding: 1.25rem 16px 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-}
+header h1 { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; }
 header h1 small {
   display: block;
   font-family: 'Inter', sans-serif;
@@ -69,24 +63,31 @@ header h1 small {
   cursor: pointer;
 }
 .head-links a:hover, .head-links button:hover { border-color: var(--accent2); color: #fff; }
-.rule { height: 3px; background: linear-gradient(90deg, var(--accent), var(--gold) 50%, transparent); }
-
-main {
+.tabs {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 16px 4rem;
+  padding: 0.75rem 16px 0;
+  display: flex;
+  gap: 0;
 }
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.5rem;
+.tabs button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #a89890;
+  font: 500 0.78rem 'Inter', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
 }
-.card h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  margin-bottom: 0.75rem;
-}
+.tabs button:hover { color: #f0ebe4; }
+.tabs button.active { color: var(--accent2); border-bottom-color: var(--accent); }
+.rule { height: 3px; background: linear-gradient(90deg, var(--accent), var(--gold) 50%, transparent); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 16px 4rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; }
+.card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.75rem; }
 .hidden { display: none !important; }
 
 /* Login */
@@ -95,16 +96,40 @@ main {
 #login li { margin-bottom: 0.35rem; }
 #login code { background: #efe7df; padding: 0 0.3rem; border-radius: 4px; font-size: 0.85em; }
 
-/* Editor layout */
-.grid {
+/* Post list */
+#list { max-width: 820px; margin: 0 auto; }
+.list-head { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+.list-head h2 { margin: 0; flex: 1; }
+#listSearch { max-width: 320px; }
+.post-list { list-style: none; }
+.post-list li + li { border-top: 1px solid var(--border); }
+.post-list button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.8rem 0.5rem;
+  cursor: pointer;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: start;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 1rem;
+  align-items: baseline;
+  border-radius: 6px;
 }
-@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+.post-list button:hover { background: #f4ece4; }
+.post-list .t { font-family: 'Source Serif 4', serif; font-size: 1.05rem; color: var(--ink); }
+.post-list .d { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.post-list .m { grid-column: 1 / -1; display: flex; gap: 0.5rem; align-items: center; font-size: 0.78rem; color: var(--muted); }
+.list-empty { color: var(--muted); font-style: italic; padding: 1rem 0.5rem; }
 
-label {
+/* Editor layout */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+.editor-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.25rem; }
+.linkbtn { background: none; border: none; color: var(--accent); font: 500 0.88rem 'Inter', sans-serif; cursor: pointer; padding: 0; }
+.linkbtn:hover { text-decoration: underline; }
+
+label, .label {
   display: block;
   font-size: 0.75rem;
   font-weight: 600;
@@ -113,8 +138,8 @@ label {
   color: var(--muted);
   margin: 1rem 0 0.35rem;
 }
-label:first-child { margin-top: 0; }
-input[type=text], input[type=password], input[type=date], select, textarea {
+label .opt { text-transform: none; letter-spacing: 0; font-weight: 400; }
+input[type=text], input[type=password], input[type=date], input[type=search], input[type=url], select {
   width: 100%;
   font: 400 1rem 'Inter', sans-serif;
   color: var(--ink);
@@ -123,57 +148,69 @@ input[type=text], input[type=password], input[type=date], select, textarea {
   border-radius: 8px;
   padding: 0.65rem 0.75rem;
 }
-textarea {
+input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); border-color: var(--accent); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+@media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
+.hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+/* Rich text editor */
+.toolbar {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  border: 1px solid var(--border); border-bottom: none;
+  border-radius: 8px 8px 0 0; background: #f6f0ea; padding: 6px;
+}
+.toolbar button {
+  min-width: 34px; height: 32px; padding: 0 0.55rem;
+  border: 1px solid transparent; border-radius: 6px;
+  background: transparent; color: var(--ink2);
+  font: 500 0.88rem 'Inter', sans-serif; cursor: pointer;
+}
+.toolbar button:hover { background: #fff; border-color: var(--border); }
+.rte {
+  min-height: 280px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 0 0 8px 8px;
+  padding: 0.85rem 1rem;
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 1.05rem;
   line-height: 1.7;
-  min-height: 300px;
-  resize: vertical;
+  color: var(--ink2);
 }
-input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); border-color: var(--accent); }
-.row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-.row label { margin-top: 1rem; }
-.hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+.rte:empty::before { content: attr(data-placeholder); color: #b3a59c; }
+.rte p { margin-bottom: 0.8rem; }
+.rte ul, .rte ol { margin: 0 0 0.8rem 1.4rem; }
+.rte h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin: 0.5rem 0; }
+.rte a { color: var(--accent); }
+.rte .recipe-box { background: #fbf6f0; border: 1px solid var(--border); padding: 0.75rem 1rem; margin-bottom: 0.8rem; border-radius: 4px; }
 
 .drop {
-  border: 2px dashed var(--border);
-  border-radius: 10px;
-  padding: 1.1rem;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-  cursor: pointer;
-  background: #fff;
+  border: 2px dashed var(--border); border-radius: 10px; padding: 1.1rem;
+  text-align: center; color: var(--muted); font-size: 0.9rem; cursor: pointer; background: #fff;
 }
 .drop.over { border-color: var(--accent); background: #fbf1ea; }
 .drop strong { color: var(--accent); }
 .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.75rem; }
 .thumb { position: relative; width: 96px; height: 96px; }
-.thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; background: #efe7df; }
 .thumb button {
-  position: absolute; top: -6px; right: -6px;
-  width: 24px; height: 24px; border-radius: 50%;
-  border: none; background: var(--ink); color: #fff;
-  font-size: 0.9rem; line-height: 1; cursor: pointer;
+  position: absolute; top: -6px; right: -6px; width: 24px; height: 24px; border-radius: 50%;
+  border: none; background: var(--ink); color: #fff; font-size: 0.9rem; line-height: 1; cursor: pointer;
 }
-.thumb .move {
-  position: absolute; bottom: 4px; left: 4px; right: 4px;
-  display: flex; justify-content: space-between;
-}
+.thumb .move { position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; }
 .thumb .move button { position: static; width: 22px; height: 22px; background: rgba(28,20,16,.75); font-size: 0.75rem; }
 
 .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; align-items: center; }
 .btn {
-  font: 600 0.95rem 'Inter', sans-serif;
-  border-radius: 8px;
-  padding: 0.75rem 1.25rem;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--ink2);
+  font: 600 0.95rem 'Inter', sans-serif; border-radius: 8px; padding: 0.75rem 1.25rem;
+  cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--ink2);
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn.primary:hover { background: #a9531f; }
+.btn.danger { color: var(--err); border-color: #e9c3b6; margin-left: auto; }
+.btn.danger:hover { background: var(--err-bg); }
 .btn:disabled { opacity: 0.55; cursor: wait; }
 
 .msg { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.92rem; }
@@ -183,30 +220,33 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
 .msg a { color: inherit; font-weight: 600; }
 
 /* Preview — same look as the blog */
-.preview-label {
-  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
-}
+.preview-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
 .preview { position: sticky; top: 1rem; }
 .preview article {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2rem;
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 18px;
-  line-height: 1.8;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 2rem;
+  font-family: 'Source Serif 4', Georgia, serif; font-size: 18px; line-height: 1.8;
 }
-.preview .post-meta { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; }
-.preview .post-date { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
-.preview .post-tag { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 3px; }
+.post-meta { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; }
+.post-date { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
+.post-tag { font: 600 0.65rem 'Inter', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 3px; }
 .tag-travel { background: #e8f0e4; color: #3a5c2e; }
 .tag-blogg { background: #e8eaf4; color: #2e3c6b; }
-.tag-barna { background: #f9ece4; color: #7a3018; }
-.tag-rec { background: #f4ede8; color: #5c3a20; }
+.tag-barna, .tag-kids { background: #f9ece4; color: #7a3018; }
+.tag-rec, .tag-test { background: #f4ede8; color: #5c3a20; }
 .tag-bryllupsreise { background: #f4ecf4; color: #5c2870; }
 .preview h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; line-height: 1.25; margin-bottom: 1rem; color: var(--ink); }
 .preview p { margin-bottom: 1rem; color: var(--ink2); }
+.preview ul, .preview ol { margin: 0 0 1rem 1.5rem; color: var(--ink2); }
+.preview a { color: var(--accent); }
+.preview .location-badge {
+  display: inline-block; font: 500 0.75rem 'Inter', sans-serif; color: var(--muted);
+  background: #f4ede8; border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 3px; margin-bottom: 1rem;
+}
+.preview .video-link {
+  display: inline-block; font: 500 0.85rem 'Inter', sans-serif; color: #c0302a; text-decoration: none;
+  border: 1px solid #f0c8c0; background: #fff7f5; padding: 0.4rem 0.8rem; border-radius: 3px; margin-bottom: 1rem;
+}
+.preview .recipe-box { background: #fbf6f0; border: 1px solid var(--border); padding: 1rem 1.25rem; margin-bottom: 1rem; }
 .preview .empty { color: var(--muted); font-style: italic; }
 </style>
 </head>
@@ -220,6 +260,10 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
       <button id="logoutBtn" class="hidden" type="button">Logg ut</button>
     </div>
   </div>
+  <nav class="tabs hidden" id="tabs">
+    <button type="button" data-tab="new" class="active">Nytt innlegg</button>
+    <button type="button" data-tab="list">Rediger innlegg</button>
+  </nav>
   <div class="rule"></div>
 </header>
 
@@ -245,11 +289,24 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     <div id="loginMsg"></div>
   </section>
 
+  <!-- POST LIST -->
+  <section id="list" class="card hidden">
+    <div class="list-head">
+      <h2>Rediger innlegg</h2>
+      <input type="search" id="listSearch" placeholder="Søk etter tittel eller ord…" autocomplete="off" aria-label="Søk i innlegg">
+    </div>
+    <div id="listMsg"></div>
+    <ul class="post-list" id="postList"></ul>
+  </section>
+
   <!-- EDITOR -->
   <section id="editor" class="hidden">
     <div class="grid">
       <div class="card">
-        <h2>Nytt innlegg</h2>
+        <div class="editor-top">
+          <h2 id="editorTitle">Nytt innlegg</h2>
+          <button type="button" class="linkbtn hidden" id="backBtn">← Tilbake til listen</button>
+        </div>
 
         <label for="title">Tittel</label>
         <input type="text" id="title" placeholder="F.eks. Sommer på Sardinia ☀️">
@@ -261,21 +318,34 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
           </div>
           <div>
             <label for="category">Kategori</label>
-            <select id="category">
-              <option value="blogg">Blogg</option>
-              <option value="reise">Reise</option>
-              <option value="barna">Barna</option>
-              <option value="anbefaling">Test/anbefaling</option>
-              <option value="bryllupsreise">Bryllupsreise</option>
-            </select>
+            <select id="category"></select>
           </div>
         </div>
 
-        <label for="body">Tekst</label>
-        <textarea id="body" placeholder="Skriv innlegget her…&#10;&#10;Tom linje mellom avsnitt gir nytt avsnitt."></textarea>
-        <p class="hint">Tom linje = nytt avsnitt. Teksten lagres som utkast mens du skriver.</p>
+        <div class="row">
+          <div>
+            <label for="location">Sted <span class="opt">(valgfritt)</span></label>
+            <input type="text" id="location" placeholder="F.eks. Sardinia, Italia">
+          </div>
+          <div>
+            <label for="video">YouTube-lenke <span class="opt">(valgfritt)</span></label>
+            <input type="url" id="video" placeholder="https://www.youtube.com/watch?v=…">
+          </div>
+        </div>
 
-        <label>Bilder</label>
+        <span class="label" id="bodyLabel">Tekst</span>
+        <div class="toolbar" role="toolbar" aria-label="Formatering">
+          <button type="button" data-cmd="bold" title="Fet"><strong>F</strong></button>
+          <button type="button" data-cmd="italic" title="Kursiv"><em>K</em></button>
+          <button type="button" data-cmd="h3" title="Mellomtittel">Overskrift</button>
+          <button type="button" data-cmd="insertUnorderedList" title="Punktliste">• Liste</button>
+          <button type="button" data-cmd="link" title="Lenke">Lenke</button>
+          <button type="button" data-cmd="removeFormat" title="Fjern formatering">Fjern format</button>
+        </div>
+        <div class="rte" id="body" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="bodyLabel" data-placeholder="Skriv innlegget her… Enter gir nytt avsnitt."></div>
+        <p class="hint" id="draftHint">Teksten lagres som utkast mens du skriver.</p>
+
+        <span class="label">Bilder</span>
         <div class="drop" id="drop">
           <strong>Velg bilder</strong> eller dra dem hit
           <div class="hint">Bildene gjøres mindre automatisk før opplasting.</div>
@@ -286,6 +356,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
         <div class="actions">
           <button class="btn primary" id="publishBtn" type="button">Publiser innlegget</button>
           <button class="btn" id="clearBtn" type="button">Tøm skjema</button>
+          <button class="btn danger hidden" id="deleteBtn" type="button">Slett innlegget</button>
         </div>
         <div id="msg"></div>
       </div>
@@ -310,6 +381,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
   const DRAFT_KEY = 'tt-admin-draft';
   const MAX_SIDE = 1600;
   const JPEG_Q = 0.82;
+  const IMG_STYLE = 'max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);';
 
   const CATEGORIES = {
     blogg:         { article: 'blog',   tag: 'tag-blogg',         label: 'Blogg' },
@@ -328,9 +400,11 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
   };
 
   let token = null;
-  let images = []; // { name, dataUrl, base64 }
+  let images = [];       // { src } for existing, { dataUrl, base64 } for new
+  let editing = null;    // null = new post; otherwise { chunk, title, dateIso, galleryExtra, customCat }
+  let site = null;       // { headSha, treeSha, branch, html, articles }
 
-  // ── Helpers ────────────────────────────────────────────
+  // ══ Pure helpers ═══════════════════════════════════════
   const esc = s => String(s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -338,71 +412,231 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     const [y, m, d] = iso.split('-').map(Number);
     return `${d}. ${MONTHS[m - 1]} ${y}`;
   }
-  function parseNoDate(str) {
+  function noDateToIso(str) {
     const m = String(str).trim().toLowerCase().match(/^(\d{1,2})\.\s*([a-zæøå]+)\s+(\d{4})/);
     if (!m) return null;
     const mi = MONTHS.indexOf(m[2]);
     if (mi < 0) return null;
-    return Number(m[3]) * 10000 + (mi + 1) * 100 + Number(m[1]);
+    return `${m[3]}-${String(mi + 1).padStart(2, '0')}-${String(m[1]).padStart(2, '0')}`;
   }
+  const isoKey = iso => iso ? Number(iso.replace(/-/g, '')) : null;
   function todayIso() {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   }
   function showMsg(el, type, html) { el.innerHTML = html ? `<div class="msg ${type}">${html}</div>` : ''; }
+  const lineStartOf = (html, i) => html.lastIndexOf('\n', i - 1) + 1;
 
-  function bodyToHtml(text) {
-    return text.replace(/\r\n/g, '\n').split(/\n\s*\n/)
-      .map(p => p.trim()).filter(Boolean)
-      .map(p => `    <p>${esc(p).replace(/\n/g, '<br>')}</p>`)
-      .join('\n');
+  // Clean whatever the editor (or an old post) contains into tidy, safe blog HTML.
+  const BLOCK = new Set(['P','DIV','H1','H2','H3','H4','H5','H6','UL','OL','LI','BLOCKQUOTE','SECTION','ARTICLE','TABLE','TR','TD','PRE','FIGURE']);
+  function cleanInline(node) {
+    let out = '';
+    node.childNodes.forEach(n => {
+      if (n.nodeType === 3) { out += esc(n.nodeValue.replace(/\u00a0/g, ' ')); return; }
+      if (n.nodeType !== 1) return;
+      const t = n.tagName;
+      if (t === 'BR') { out += '<br>'; return; }
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'IFRAME' || t === 'OBJECT' || t === 'IMG') return;
+      const inner = cleanInline(n);
+      if (t === 'B' || t === 'STRONG') out += inner.trim() ? `<strong>${inner}</strong>` : inner;
+      else if (t === 'I' || t === 'EM') out += inner.trim() ? `<em>${inner}</em>` : inner;
+      else if (t === 'A') {
+        const href = (n.getAttribute('href') || '').trim();
+        out += /^(https?:|mailto:)/i.test(href) ? `<a href="${esc(href)}" target="_blank" rel="noopener">${inner}</a>` : inner;
+      } else out += inner;
+    });
+    return out;
+  }
+  function cleanBlocks(container, indent) {
+    const out = [];
+    let run = null;
+    const flush = () => {
+      if (run !== null) {
+        const t = run.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '');
+        if (t) out.push(`${indent}<p>${t}</p>`);
+      }
+      run = null;
+    };
+    container.childNodes.forEach(n => {
+      const isBlock = n.nodeType === 1 && (BLOCK.has(n.tagName) || (n.tagName === 'A' && n.classList.contains('video-link')));
+      if (!isBlock) {
+        if (n.nodeType === 3 || n.nodeType === 1) {
+          const wrap = document.createElement('span'); wrap.appendChild(n.cloneNode(true));
+          run = (run || '') + cleanInline(wrap);
+        }
+        return;
+      }
+      flush();
+      const t = n.tagName;
+      if (t === 'A') {
+        const href = (n.getAttribute('href') || '').trim();
+        if (/^https?:/i.test(href)) out.push(`${indent}<a href="${esc(href)}" target="_blank" class="video-link">${cleanInline(n).trim()}</a>`);
+      } else if (t === 'UL' || t === 'OL') {
+        const items = [...n.children].filter(li => li.tagName === 'LI').map(li => cleanInline(li).trim()).filter(Boolean);
+        if (items.length) {
+          const tag = t.toLowerCase();
+          out.push(`${indent}<${tag}>`, ...items.map(i => `${indent}  <li>${i}</li>`), `${indent}</${tag}>`);
+        }
+      } else if (/^H[1-6]$/.test(t)) {
+        const inner = cleanInline(n).trim();
+        if (inner) out.push(`${indent}<h3>${inner}</h3>`);
+      } else if (t === 'DIV' && n.classList.contains('recipe-box')) {
+        const inner = cleanBlocks(n, indent + '  ');
+        if (inner) out.push(`${indent}<div class="recipe-box">`, inner, `${indent}</div>`);
+      } else if (t === 'DIV' && n.classList.contains('location-badge')) {
+        const inner = cleanInline(n).trim();
+        if (inner) out.push(`${indent}<div class="location-badge">${inner}</div>`);
+      } else if ([...n.childNodes].some(c => c.nodeType === 1 && BLOCK.has(c.tagName))) {
+        const inner = cleanBlocks(n, indent);
+        if (inner) out.push(inner);
+      } else {
+        const inner = cleanInline(n).replace(/^(\s|<br>)+|(\s|<br>)+$/g, '');
+        if (inner) out.push(`${indent}<p>${inner}</p>`);
+      }
+    });
+    flush();
+    return out.join('\n');
+  }
+  function sanitizeBody(rawHtml) {
+    const doc = new DOMParser().parseFromString(`<body>${rawHtml}</body>`, 'text/html');
+    return cleanBlocks(doc.body, '    ');
   }
 
-  function buildArticle({ title, dateIso, category, body, imagePaths }) {
-    const c = CATEGORIES[category];
+  function catFor(key, custom) {
+    return key === 'custom' && custom ? custom : CATEGORIES[key] || CATEGORIES.blogg;
+  }
+  function youtubeOk(url) { return /^https?:\/\/\S+$/i.test(url || ''); }
+
+  function buildArticle(p) {
+    const c = catFor(p.category, p.customCat);
     const lines = [
       `  <article class="${c.article}">`,
       `    <div class="post-inner">`,
       `    <div class="post-meta">`,
-      `      <span class="post-date">${formatDate(dateIso)}</span>`,
-      `      <span class="post-tag ${c.tag}">${c.label}</span>`,
+      `      <span class="post-date">${esc(p.dateLabel || formatDate(p.dateIso))}</span>`,
+      `      <span class="post-tag ${c.tag}">${esc(c.label)}</span>`,
       `    </div>`,
-      `    <h2>${esc(title)}</h2>`
+      `    <h2>${esc(p.title)}</h2>`
     ];
-    if (imagePaths.length) {
+    if (p.imagePaths.length || p.galleryExtra) {
       lines.push('<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">');
-      imagePaths.forEach(src => lines.push(
-        `<img src="${esc(src)}" alt="${esc(title)}" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">`
-      ));
+      p.imagePaths.forEach(src => lines.push(`<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy" style="${IMG_STYLE}">`));
+      if (p.galleryExtra) lines.push(p.galleryExtra);
       lines.push('</div>');
     }
-    const paras = bodyToHtml(body);
-    if (paras) lines.push(paras);
+    if (p.location && p.location.trim()) {
+      const loc = p.location.trim().replace(/^📍\s*/, '');
+      lines.push(`    <div class="location-badge">📍 ${esc(loc)}</div>`);
+    }
+    if (youtubeOk(p.video)) {
+      lines.push(`    <a href="${esc(p.video.trim())}" target="_blank" class="video-link">▶ Se videoen på YouTube</a>`);
+    }
+    if (p.bodyHtml) lines.push(p.bodyHtml);
     lines.push(`    </div>`, `  </article>`);
     return lines.join('\n');
   }
 
-  // Put the new post in the right place (newest first, grouped by year)
-  // and bump the sidebar archive count.
-  function insertPost(html, articleHtml, dateIso) {
-    const newKey = Number(dateIso.replace(/-/g, ''));
-    const year = Number(dateIso.slice(0, 4));
+  // Read an existing <article> back into form fields.
+  function articleToPost(chunk) {
+    const doc = new DOMParser().parseFromString(`<body>${chunk}</body>`, 'text/html');
+    const art = doc.querySelector('article');
+    const inner = art.querySelector('.post-inner') || art;
+    const tagEl = inner.querySelector('.post-tag');
+    const tagClass = tagEl ? ([...tagEl.classList].find(c => c.startsWith('tag-')) || 'tag-blogg') : 'tag-blogg';
+    const tagLabel = tagEl ? tagEl.textContent.trim() : 'Blogg';
+    const artClass = art.className.trim() || 'blog';
+    let category = Object.keys(CATEGORIES).find(k => {
+      const c = CATEGORIES[k];
+      return c.tag === tagClass && c.label === tagLabel && c.article === artClass;
+    });
+    let customCat = null;
+    if (!category) { category = 'custom'; customCat = { article: artClass, tag: tagClass, label: tagLabel }; }
+
+    const dateText = (inner.querySelector('.post-date') || {}).textContent || '';
+    const title = (inner.querySelector('h2') || {}).textContent || '';
+    const gallery = inner.querySelector('.post-gallery');
+    const imgs = gallery ? [...gallery.querySelectorAll('img')].map(i => i.getAttribute('src')) : [];
+    const galleryExtra = gallery ? [...gallery.children].filter(c => c.tagName !== 'IMG').map(c => c.outerHTML).join('\n') : '';
+    const locEl = inner.querySelector(':scope > .location-badge');
+    const vidEl = inner.querySelector(':scope > a.video-link');
+
+    const rest = document.createElement('div');
+    [...inner.childNodes].forEach(n => {
+      if (n.nodeType === 1 && (n.matches('.post-meta, h2, .post-gallery') || n === locEl || n === vidEl)) return;
+      rest.appendChild(document.importNode(n, true));
+    });
+    return {
+      title: title.trim(),
+      dateIso: noDateToIso(dateText),
+      dateText: dateText.trim(),
+      category, customCat,
+      location: locEl ? locEl.textContent.replace(/^\s*📍\s*/, '').trim() : '',
+      video: vidEl ? vidEl.getAttribute('href') : '',
+      images: imgs,
+      galleryExtra,
+      bodyHtml: rest.innerHTML.trim()
+    };
+  }
+
+  // Locate every post inside <main>.
+  function parseArticles(html) {
     const mainOpen = html.indexOf('<main>');
     const mainClose = html.indexOf('</main>');
-    if (mainOpen < 0 || mainClose < 0) throw new Error('Fant ikke <main> i index.html');
-    const mainStart = mainOpen + '<main>'.length;
-    const lineStart = i => html.lastIndexOf('\n', i - 1) + 1;
-
-    const labels = [];
-    const reLabel = /<div class="year-label">(\d{4})<\/div>/g;
-    reLabel.lastIndex = mainStart;
+    const list = [];
+    const re = /<article\b[\s\S]*?<\/article>/g;
+    re.lastIndex = mainOpen;
     let m;
-    while ((m = reLabel.exec(html)) && m.index < mainClose) labels.push({ year: Number(m[1]), idx: m.index });
+    while ((m = re.exec(html)) && m.index < mainClose) {
+      const chunk = m[0];
+      const date = (chunk.match(/<span class="post-date">([^<]*)<\/span>/) || [])[1] || '';
+      const title = (chunk.match(/<h2>([\s\S]*?)<\/h2>/) || [])[1] || '';
+      const tag = (chunk.match(/<span class="post-tag [^"]*">([^<]*)<\/span>/) || [])[1] || '';
+      list.push({ start: m.index, end: m.index + chunk.length, chunk, date, title, tag });
+    }
+    return list;
+  }
 
-    const articles = [];
-    const reArt = /<article\b[^>]*>[\s\S]*?<span class="post-date">([^<]*)<\/span>/g;
-    reArt.lastIndex = mainStart;
-    while ((m = reArt.exec(html)) && m.index < mainClose) articles.push({ key: parseNoDate(m[1]), idx: m.index });
+  function yearLabels(html) {
+    const mainOpen = html.indexOf('<main>');
+    const mainClose = html.indexOf('</main>');
+    const labels = [];
+    const re = /<div class="year-label">(\d{4})<\/div>/g;
+    re.lastIndex = mainOpen;
+    let m;
+    while ((m = re.exec(html)) && m.index < mainClose) labels.push({ year: Number(m[1]), idx: m.index, len: m[0].length });
+    return labels;
+  }
+
+  function bumpArchive(html, year, delta) {
+    const reCount = new RegExp(`([ \\t]*)<li><span>${year}</span><span class="archive-count">(\\d+)</span></li>\\n?`);
+    const found = html.match(reCount);
+    if (found) {
+      const n = Number(found[2]) + delta;
+      return html.replace(reCount, n > 0 ? `${found[1]}<li><span>${year}</span><span class="archive-count">${n}</span></li>\n` : '');
+    }
+    if (delta <= 0) return html;
+    const listOpen = html.indexOf('<ul class="archive-list">');
+    if (listOpen < 0) return html;
+    const listClose = html.indexOf('</ul>', listOpen);
+    const reLi = /<li><span>(\d{4})<\/span>/g;
+    reLi.lastIndex = listOpen;
+    let at = listClose, li;
+    while ((li = reLi.exec(html)) && li.index < listClose) {
+      if (Number(li[1]) < year) { at = li.index; break; }
+    }
+    const ls = lineStartOf(html, at);
+    const indent = html.slice(ls, at).match(/^\s*/)[0] || '      ';
+    return html.slice(0, ls) + `${indent}<li><span>${year}</span><span class="archive-count">${delta}</span></li>\n` + html.slice(ls);
+  }
+
+  // Insert a post in the right place (newest first, grouped by year) and bump the archive.
+  function insertPost(html, articleHtml, dateIso) {
+    const newKey = isoKey(dateIso);
+    const year = Number(dateIso.slice(0, 4));
+    const mainClose = html.indexOf('</main>');
+    if (html.indexOf('<main>') < 0 || mainClose < 0) throw new Error('Fant ikke <main> i index.html');
+    const labels = yearLabels(html);
+    const articles = parseArticles(html).map(a => ({ idx: a.start, key: isoKey(noDateToIso(a.date)) }));
 
     const label = labels.find(l => l.year === year);
     let pos, insert;
@@ -410,42 +644,62 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
       const next = labels.find(l => l.idx > label.idx);
       const end = next ? next.idx : mainClose;
       const before = articles.find(a => a.idx > label.idx && a.idx < end && a.key !== null && a.key <= newKey);
-      pos = lineStart(before ? before.idx : end);
+      pos = lineStartOf(html, before ? before.idx : end);
       insert = articleHtml + '\n\n';
     } else {
       const older = labels.find(l => l.year < year);
-      pos = lineStart(older ? older.idx : mainClose);
+      pos = lineStartOf(html, older ? older.idx : mainClose);
       insert = `<div class="year-label">${year}</div>\n\n` + articleHtml + '\n\n';
     }
-    let out = html.slice(0, pos) + insert + html.slice(pos);
+    const out = html.slice(0, pos) + insert + html.slice(pos);
+    return bumpArchive(out, year, 1);
+  }
 
-    // Sidebar archive
-    const reCount = new RegExp(`(<li><span>${year}</span><span class="archive-count">)(\\d+)(</span></li>)`);
-    if (reCount.test(out)) {
-      out = out.replace(reCount, (_, a, n, b) => a + (Number(n) + 1) + b);
-    } else {
-      const listOpen = out.indexOf('<ul class="archive-list">');
-      if (listOpen >= 0) {
-        const listClose = out.indexOf('</ul>', listOpen);
-        const reLi = /<li><span>(\d{4})<\/span>/g;
-        reLi.lastIndex = listOpen;
-        let at = listClose, li;
-        while ((li = reLi.exec(out)) && li.index < listClose) {
-          if (Number(li[1]) < year) { at = li.index; break; }
+  // Remove a post; drop its year heading if that year is now empty.
+  function removePost(html, chunk) {
+    const start = html.indexOf(chunk);
+    if (start < 0 || html.indexOf(chunk, start + 1) >= 0) throw new Error('STALE');
+    const dateIso = noDateToIso((chunk.match(/<span class="post-date">([^<]*)<\/span>/) || [])[1] || '');
+    const from = lineStartOf(html, start);
+    let to = start + chunk.length;
+    const tail = html.slice(to).match(/^[ \t]*\n(?:[ \t]*\n)?/);
+    if (tail) to += tail[0].length;
+    let out = html.slice(0, from) + html.slice(to);
+    if (dateIso) {
+      const year = Number(dateIso.slice(0, 4));
+      const labels = yearLabels(out);
+      const label = labels.find(l => l.year === year);
+      if (label) {
+        const next = labels.find(l => l.idx > label.idx);
+        const end = next ? next.idx : out.indexOf('</main>');
+        if (!/<article\b/.test(out.slice(label.idx, end))) {
+          const ls = lineStartOf(out, label.idx);
+          let le = label.idx + label.len;
+          const t2 = out.slice(le).match(/^[ \t]*\n(?:[ \t]*\n)?/);
+          if (t2) le += t2[0].length;
+          out = out.slice(0, ls) + out.slice(le);
         }
-        const ls = out.lastIndexOf('\n', at - 1) + 1;
-        const indent = out.slice(ls, at).match(/^\s*/)[0] || '      ';
-        out = out.slice(0, ls) + `${indent}<li><span>${year}</span><span class="archive-count">1</span></li>\n` + out.slice(ls);
       }
+      out = bumpArchive(out, year, -1);
     }
     return out;
   }
-  window.__ttInsertPost = insertPost; // for testing
 
-  // ── GitHub API ─────────────────────────────────────────
+  function replacePost(html, chunk, newArticle) {
+    const start = html.indexOf(chunk);
+    if (start < 0 || html.indexOf(chunk, start + 1) >= 0) throw new Error('STALE');
+    const from = lineStartOf(html, start);
+    return html.slice(0, from) + newArticle + html.slice(start + chunk.length);
+  }
+
+  window.__tt = { insertPost, removePost, replacePost, parseArticles, articleToPost, buildArticle, sanitizeBody, noDateToIso };
+
+  // ══ GitHub API ═════════════════════════════════════════
   async function gh(path, opts = {}) {
     const res = await fetch(API + path, {
-      ...opts,
+      method: opts.method || 'GET',
+      body: opts.body,
+      cache: 'no-store',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Accept': opts.accept || 'application/vnd.github+json',
@@ -470,56 +724,50 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     if (!repo.permissions || !repo.permissions.push) {
       throw new Error('Tokenet har ikke skrivetilgang. Sjekk at «Contents: Read and write» er valgt.');
     }
-    return repo.default_branch || 'main';
   }
 
-  async function publish(post) {
+  async function loadSite() {
     const repo = await gh(repoPath);
     const branch = repo.default_branch || 'main';
     const ref = await gh(`${repoPath}/git/ref/heads/${branch}`);
     const headSha = ref.object.sha;
-    const headCommit = await gh(`${repoPath}/git/commits/${headSha}`);
-
+    const commit = await gh(`${repoPath}/git/commits/${headSha}`);
     const html = await gh(`${repoPath}/contents/index.html?ref=${headSha}`, { accept: 'application/vnd.github.raw+json' });
+    site = { branch, headSha, treeSha: commit.tree.sha, html, articles: parseArticles(html) };
+    return site;
+  }
 
-    const stamp = post.dateIso.replace(/-/g, '');
+  async function uploadImages(list, dateIso) {
+    const stamp = (dateIso || todayIso()).replace(/-/g, '');
     const rand = Math.random().toString(36).slice(2, 7);
-    const tree = [];
-    const imagePaths = [];
-    for (let i = 0; i < post.images.length; i++) {
-      const path = `image/innlegg-${stamp}-${rand}-${i + 1}.jpg`;
-      const blob = await gh(`${repoPath}/git/blobs`, {
-        method: 'POST',
-        body: JSON.stringify({ content: post.images[i].base64, encoding: 'base64' })
-      });
+    const tree = [], paths = [];
+    let n = 0;
+    for (const im of list) {
+      if (im.src) { paths.push(im.src); continue; }
+      n++;
+      const path = `image/innlegg-${stamp}-${rand}-${n}.jpg`;
+      const blob = await gh(`${repoPath}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: im.base64, encoding: 'base64' }) });
       tree.push({ path, mode: '100644', type: 'blob', sha: blob.sha });
-      imagePaths.push(path);
+      paths.push(path);
     }
+    return { tree, paths };
+  }
 
-    const article = buildArticle({ ...post, imagePaths });
-    const newHtml = insertPost(html, article, post.dateIso);
-    const htmlBlob = await gh(`${repoPath}/git/blobs`, {
+  async function commitHtml(newHtml, extraTree, message) {
+    const htmlBlob = await gh(`${repoPath}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: newHtml, encoding: 'utf-8' }) });
+    const tree = await gh(`${repoPath}/git/trees`, {
       method: 'POST',
-      body: JSON.stringify({ content: newHtml, encoding: 'utf-8' })
-    });
-    tree.push({ path: 'index.html', mode: '100644', type: 'blob', sha: htmlBlob.sha });
-
-    const newTree = await gh(`${repoPath}/git/trees`, {
-      method: 'POST',
-      body: JSON.stringify({ base_tree: headCommit.tree.sha, tree })
+      body: JSON.stringify({ base_tree: site.treeSha, tree: [...extraTree, { path: 'index.html', mode: '100644', type: 'blob', sha: htmlBlob.sha }] })
     });
     const commit = await gh(`${repoPath}/git/commits`, {
       method: 'POST',
-      body: JSON.stringify({ message: `Nytt innlegg: ${post.title}`, tree: newTree.sha, parents: [headSha] })
+      body: JSON.stringify({ message, tree: tree.sha, parents: [site.headSha] })
     });
-    await gh(`${repoPath}/git/refs/heads/${branch}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ sha: commit.sha })
-    });
-    return commit;
+    await gh(`${repoPath}/git/refs/heads/${site.branch}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+    site = { ...site, headSha: commit.sha, treeSha: tree.sha, html: newHtml, articles: parseArticles(newHtml) };
   }
 
-  // ── Images ─────────────────────────────────────────────
+  // ══ Images ═════════════════════════════════════════════
   function loadImage(file) {
     return new Promise((resolve, reject) => {
       const url = URL.createObjectURL(file);
@@ -536,11 +784,10 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     const canvas = document.createElement('canvas');
     canvas.width = w; canvas.height = h;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
     ctx.drawImage(img, 0, 0, w, h);
     const dataUrl = canvas.toDataURL('image/jpeg', JPEG_Q);
-    return { name: file.name, dataUrl, base64: dataUrl.split(',')[1] };
+    return { dataUrl, base64: dataUrl.split(',')[1] };
   }
   async function addFiles(fileList) {
     const files = [...fileList].filter(f => f.type.startsWith('image/') || /\.(heic|heif)$/i.test(f.name));
@@ -550,10 +797,11 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     }
     renderThumbs(); renderPreview();
   }
+  const imgUrl = im => im.src ? '/' + im.src.replace(/^\//, '') : im.dataUrl;
   function renderThumbs() {
     $('thumbs').innerHTML = images.map((im, i) => `
       <div class="thumb">
-        <img src="${im.dataUrl}" alt="">
+        <img src="${esc(imgUrl(im))}" alt="">
         <button type="button" data-del="${i}" aria-label="Fjern bilde">×</button>
         <div class="move">
           <button type="button" data-left="${i}" aria-label="Flytt til venstre" ${i === 0 ? 'style="visibility:hidden"' : ''}>‹</button>
@@ -567,9 +815,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     if (b.dataset.del !== undefined) images.splice(Number(b.dataset.del), 1);
     else if (b.dataset.left !== undefined) swap(Number(b.dataset.left), Number(b.dataset.left) - 1);
     else if (b.dataset.right !== undefined) swap(Number(b.dataset.right), Number(b.dataset.right) + 1);
-    renderThumbs(); renderPreview();
+    renderThumbs(); renderPreview(); saveDraft();
   });
-
   const drop = $('drop');
   drop.addEventListener('click', () => $('files').click());
   $('files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
@@ -577,79 +824,261 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
   ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
   drop.addEventListener('drop', e => addFiles(e.dataTransfer.files));
 
-  // ── Form, preview, draft ───────────────────────────────
-  const fields = ['title', 'date', 'category', 'body'];
+  // ══ Rich text editor ═══════════════════════════════════
+  const rte = $('body');
+  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
+  document.querySelector('.toolbar').addEventListener('mousedown', e => e.preventDefault());
+  document.querySelector('.toolbar').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    rte.focus();
+    const cmd = b.dataset.cmd;
+    if (cmd === 'link') {
+      const url = prompt('Lim inn adressen (https://…)');
+      if (url && /^(https?:|mailto:)/i.test(url.trim())) document.execCommand('createLink', false, url.trim());
+    } else if (cmd === 'h3') {
+      const cur = document.queryCommandValue('formatBlock').toLowerCase();
+      document.execCommand('formatBlock', false, cur === 'h3' ? 'p' : 'h3');
+    } else {
+      document.execCommand(cmd, false, null);
+    }
+    onInput();
+  });
+  rte.addEventListener('paste', e => {
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    if (!text) return;
+    e.preventDefault();
+    const html = text.replace(/\r\n/g, '\n').split(/\n+/).map(s => s.trim()).filter(Boolean)
+      .map(s => `<p>${esc(s)}</p>`).join('');
+    document.execCommand('insertHTML', false, html);
+  });
+
+  // ══ Form ═══════════════════════════════════════════════
+  const textFields = ['title', 'date', 'category', 'location', 'video'];
+
+  function fillCategoryOptions(customCat) {
+    const sel = $('category');
+    sel.innerHTML = Object.entries(CATEGORIES).map(([k, c]) => `<option value="${k}">${esc(c.label)}</option>`).join('') +
+      (customCat ? `<option value="custom">${esc(customCat.label)}</option>` : '');
+  }
+
   function readForm() {
     return {
       title: $('title').value.trim(),
       dateIso: $('date').value || todayIso(),
       category: $('category').value,
-      body: $('body').value,
-      images
+      customCat: editing ? editing.customCat : null,
+      location: $('location').value,
+      video: $('video').value.trim(),
+      bodyHtml: sanitizeBody(rte.innerHTML),
+      galleryExtra: editing ? editing.galleryExtra : '',
+      dateLabel: editing && editing.dateIso === ($('date').value || '') ? editing.dateText : ''
     };
   }
+
   function renderPreview() {
     const p = readForm();
-    if (!p.title && !p.body.trim() && !images.length) {
+    if (!p.title && !p.bodyHtml && !images.length) {
       $('preview').innerHTML = '<article><p class="empty">Innlegget vises her mens du skriver.</p></article>';
       return;
     }
-    const html = buildArticle({ ...p, title: p.title || 'Uten tittel', imagePaths: images.map(i => i.dataUrl) });
-    $('preview').innerHTML = html;
+    $('preview').innerHTML = buildArticle({ ...p, title: p.title || 'Uten tittel', imagePaths: images.map(imgUrl) });
   }
+
   function saveDraft() {
-    const d = {}; fields.forEach(f => d[f] = $(f).value);
+    if (editing) return;
+    const d = { body: rte.innerHTML };
+    textFields.forEach(f => d[f] = $(f).value);
     store.set(DRAFT_KEY, JSON.stringify(d));
   }
   function loadDraft() {
     try {
       const d = JSON.parse(store.get(DRAFT_KEY) || 'null');
-      if (d) fields.forEach(f => { if (d[f]) $(f).value = d[f]; });
+      if (d) {
+        textFields.forEach(f => { if (d[f]) $(f).value = d[f]; });
+        if (d.body) rte.innerHTML = d.body;
+      }
     } catch (e) {}
     if (!$('date').value) $('date').value = todayIso();
   }
-  function clearForm() {
-    $('title').value = ''; $('body').value = ''; $('category').value = 'blogg'; $('date').value = todayIso();
-    images = []; renderThumbs(); renderPreview(); store.del(DRAFT_KEY);
+  function resetForm() {
+    textFields.forEach(f => $(f).value = '');
+    fillCategoryOptions(null);
+    $('category').value = 'blogg';
+    $('date').value = todayIso();
+    rte.innerHTML = '';
+    images = [];
+    renderThumbs(); renderPreview();
   }
-  fields.forEach(f => $(f).addEventListener('input', () => { renderPreview(); saveDraft(); }));
-  $('clearBtn').addEventListener('click', () => {
-    if (confirm('Tømme skjemaet? Teksten og bildene forsvinner.')) { clearForm(); showMsg($('msg'), '', ''); }
-  });
+  function onInput() { renderPreview(); saveDraft(); }
+  textFields.forEach(f => $(f).addEventListener('input', onInput));
+  $('category').addEventListener('change', onInput);
+  rte.addEventListener('input', onInput);
 
-  $('publishBtn').addEventListener('click', async () => {
-    const post = readForm();
-    if (!post.title) return showMsg($('msg'), 'err', 'Innlegget trenger en tittel.');
-    if (!post.body.trim() && !images.length) return showMsg($('msg'), 'err', 'Skriv litt tekst eller legg til bilder først.');
-    const btn = $('publishBtn');
-    btn.disabled = true; btn.textContent = 'Publiserer…';
-    showMsg($('msg'), 'info', images.length ? `Laster opp ${images.length} bilde${images.length > 1 ? 'r' : ''} og innlegget…` : 'Lagrer innlegget…');
-    try {
-      await publish(post);
-      clearForm();
-      showMsg($('msg'), 'ok', `«${esc(post.title)}» er publisert! Bloggen oppdateres om ca. ett minutt. <a href="/" target="_blank" rel="noopener">Se bloggen ↗</a>`);
-    } catch (e) {
-      let text = esc(e.message);
-      if (e.status === 401) text = 'GitHub-tokenet er utløpt eller ugyldig. Logg ut og logg inn med et nytt token.';
-      if (e.status === 409 || e.status === 422) text += ' — prøv å trykke Publiser igjen.';
-      showMsg($('msg'), 'err', text + ' Teksten din er lagret som utkast.');
-    } finally {
-      btn.disabled = false; btn.textContent = 'Publiser innlegget';
+  function setMode(post) {
+    editing = post;
+    const isEdit = !!post;
+    $('editorTitle').textContent = isEdit ? 'Rediger innlegg' : 'Nytt innlegg';
+    $('publishBtn').textContent = isEdit ? 'Lagre endringer' : 'Publiser innlegget';
+    $('clearBtn').classList.toggle('hidden', isEdit);
+    $('deleteBtn').classList.toggle('hidden', !isEdit);
+    $('backBtn').classList.toggle('hidden', !isEdit);
+    $('draftHint').classList.toggle('hidden', isEdit);
+  }
+
+  function openEditor(chunk) {
+    const p = articleToPost(chunk);
+    setMode({ chunk, title: p.title, dateIso: p.dateIso, dateText: p.dateText, customCat: p.customCat, galleryExtra: p.galleryExtra });
+    fillCategoryOptions(p.customCat);
+    $('title').value = p.title;
+    $('date').value = p.dateIso || '';
+    $('category').value = p.category;
+    $('location').value = p.location;
+    $('video').value = p.video;
+    rte.innerHTML = sanitizeBody(p.bodyHtml);
+    images = p.images.map(src => ({ src }));
+    renderThumbs(); renderPreview();
+    showMsg($('msg'), '', '');
+    showView('editor');
+    window.scrollTo(0, 0);
+  }
+
+  // ══ Views ══════════════════════════════════════════════
+  function showView(view) {
+    ['login', 'list', 'editor'].forEach(v => $(v).classList.toggle('hidden', v !== view));
+    $('tabs').classList.toggle('hidden', view === 'login');
+    $('logoutBtn').classList.toggle('hidden', view === 'login');
+    document.querySelectorAll('#tabs button').forEach(b => {
+      b.classList.toggle('active', (b.dataset.tab === 'list') === (view === 'list' || (view === 'editor' && !!editing)));
+    });
+  }
+  function startNew() {
+    setMode(null);
+    resetForm();
+    loadDraft();
+    renderPreview();
+    showMsg($('msg'), '', '');
+    showView('editor');
+  }
+  async function openList(forceReload) {
+    showView('list');
+    if (!site || forceReload) {
+      $('postList').innerHTML = '';
+      showMsg($('listMsg'), 'info', 'Henter innleggene…');
+      try { await loadSite(); showMsg($('listMsg'), '', ''); }
+      catch (e) { return showMsg($('listMsg'), 'err', authText(e)); }
+    }
+    renderList();
+    $('listSearch').focus();
+  }
+  function renderList() {
+    const q = $('listSearch').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const rows = site.articles.filter(a => {
+      const text = a.chunk.replace(/<[^>]+>/g, ' ').toLowerCase();
+      return q.every(w => text.includes(w));
+    });
+    $('postList').innerHTML = rows.length ? rows.map(a => {
+      const i = site.articles.indexOf(a);
+      const title = new DOMParser().parseFromString(a.title || 'Uten tittel', 'text/html').body.textContent;
+      return `<li><button type="button" data-i="${i}">
+        <span class="t">${esc(title)}</span><span class="d">${esc(a.date)}</span>
+        <span class="m">${esc(a.tag)}</span></button></li>`;
+    }).join('') : '<li class="list-empty">Ingen innlegg passer søket.</li>';
+  }
+  $('listSearch').addEventListener('input', () => site && renderList());
+  $('postList').addEventListener('click', e => {
+    const b = e.target.closest('button[data-i]'); if (!b) return;
+    openEditor(site.articles[Number(b.dataset.i)].chunk);
+  });
+  document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.tab === 'list') openList(); else startNew();
+  }));
+  $('backBtn').addEventListener('click', () => openList());
+
+  function authText(e) {
+    if (e.status === 401) return 'GitHub-tokenet er utløpt eller ugyldig. Logg ut og logg inn med et nytt token.';
+    return esc(e.message);
+  }
+
+  // ══ Actions ════════════════════════════════════════════
+  $('clearBtn').addEventListener('click', () => {
+    if (confirm('Tømme skjemaet? Teksten og bildene forsvinner.')) {
+      resetForm(); store.del(DRAFT_KEY); showMsg($('msg'), '', '');
     }
   });
 
-  // ── Login ──────────────────────────────────────────────
-  function showEditor() {
-    $('login').classList.add('hidden');
-    $('editor').classList.remove('hidden');
-    $('logoutBtn').classList.remove('hidden');
-    loadDraft(); renderPreview();
+  async function withBusy(btn, busyText, fn) {
+    const old = btn.textContent;
+    document.querySelectorAll('.actions .btn').forEach(b => b.disabled = true);
+    btn.textContent = busyText;
+    try { await fn(); }
+    finally {
+      document.querySelectorAll('.actions .btn').forEach(b => b.disabled = false);
+      btn.textContent = old;
+    }
   }
-  function showLogin() {
-    $('editor').classList.add('hidden');
-    $('logoutBtn').classList.add('hidden');
-    $('login').classList.remove('hidden');
-  }
+
+  const staleText = 'Innlegget er endret et annet sted siden du åpnet det. Gå tilbake til listen og åpne det på nytt.';
+
+  $('publishBtn').addEventListener('click', () => {
+    const post = readForm();
+    if (!post.title) return showMsg($('msg'), 'err', 'Innlegget trenger en tittel.');
+    if (!$('date').value) return showMsg($('msg'), 'err', 'Velg en dato.');
+    if (!post.bodyHtml && !images.length) return showMsg($('msg'), 'err', 'Skriv litt tekst eller legg til bilder først.');
+    if (post.video && !youtubeOk(post.video)) return showMsg($('msg'), 'err', 'Video-lenken må starte med https://');
+    const wasEditing = editing;
+
+    withBusy($('publishBtn'), wasEditing ? 'Lagrer…' : 'Publiserer…', async () => {
+      const newImgs = images.filter(i => !i.src).length;
+      showMsg($('msg'), 'info', newImgs ? `Laster opp ${newImgs} bilde${newImgs > 1 ? 'r' : ''}…` : 'Lagrer…');
+      try {
+        await loadSite();
+        const up = await uploadImages(images, post.dateIso);
+        const article = buildArticle({ ...post, imagePaths: up.paths });
+        let html;
+        if (wasEditing) {
+          html = (wasEditing.dateIso === post.dateIso)
+            ? replacePost(site.html, wasEditing.chunk, article)
+            : insertPost(removePost(site.html, wasEditing.chunk), article, post.dateIso);
+        } else {
+          html = insertPost(site.html, article, post.dateIso);
+        }
+        await commitHtml(html, up.tree, `${wasEditing ? 'Endret' : 'Nytt'} innlegg: ${post.title}`);
+        const link = '<a href="/" target="_blank" rel="noopener">Se bloggen ↗</a>';
+        if (wasEditing) {
+          const fresh = site.articles.find(a => a.chunk.trim() === article.trim());
+          if (fresh) openEditor(fresh.chunk);
+          showMsg($('msg'), 'ok', `Endringene er lagret. Bloggen oppdateres om ca. ett minutt. ${link}`);
+        } else {
+          resetForm(); store.del(DRAFT_KEY);
+          showMsg($('msg'), 'ok', `«${esc(post.title)}» er publisert! Bloggen oppdateres om ca. ett minutt. ${link}`);
+        }
+      } catch (e) {
+        let text = e.message === 'STALE' ? staleText : authText(e);
+        if (e.status === 409 || e.status === 422) text += ' — prøv igjen.';
+        showMsg($('msg'), 'err', text + (wasEditing ? '' : ' Teksten din er lagret som utkast.'));
+      }
+    });
+  });
+
+  $('deleteBtn').addEventListener('click', () => {
+    if (!editing) return;
+    if (!confirm(`Slette «${editing.title}»? Det kan ikke angres her.`)) return;
+    const target = editing;
+    withBusy($('deleteBtn'), 'Sletter…', async () => {
+      try {
+        await loadSite();
+        const html = removePost(site.html, target.chunk);
+        await commitHtml(html, [], `Slettet innlegg: ${target.title}`);
+        setMode(null);
+        await openList();
+        showMsg($('listMsg'), 'ok', `«${esc(target.title)}» er slettet. Bloggen oppdateres om ca. ett minutt.`);
+      } catch (e) {
+        showMsg($('msg'), 'err', e.message === 'STALE' ? staleText : authText(e));
+      }
+    });
+  });
+
+  // ══ Login ══════════════════════════════════════════════
   $('loginBtn').addEventListener('click', async () => {
     const t = $('tokenInput').value.trim();
     if (!t) return showMsg($('loginMsg'), 'err', 'Lim inn tokenet først.');
@@ -660,7 +1089,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
       store.set(TOKEN_KEY, t, !$('rememberInput').checked);
       $('tokenInput').value = '';
       showMsg($('loginMsg'), '', '');
-      showEditor();
+      startNew();
     } catch (e) {
       token = null;
       showMsg($('loginMsg'), 'err', e.status === 401 ? 'Ugyldig token.' : e.status === 404 ? 'Tokenet har ikke tilgang til repoet trigerogtiger.blogg.no.' : esc(e.message));
@@ -669,10 +1098,11 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); b
     }
   });
   $('tokenInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('loginBtn').click(); });
-  $('logoutBtn').addEventListener('click', () => { store.del(TOKEN_KEY); token = null; showLogin(); });
+  $('logoutBtn').addEventListener('click', () => { store.del(TOKEN_KEY); token = null; site = null; showView('login'); });
 
+  fillCategoryOptions(null);
   const saved = store.get(TOKEN_KEY) || store.get(TOKEN_KEY, true);
-  if (saved) { token = saved; showEditor(); } else { showLogin(); }
+  if (saved) { token = saved; startNew(); } else { showView('login'); }
 })();
 </script>
 </body>
