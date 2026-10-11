@@ -1,6 +1,7 @@
 // One page per blog post: /innlegg/<slug>
 // Built from index.html on request, so posts published from admin get a page right away.
 const { SITE, NAME, readIndex, getPosts, describe, esc, absImg, GTAG } = require('../lib/blog');
+const { TOPICS } = require('../lib/topics');
 
 module.exports = (req, res) => {
   const url = new URL(req.url, SITE);
@@ -17,7 +18,7 @@ module.exports = (req, res) => {
 
   const p = posts[i];
   const newer = posts[i - 1], older = posts[i + 1];
-  const related = posts.filter((x, j) => j !== i && x.cls === p.cls)
+  const related = posts.filter((x, j) => j !== i && !x.thin && x.cls === p.cls)
     .sort((a, b) => Math.abs(new Date(a.iso) - new Date(p.iso)) - Math.abs(new Date(b.iso) - new Date(p.iso)))
     .slice(0, 5);
   const css = (/<style>([\s\S]*?)<\/style>/.exec(html) || [])[1] || '';
@@ -25,6 +26,7 @@ module.exports = (req, res) => {
   const desc = describe(p);
   const img = p.images[0] ? absImg(p.images[0]) : null;
   const year = p.iso.slice(0, 4);
+  const topics = TOPICS.filter((t) => t.match(p));
 
   // Image paths in the post are relative to the front page
   let content = p.content.replace(/src="(?!https?:|\/)([^"]+)"/g, 'src="/$1"');
@@ -35,7 +37,7 @@ module.exports = (req, res) => {
     {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
-      headline: p.title.slice(0, 110),
+      headline: p.seoTitle.slice(0, 110),
       description: desc,
       datePublished: p.iso,
       dateModified: p.iso,
@@ -68,22 +70,22 @@ module.exports = (req, res) => {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ${GTAG}
-<title>${esc(p.title)} – ${esc(NAME)}</title>
+<title>${esc(p.seoTitle)} – ${esc(NAME)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${canonical}">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="robots" content="${p.thin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'}">
 <meta name="author" content="Tina og Finn Magne Triger">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="${esc(NAME)}">
 <meta property="og:locale" content="nb_NO">
-<meta property="og:title" content="${esc(p.title)}">
+<meta property="og:title" content="${esc(p.seoTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
 ${img ? `<meta property="og:image" content="${img}">` : ''}
 <meta property="article:published_time" content="${p.iso}">
 <meta property="article:section" content="${esc(p.tag)}">
 <meta name="twitter:card" content="${img ? 'summary_large_image' : 'summary'}">
-<meta name="twitter:title" content="${esc(p.title)}">
+<meta name="twitter:title" content="${esc(p.seoTitle)}">
 <meta name="twitter:description" content="${esc(desc)}">
 ${img ? `<meta name="twitter:image" content="${img}">` : ''}
 <link rel="alternate" type="application/rss+xml" title="${esc(NAME)}" href="${SITE}/rss.xml">
@@ -107,7 +109,9 @@ ${older ? `<link rel="prev" href="/innlegg/${older.slug}">` : ''}
 .related a { color: var(--ink); text-decoration: none; }
 .related a:hover { color: var(--accent); }
 .related time { color: var(--muted); font-size: .8rem; margin-left: .4rem; }
-.home-link { display: inline-block; margin-top: 2rem; font-family: 'Inter', sans-serif; color: var(--accent); }
+.home-link { margin-top: 2rem; font-family: 'Inter', sans-serif; }
+.home-link a, .topics a { color: var(--accent); }
+.topics { font-family: 'Inter', sans-serif; font-size: .92rem; margin-top: 2rem; }
 @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -124,9 +128,10 @@ ${older ? `<link rel="prev" href="/innlegg/${older.slug}">` : ''}
     ${content}
     </div>
   </article>
+  ${topics.length ? `<p class="topics">Les mer: ${topics.map((t) => `<a href="/tema/${t.slug}">${esc(t.name)}</a>`).join(' · ')}</p>` : ''}
   <div class="pager">${link(older, '← Eldre innlegg')}${link(newer, 'Nyere innlegg →')}</div>
   ${related.length ? `<section class="related"><h2>Flere innlegg om ${esc(p.tag.toLowerCase())}</h2><ul>${related.map((x) => `<li><a href="/innlegg/${x.slug}">${esc(x.title)}</a><time datetime="${x.iso}">${esc(x.dateText.replace(/, kl\..*/, ''))}</time></li>`).join('')}</ul></section>` : ''}
-  <a class="home-link" href="/">← Alle innlegg på ${esc(NAME)}</a>
+  <p class="home-link"><a href="/">← Alle innlegg på ${esc(NAME)}</a> · <a href="/tema/">Temaer</a> · <a href="/om-oss">Om oss</a></p>
 </div>
 </body>
 </html>`;

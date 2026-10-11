@@ -1,12 +1,16 @@
 // /sitemap.xml – front page plus every post, with images, kept in step with index.html
 const { SITE, getPosts, esc, absImg } = require('../lib/blog');
+const { TOPICS } = require('../lib/topics');
 
 module.exports = (req, res) => {
   const posts = getPosts();
   const newest = posts.length ? posts[0].iso : new Date().toISOString();
   const urls = [
     `<url><loc>${SITE}/</loc><lastmod>${newest}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>`,
-    ...posts.map((p) => `<url><loc>${SITE}/innlegg/${p.slug}</loc><lastmod>${p.iso}</lastmod><priority>0.7</priority>${p.images.slice(0, 20).map((s) => `<image:image><image:loc>${esc(absImg(s))}</image:loc></image:image>`).join('')}</url>`)
+    `<url><loc>${SITE}/tema/</loc><lastmod>${newest}</lastmod><priority>0.8</priority></url>`,
+    ...TOPICS.map((t) => `<url><loc>${SITE}/tema/${t.slug}</loc><lastmod>${newest}</lastmod><priority>0.9</priority></url>`),
+    `<url><loc>${SITE}/om-oss</loc><lastmod>${newest}</lastmod><priority>0.6</priority></url>`,
+    ...posts.filter((p) => !p.thin).map((p) => `<url><loc>${SITE}/innlegg/${p.slug}</loc><lastmod>${p.iso}</lastmod><priority>0.7</priority>${p.images.slice(0, 20).map((s) => `<image:image><image:loc>${esc(absImg(s))}</image:loc></image:image>`).join('')}</url>`)
   ];
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
