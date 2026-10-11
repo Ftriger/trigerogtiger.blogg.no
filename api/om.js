@@ -6,7 +6,7 @@ const { shell, send } = require('../lib/page');
 module.exports = (req, res) => {
   const posts = getPosts();
   const first = posts[posts.length - 1], last = posts[0];
-  const img = SITE + '/image/298046-10-1369089926288.jpg';
+  const img = SITE + '/image/og-bilde.jpg';
 
   const body = `
   <div class="crumbs"><a href="/">${esc(NAME)}</a> › Om oss</div>

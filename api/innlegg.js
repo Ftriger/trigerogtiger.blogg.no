@@ -1,6 +1,6 @@
 // One page per blog post: /innlegg/<slug>
 // Built from index.html on request, so posts published from admin get a page right away.
-const { SITE, NAME, readIndex, getPosts, describe, esc, absImg, GTAG } = require('../lib/blog');
+const { SITE, NAME, readIndex, getPosts, describe, esc, absImg, GTAG, shareImage, ogImageTags } = require('../lib/blog');
 const { TOPICS } = require('../lib/topics');
 const { approvedFor } = require('../lib/comments');
 
@@ -123,13 +123,12 @@ ${GTAG}
 <meta property="og:title" content="${esc(p.seoTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
-${img ? `<meta property="og:image" content="${img}">` : ''}
+${ogImageTags(shareImage(p.images[0], p.title))}
 <meta property="article:published_time" content="${p.iso}">
 <meta property="article:section" content="${esc(p.tag)}">
-<meta name="twitter:card" content="${img ? 'summary_large_image' : 'summary'}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(p.seoTitle)}">
 <meta name="twitter:description" content="${esc(desc)}">
-${img ? `<meta name="twitter:image" content="${img}">` : ''}
 <link rel="alternate" type="application/rss+xml" title="${esc(NAME)}" href="${SITE}/rss.xml">
 ${newer ? `<link rel="next" href="/innlegg/${newer.slug}">` : ''}
 ${older ? `<link rel="prev" href="/innlegg/${older.slug}">` : ''}
