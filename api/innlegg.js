@@ -2,6 +2,7 @@
 // Built from index.html on request, so posts published from admin get a page right away.
 const { SITE, NAME, readIndex, getPosts, describe, esc, absImg, GTAG } = require('../lib/blog');
 const { TOPICS } = require('../lib/topics');
+const { approvedFor } = require('../lib/comments');
 
 module.exports = (req, res) => {
   const url = new URL(req.url, SITE);
@@ -27,6 +28,45 @@ module.exports = (req, res) => {
   const img = p.images[0] ? absImg(p.images[0]) : null;
   const year = p.iso.slice(0, 4);
   const topics = TOPICS.filter((t) => t.match(p));
+  const comments = approvedFor(p.slug);
+  const fmtDate = (iso) => new Date(iso).toLocaleDateString('nb-NO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Oslo' });
+  const commentsHtml = `
+  <section class="comments" id="kommentarer">
+    <h2>Kommentarer${comments.length ? ` (${comments.length})` : ''}</h2>
+    ${comments.length ? `<ol class="clist">${comments.map((c) => `
+      <li><div class="chead"><strong>${esc(c.name)}</strong> <time datetime="${esc(c.date)}">${esc(fmtDate(c.date))}</time></div>
+      <div class="ctext">${esc(c.text).replace(/\n/g, '<br>')}</div></li>`).join('')}</ol>` : '<p class="cnone">Ingen kommentarer ennå. Bli den første!</p>'}
+    <form class="cform" method="post" action="/api/kommentar.js">
+      <input type="hidden" name="slug" value="${esc(p.slug)}">
+      <input type="hidden" name="t" value="">
+      <div class="hp" aria-hidden="true"><label>Nettside <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <label for="cname">Navn</label>
+      <input id="cname" name="name" type="text" maxlength="60" required autocomplete="name">
+      <label for="ctext">Kommentar</label>
+      <textarea id="ctext" name="text" rows="5" maxlength="2000" required></textarea>
+      <button type="submit">Send kommentar</button>
+      <p class="cmsg" role="status"></p>
+      <p class="cnote">Kommentarer vises etter at de er godkjent. Vi viser bare navnet du skriver.</p>
+    </form>
+  </section>
+  <script>
+  (function () {
+    var f = document.querySelector('.cform'); if (!f) return;
+    f.t.value = Date.now();
+    var msg = f.querySelector('.cmsg');
+    if (/kommentar=takk/.test(location.search)) msg.textContent = 'Takk! Kommentaren vises når den er godkjent.';
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = f.querySelector('button'); btn.disabled = true; msg.textContent = 'Sender…';
+      fetch('/api/kommentar.js', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: f.slug.value, t: f.t.value, website: f.website.value, name: f.name.value, text: f.text.value }) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (x) { msg.textContent = x.j.message || (x.ok ? 'Takk!' : 'Noe gikk galt.'); if (x.ok) { f.text.value = ''; } })
+        .catch(function () { msg.textContent = 'Kunne ikke sende. Prøv igjen.'; })
+        .then(function () { btn.disabled = false; });
+    });
+  })();
+  </script>`;
 
   // Image paths in the post are relative to the front page
   let content = p.content.replace(/src="(?!https?:|\/)([^"]+)"/g, 'src="/$1"');
@@ -46,6 +86,8 @@ module.exports = (req, res) => {
       url: canonical,
       articleSection: p.tag,
       wordCount: p.text.split(' ').length,
+      commentCount: comments.length,
+      comment: comments.length ? comments.map((c) => ({ '@type': 'Comment', text: c.text, dateCreated: c.date, author: { '@type': 'Person', name: c.name } })) : undefined,
       image: p.images.length ? p.images.map(absImg) : undefined,
       author: { '@type': 'Person', name: 'Tina og Finn Magne Triger', url: SITE },
       publisher: { '@type': 'Organization', name: NAME, url: SITE },
@@ -112,6 +154,23 @@ ${older ? `<link rel="prev" href="/innlegg/${older.slug}">` : ''}
 .home-link { margin-top: 2rem; font-family: 'Inter', sans-serif; }
 .home-link a, .topics a { color: var(--accent); }
 .topics { font-family: 'Inter', sans-serif; font-size: .92rem; margin-top: 2rem; }
+.comments { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.comments h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 1rem; }
+.clist { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.clist li { padding: .9rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: .7rem; }
+.chead { font-family: 'Inter', sans-serif; font-size: .85rem; margin-bottom: .35rem; }
+.chead time { color: var(--muted); margin-left: .4rem; font-size: .78rem; }
+.ctext { line-height: 1.6; }
+.cnone { color: var(--muted); font-style: italic; margin-bottom: 1rem; }
+.cform { display: grid; gap: .45rem; max-width: 640px; font-family: 'Inter', sans-serif; }
+.cform label { font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
+.cform input[type=text], .cform textarea { font: inherit; font-size: 1rem; padding: .65rem .8rem; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--ink); width: 100%; box-sizing: border-box; }
+.cform textarea { resize: vertical; font-family: 'Source Serif 4', Georgia, serif; }
+.cform button { justify-self: start; margin-top: .5rem; padding: .7rem 1.3rem; border: none; border-radius: 8px; background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.cform button:disabled { opacity: .6; cursor: wait; }
+.cmsg { min-height: 1.2em; font-size: .9rem; color: var(--accent); }
+.cnote { font-size: .78rem; color: var(--muted); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -128,6 +187,7 @@ ${older ? `<link rel="prev" href="/innlegg/${older.slug}">` : ''}
     ${content}
     </div>
   </article>
+  ${commentsHtml}
   ${topics.length ? `<p class="topics">Les mer: ${topics.map((t) => `<a href="/tema/${t.slug}">${esc(t.name)}</a>`).join(' · ')}</p>` : ''}
   <div class="pager">${link(older, '← Eldre innlegg')}${link(newer, 'Nyere innlegg →')}</div>
   ${related.length ? `<section class="related"><h2>Flere innlegg om ${esc(p.tag.toLowerCase())}</h2><ul>${related.map((x) => `<li><a href="/innlegg/${x.slug}">${esc(x.title)}</a><time datetime="${x.iso}">${esc(x.dateText.replace(/, kl\..*/, ''))}</time></li>`).join('')}</ul></section>` : ''}
