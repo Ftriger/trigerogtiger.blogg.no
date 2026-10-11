@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin – Triger'n og Tiger'n</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f3ee;
+  --surface: #fdfaf7;
+  --ink: #1c1410;
+  --ink2: #3d302a;
+  --muted: #7a6a62;
+  --border: #e2d9d0;
+  --accent: #c0622a;
+  --accent2: #e8a87c;
+  --gold: #b8904a;
+  --ok: #3a5c2e;
+  --ok-bg: #e8f0e4;
+  --err: #8a2a18;
+  --err-bg: #f9e4dc;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+header {
+  background: var(--ink);
+  color: #f5efe7;
+}
+.head-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+header h1 small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent2);
+}
+.head-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.head-links a, .head-links button {
+  color: #d8ccc4;
+  background: transparent;
+  border: 1px solid #4a3c35;
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  font: 500 0.8rem 'Inter', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+.head-links a:hover, .head-links button:hover { border-color: var(--accent2); color: #fff; }
+.rule { height: 3px; background: linear-gradient(90deg, var(--accent), var(--gold) 50%, transparent); }
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 16px 4rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+.card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+}
+.hidden { display: none !important; }
+
+/* Login */
+#login { max-width: 560px; margin: 2rem auto; }
+#login ol { margin: 0.75rem 0 1.25rem 1.25rem; color: var(--ink2); font-size: 0.92rem; }
+#login li { margin-bottom: 0.35rem; }
+#login code { background: #efe7df; padding: 0 0.3rem; border-radius: 4px; font-size: 0.85em; }
+
+/* Editor layout */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+
+label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1rem 0 0.35rem;
+}
+label:first-child { margin-top: 0; }
+input[type=text], input[type=password], input[type=date], select, textarea {
+  width: 100%;
+  font: 400 1rem 'Inter', sans-serif;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+}
+textarea {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  min-height: 300px;
+  resize: vertical;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent2); border-color: var(--accent); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.row label { margin-top: 1rem; }
+.hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+.drop {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 1.1rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: #fff;
+}
+.drop.over { border-color: var(--accent); background: #fbf1ea; }
+.drop strong { color: var(--accent); }
+.thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.75rem; }
+.thumb { position: relative; width: 96px; height: 96px; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+.thumb button {
+  position: absolute; top: -6px; right: -6px;
+  width: 24px; height: 24px; border-radius: 50%;
+  border: none; background: var(--ink); color: #fff;
+  font-size: 0.9rem; line-height: 1; cursor: pointer;
+}
+.thumb .move {
+  position: absolute; bottom: 4px; left: 4px; right: 4px;
+  display: flex; justify-content: space-between;
+}
+.thumb .move button { position: static; width: 22px; height: 22px; background: rgba(28,20,16,.75); font-size: 0.75rem; }
+
+.actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; align-items: center; }
+.btn {
+  font: 600 0.95rem 'Inter', sans-serif;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--ink2);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: #a9531f; }
+.btn:disabled { opacity: 0.55; cursor: wait; }
+
+.msg { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.92rem; }
+.msg.ok { background: var(--ok-bg); color: var(--ok); }
+.msg.err { background: var(--err-bg); color: var(--err); }
+.msg.info { background: #efe7df; color: var(--ink2); }
+.msg a { color: inherit; font-weight: 600; }
+
+/* Preview — same look as the blog */
+.preview-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
+}
+.preview { position: sticky; top: 1rem; }
+.preview article {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2rem;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+.preview .post-meta { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; }
+.preview .post-date { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
+.preview .post-tag { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 3px; }
+.tag-travel { background: #e8f0e4; color: #3a5c2e; }
+.tag-blogg { background: #e8eaf4; color: #2e3c6b; }
+.tag-barna { background: #f9ece4; color: #7a3018; }
+.tag-rec { background: #f4ede8; color: #5c3a20; }
+.tag-bryllupsreise { background: #f4ecf4; color: #5c2870; }
+.preview h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; line-height: 1.25; margin-bottom: 1rem; color: var(--ink); }
+.preview p { margin-bottom: 1rem; color: var(--ink2); }
+.preview .empty { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <h1><small>Admin</small>Triger'n og Tiger'n</h1>
+    <div class="head-links">
+      <a href="/" target="_blank" rel="noopener">Se bloggen ↗</a>
+      <button id="logoutBtn" class="hidden" type="button">Logg ut</button>
+    </div>
+  </div>
+  <div class="rule"></div>
+</header>
+
+<main>
+
+  <!-- LOGIN -->
+  <section id="login" class="card hidden">
+    <h2>Logg inn</h2>
+    <p style="color:var(--ink2);font-size:.95rem;">Admin-siden lagrer innleggene rett i GitHub, og Vercel publiserer dem automatisk. Den trenger en GitHub-nøkkel (token) én gang:</p>
+    <ol>
+      <li>Åpne <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Ny fine-grained token</a></li>
+      <li>Navn: <code>blogg-admin</code>, utløp: velg f.eks. 1 år</li>
+      <li>Repository access: <strong>Only select repositories</strong> → <code>trigerogtiger.blogg.no</code></li>
+      <li>Permissions → Repository permissions → <strong>Contents: Read and write</strong></li>
+      <li>Trykk <strong>Generate token</strong>, kopier og lim inn her</li>
+    </ol>
+    <label for="tokenInput">GitHub-token</label>
+    <input type="password" id="tokenInput" placeholder="github_pat_…" autocomplete="off">
+    <label style="display:flex;gap:.5rem;align-items:center;text-transform:none;letter-spacing:0;font-weight:500;font-size:.9rem;color:var(--ink2);">
+      <input type="checkbox" id="rememberInput" checked> Husk meg på denne enheten
+    </label>
+    <div class="actions"><button class="btn primary" id="loginBtn" type="button">Logg inn</button></div>
+    <div id="loginMsg"></div>
+  </section>
+
+  <!-- EDITOR -->
+  <section id="editor" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <h2>Nytt innlegg</h2>
+
+        <label for="title">Tittel</label>
+        <input type="text" id="title" placeholder="F.eks. Sommer på Sardinia ☀️">
+
+        <div class="row">
+          <div>
+            <label for="date">Dato</label>
+            <input type="date" id="date">
+          </div>
+          <div>
+            <label for="category">Kategori</label>
+            <select id="category">
+              <option value="blogg">Blogg</option>
+              <option value="reise">Reise</option>
+              <option value="barna">Barna</option>
+              <option value="anbefaling">Test/anbefaling</option>
+              <option value="bryllupsreise">Bryllupsreise</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="body">Tekst</label>
+        <textarea id="body" placeholder="Skriv innlegget her…&#10;&#10;Tom linje mellom avsnitt gir nytt avsnitt."></textarea>
+        <p class="hint">Tom linje = nytt avsnitt. Teksten lagres som utkast mens du skriver.</p>
+
+        <label>Bilder</label>
+        <div class="drop" id="drop">
+          <strong>Velg bilder</strong> eller dra dem hit
+          <div class="hint">Bildene gjøres mindre automatisk før opplasting.</div>
+          <input type="file" id="files" accept="image/*" multiple hidden>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+
+        <div class="actions">
+          <button class="btn primary" id="publishBtn" type="button">Publiser innlegget</button>
+          <button class="btn" id="clearBtn" type="button">Tøm skjema</button>
+        </div>
+        <div id="msg"></div>
+      </div>
+
+      <div class="preview">
+        <div class="preview-label">Forhåndsvisning</div>
+        <div id="preview"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  const OWNER = 'Ftriger';
+  const REPO = 'trigerogtiger.blogg.no';
+  const API = 'https://api.github.com';
+  const TOKEN_KEY = 'tt-admin-token';
+  const DRAFT_KEY = 'tt-admin-draft';
+  const MAX_SIDE = 1600;
+  const JPEG_Q = 0.82;
+
+  const CATEGORIES = {
+    blogg:         { article: 'blog',   tag: 'tag-blogg',         label: 'Blogg' },
+    reise:         { article: 'travel', tag: 'tag-travel',        label: 'Reise' },
+    barna:         { article: 'kids',   tag: 'tag-barna',         label: 'Barna' },
+    anbefaling:    { article: 'rec',    tag: 'tag-rec',           label: 'Test/anbefaling' },
+    bryllupsreise: { article: 'travel', tag: 'tag-bryllupsreise', label: 'Bryllupsreise' }
+  };
+  const MONTHS = ['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+
+  const $ = id => document.getElementById(id);
+  const store = {
+    get(k, s) { try { return (s ? sessionStorage : localStorage).getItem(k); } catch (e) { return null; } },
+    set(k, v, s) { try { (s ? sessionStorage : localStorage).setItem(k, v); } catch (e) {} },
+    del(k) { try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch (e) {} }
+  };
+
+  let token = null;
+  let images = []; // { name, dataUrl, base64 }
+
+  // ── Helpers ────────────────────────────────────────────
+  const esc = s => String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  function formatDate(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return `${d}. ${MONTHS[m - 1]} ${y}`;
+  }
+  function parseNoDate(str) {
+    const m = String(str).trim().toLowerCase().match(/^(\d{1,2})\.\s*([a-zæøå]+)\s+(\d{4})/);
+    if (!m) return null;
+    const mi = MONTHS.indexOf(m[2]);
+    if (mi < 0) return null;
+    return Number(m[3]) * 10000 + (mi + 1) * 100 + Number(m[1]);
+  }
+  function todayIso() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+  function showMsg(el, type, html) { el.innerHTML = html ? `<div class="msg ${type}">${html}</div>` : ''; }
+
+  function bodyToHtml(text) {
+    return text.replace(/\r\n/g, '\n').split(/\n\s*\n/)
+      .map(p => p.trim()).filter(Boolean)
+      .map(p => `    <p>${esc(p).replace(/\n/g, '<br>')}</p>`)
+      .join('\n');
+  }
+
+  function buildArticle({ title, dateIso, category, body, imagePaths }) {
+    const c = CATEGORIES[category];
+    const lines = [
+      `  <article class="${c.article}">`,
+      `    <div class="post-inner">`,
+      `    <div class="post-meta">`,
+      `      <span class="post-date">${formatDate(dateIso)}</span>`,
+      `      <span class="post-tag ${c.tag}">${c.label}</span>`,
+      `    </div>`,
+      `    <h2>${esc(title)}</h2>`
+    ];
+    if (imagePaths.length) {
+      lines.push('<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">');
+      imagePaths.forEach(src => lines.push(
+        `<img src="${esc(src)}" alt="${esc(title)}" loading="lazy" style="max-width:180px;max-height:140px;border-radius:6px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.13);">`
+      ));
+      lines.push('</div>');
+    }
+    const paras = bodyToHtml(body);
+    if (paras) lines.push(paras);
+    lines.push(`    </div>`, `  </article>`);
+    return lines.join('\n');
+  }
+
+  // Put the new post in the right place (newest first, grouped by year)
+  // and bump the sidebar archive count.
+  function insertPost(html, articleHtml, dateIso) {
+    const newKey = Number(dateIso.replace(/-/g, ''));
+    const year = Number(dateIso.slice(0, 4));
+    const mainOpen = html.indexOf('<main>');
+    const mainClose = html.indexOf('</main>');
+    if (mainOpen < 0 || mainClose < 0) throw new Error('Fant ikke <main> i index.html');
+    const mainStart = mainOpen + '<main>'.length;
+    const lineStart = i => html.lastIndexOf('\n', i - 1) + 1;
+
+    const labels = [];
+    const reLabel = /<div class="year-label">(\d{4})<\/div>/g;
+    reLabel.lastIndex = mainStart;
+    let m;
+    while ((m = reLabel.exec(html)) && m.index < mainClose) labels.push({ year: Number(m[1]), idx: m.index });
+
+    const articles = [];
+    const reArt = /<article\b[^>]*>[\s\S]*?<span class="post-date">([^<]*)<\/span>/g;
+    reArt.lastIndex = mainStart;
+    while ((m = reArt.exec(html)) && m.index < mainClose) articles.push({ key: parseNoDate(m[1]), idx: m.index });
+
+    const label = labels.find(l => l.year === year);
+    let pos, insert;
+    if (label) {
+      const next = labels.find(l => l.idx > label.idx);
+      const end = next ? next.idx : mainClose;
+      const before = articles.find(a => a.idx > label.idx && a.idx < end && a.key !== null && a.key <= newKey);
+      pos = lineStart(before ? before.idx : end);
+      insert = articleHtml + '\n\n';
+    } else {
+      const older = labels.find(l => l.year < year);
+      pos = lineStart(older ? older.idx : mainClose);
+      insert = `<div class="year-label">${year}</div>\n\n` + articleHtml + '\n\n';
+    }
+    let out = html.slice(0, pos) + insert + html.slice(pos);
+
+    // Sidebar archive
+    const reCount = new RegExp(`(<li><span>${year}</span><span class="archive-count">)(\\d+)(</span></li>)`);
+    if (reCount.test(out)) {
+      out = out.replace(reCount, (_, a, n, b) => a + (Number(n) + 1) + b);
+    } else {
+      const listOpen = out.indexOf('<ul class="archive-list">');
+      if (listOpen >= 0) {
+        const listClose = out.indexOf('</ul>', listOpen);
+        const reLi = /<li><span>(\d{4})<\/span>/g;
+        reLi.lastIndex = listOpen;
+        let at = listClose, li;
+        while ((li = reLi.exec(out)) && li.index < listClose) {
+          if (Number(li[1]) < year) { at = li.index; break; }
+        }
+        const ls = out.lastIndexOf('\n', at - 1) + 1;
+        const indent = out.slice(ls, at).match(/^\s*/)[0] || '      ';
+        out = out.slice(0, ls) + `${indent}<li><span>${year}</span><span class="archive-count">1</span></li>\n` + out.slice(ls);
+      }
+    }
+    return out;
+  }
+  window.__ttInsertPost = insertPost; // for testing
+
+  // ── GitHub API ─────────────────────────────────────────
+  async function gh(path, opts = {}) {
+    const res = await fetch(API + path, {
+      ...opts,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': opts.accept || 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        ...(opts.body ? { 'Content-Type': 'application/json' } : {})
+      }
+    });
+    if (!res.ok) {
+      let detail = '';
+      try { detail = (await res.json()).message || ''; } catch (e) {}
+      const err = new Error(`GitHub svarte ${res.status}${detail ? ': ' + detail : ''}`);
+      err.status = res.status;
+      throw err;
+    }
+    return opts.accept && opts.accept.includes('raw') ? res.text() : res.json();
+  }
+  const repoPath = `/repos/${OWNER}/${REPO}`;
+
+  async function checkToken(t) {
+    token = t;
+    const repo = await gh(repoPath);
+    if (!repo.permissions || !repo.permissions.push) {
+      throw new Error('Tokenet har ikke skrivetilgang. Sjekk at «Contents: Read and write» er valgt.');
+    }
+    return repo.default_branch || 'main';
+  }
+
+  async function publish(post) {
+    const repo = await gh(repoPath);
+    const branch = repo.default_branch || 'main';
+    const ref = await gh(`${repoPath}/git/ref/heads/${branch}`);
+    const headSha = ref.object.sha;
+    const headCommit = await gh(`${repoPath}/git/commits/${headSha}`);
+
+    const html = await gh(`${repoPath}/contents/index.html?ref=${headSha}`, { accept: 'application/vnd.github.raw+json' });
+
+    const stamp = post.dateIso.replace(/-/g, '');
+    const rand = Math.random().toString(36).slice(2, 7);
+    const tree = [];
+    const imagePaths = [];
+    for (let i = 0; i < post.images.length; i++) {
+      const path = `image/innlegg-${stamp}-${rand}-${i + 1}.jpg`;
+      const blob = await gh(`${repoPath}/git/blobs`, {
+        method: 'POST',
+        body: JSON.stringify({ content: post.images[i].base64, encoding: 'base64' })
+      });
+      tree.push({ path, mode: '100644', type: 'blob', sha: blob.sha });
+      imagePaths.push(path);
+    }
+
+    const article = buildArticle({ ...post, imagePaths });
+    const newHtml = insertPost(html, article, post.dateIso);
+    const htmlBlob = await gh(`${repoPath}/git/blobs`, {
+      method: 'POST',
+      body: JSON.stringify({ content: newHtml, encoding: 'utf-8' })
+    });
+    tree.push({ path: 'index.html', mode: '100644', type: 'blob', sha: htmlBlob.sha });
+
+    const newTree = await gh(`${repoPath}/git/trees`, {
+      method: 'POST',
+      body: JSON.stringify({ base_tree: headCommit.tree.sha, tree })
+    });
+    const commit = await gh(`${repoPath}/git/commits`, {
+      method: 'POST',
+      body: JSON.stringify({ message: `Nytt innlegg: ${post.title}`, tree: newTree.sha, parents: [headSha] })
+    });
+    await gh(`${repoPath}/git/refs/heads/${branch}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ sha: commit.sha })
+    });
+    return commit;
+  }
+
+  // ── Images ─────────────────────────────────────────────
+  function loadImage(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error(`Kunne ikke lese «${file.name}». Prøv JPG eller PNG.`)); };
+      img.src = url;
+    });
+  }
+  async function processFile(file) {
+    const img = await loadImage(file);
+    const scale = Math.min(1, MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+    const w = Math.round(img.naturalWidth * scale), h = Math.round(img.naturalHeight * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(img, 0, 0, w, h);
+    const dataUrl = canvas.toDataURL('image/jpeg', JPEG_Q);
+    return { name: file.name, dataUrl, base64: dataUrl.split(',')[1] };
+  }
+  async function addFiles(fileList) {
+    const files = [...fileList].filter(f => f.type.startsWith('image/') || /\.(heic|heif)$/i.test(f.name));
+    for (const f of files) {
+      try { images.push(await processFile(f)); }
+      catch (e) { showMsg($('msg'), 'err', esc(e.message)); }
+    }
+    renderThumbs(); renderPreview();
+  }
+  function renderThumbs() {
+    $('thumbs').innerHTML = images.map((im, i) => `
+      <div class="thumb">
+        <img src="${im.dataUrl}" alt="">
+        <button type="button" data-del="${i}" aria-label="Fjern bilde">×</button>
+        <div class="move">
+          <button type="button" data-left="${i}" aria-label="Flytt til venstre" ${i === 0 ? 'style="visibility:hidden"' : ''}>‹</button>
+          <button type="button" data-right="${i}" aria-label="Flytt til høyre" ${i === images.length - 1 ? 'style="visibility:hidden"' : ''}>›</button>
+        </div>
+      </div>`).join('');
+  }
+  $('thumbs').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const swap = (a, c) => { [images[a], images[c]] = [images[c], images[a]]; };
+    if (b.dataset.del !== undefined) images.splice(Number(b.dataset.del), 1);
+    else if (b.dataset.left !== undefined) swap(Number(b.dataset.left), Number(b.dataset.left) - 1);
+    else if (b.dataset.right !== undefined) swap(Number(b.dataset.right), Number(b.dataset.right) + 1);
+    renderThumbs(); renderPreview();
+  });
+
+  const drop = $('drop');
+  drop.addEventListener('click', () => $('files').click());
+  $('files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => addFiles(e.dataTransfer.files));
+
+  // ── Form, preview, draft ───────────────────────────────
+  const fields = ['title', 'date', 'category', 'body'];
+  function readForm() {
+    return {
+      title: $('title').value.trim(),
+      dateIso: $('date').value || todayIso(),
+      category: $('category').value,
+      body: $('body').value,
+      images
+    };
+  }
+  function renderPreview() {
+    const p = readForm();
+    if (!p.title && !p.body.trim() && !images.length) {
+      $('preview').innerHTML = '<article><p class="empty">Innlegget vises her mens du skriver.</p></article>';
+      return;
+    }
+    const html = buildArticle({ ...p, title: p.title || 'Uten tittel', imagePaths: images.map(i => i.dataUrl) });
+    $('preview').innerHTML = html;
+  }
+  function saveDraft() {
+    const d = {}; fields.forEach(f => d[f] = $(f).value);
+    store.set(DRAFT_KEY, JSON.stringify(d));
+  }
+  function loadDraft() {
+    try {
+      const d = JSON.parse(store.get(DRAFT_KEY) || 'null');
+      if (d) fields.forEach(f => { if (d[f]) $(f).value = d[f]; });
+    } catch (e) {}
+    if (!$('date').value) $('date').value = todayIso();
+  }
+  function clearForm() {
+    $('title').value = ''; $('body').value = ''; $('category').value = 'blogg'; $('date').value = todayIso();
+    images = []; renderThumbs(); renderPreview(); store.del(DRAFT_KEY);
+  }
+  fields.forEach(f => $(f).addEventListener('input', () => { renderPreview(); saveDraft(); }));
+  $('clearBtn').addEventListener('click', () => {
+    if (confirm('Tømme skjemaet? Teksten og bildene forsvinner.')) { clearForm(); showMsg($('msg'), '', ''); }
+  });
+
+  $('publishBtn').addEventListener('click', async () => {
+    const post = readForm();
+    if (!post.title) return showMsg($('msg'), 'err', 'Innlegget trenger en tittel.');
+    if (!post.body.trim() && !images.length) return showMsg($('msg'), 'err', 'Skriv litt tekst eller legg til bilder først.');
+    const btn = $('publishBtn');
+    btn.disabled = true; btn.textContent = 'Publiserer…';
+    showMsg($('msg'), 'info', images.length ? `Laster opp ${images.length} bilde${images.length > 1 ? 'r' : ''} og innlegget…` : 'Lagrer innlegget…');
+    try {
+      await publish(post);
+      clearForm();
+      showMsg($('msg'), 'ok', `«${esc(post.title)}» er publisert! Bloggen oppdateres om ca. ett minutt. <a href="/" target="_blank" rel="noopener">Se bloggen ↗</a>`);
+    } catch (e) {
+      let text = esc(e.message);
+      if (e.status === 401) text = 'GitHub-tokenet er utløpt eller ugyldig. Logg ut og logg inn med et nytt token.';
+      if (e.status === 409 || e.status === 422) text += ' — prøv å trykke Publiser igjen.';
+      showMsg($('msg'), 'err', text + ' Teksten din er lagret som utkast.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Publiser innlegget';
+    }
+  });
+
+  // ── Login ──────────────────────────────────────────────
+  function showEditor() {
+    $('login').classList.add('hidden');
+    $('editor').classList.remove('hidden');
+    $('logoutBtn').classList.remove('hidden');
+    loadDraft(); renderPreview();
+  }
+  function showLogin() {
+    $('editor').classList.add('hidden');
+    $('logoutBtn').classList.add('hidden');
+    $('login').classList.remove('hidden');
+  }
+  $('loginBtn').addEventListener('click', async () => {
+    const t = $('tokenInput').value.trim();
+    if (!t) return showMsg($('loginMsg'), 'err', 'Lim inn tokenet først.');
+    $('loginBtn').disabled = true;
+    try {
+      await checkToken(t);
+      store.del(TOKEN_KEY);
+      store.set(TOKEN_KEY, t, !$('rememberInput').checked);
+      $('tokenInput').value = '';
+      showMsg($('loginMsg'), '', '');
+      showEditor();
+    } catch (e) {
+      token = null;
+      showMsg($('loginMsg'), 'err', e.status === 401 ? 'Ugyldig token.' : e.status === 404 ? 'Tokenet har ikke tilgang til repoet trigerogtiger.blogg.no.' : esc(e.message));
+    } finally {
+      $('loginBtn').disabled = false;
+    }
+  });
+  $('tokenInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('loginBtn').click(); });
+  $('logoutBtn').addEventListener('click', () => { store.del(TOKEN_KEY); token = null; showLogin(); });
+
+  const saved = store.get(TOKEN_KEY) || store.get(TOKEN_KEY, true);
+  if (saved) { token = saved; showEditor(); } else { showLogin(); }
+})();
+</script>
+</body>
+</html>

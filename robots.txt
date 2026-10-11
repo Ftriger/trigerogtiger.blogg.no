@@ -1,5 +1,5 @@
-project/
- ├─ index.html
- ├─ sitemap.xml
- ├─ robots.txt
- └─ vercel.json
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://trigerogtiger.no/sitemap.xml

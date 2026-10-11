@@ -360,6 +360,74 @@ footer strong { color: var(--accent2); }
   .masthead-stats { flex-direction: row; text-align: left; }
   .post-inner { padding: 1.5rem; }
 }
+
+/* ── SEARCH ── */
+.search-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 2rem 0;
+}
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-box svg {
+  position: absolute;
+  left: 1rem;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  pointer-events: none;
+}
+#search {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.85rem 2.75rem 0.85rem 2.75rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+#search:focus { outline: 2px solid var(--accent2); border-color: var(--accent); }
+#search::-webkit-search-cancel-button { display: none; }
+#searchClear {
+  position: absolute;
+  right: 0.5rem;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#searchClear:hover { background: var(--border); color: var(--ink); }
+.search-status {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  min-height: 1.2em;
+}
+.search-status strong { color: var(--ink2); }
+.no-results {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  color: var(--muted);
+  padding: 2rem 0;
+}
+mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.filtered-hidden { display: none !important; }
+.site-body { padding-top: 2rem; }
+@media (max-width: 700px) {
+  .search-wrap { padding: 1.5rem 16px 0; }
+}
 </style>
 </head>
 <body>
@@ -394,6 +462,15 @@ footer strong { color: var(--accent2); }
     <a href="#">Oppskrifter</a>
   </div>
 </nav>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="search" placeholder="Søk i innleggene – f.eks. Sardinia, korps, kake…" aria-label="Søk i innleggene" autocomplete="off">
+    <button type="button" id="searchClear" aria-label="Tøm søk" hidden>×</button>
+  </div>
+  <div class="search-status" id="searchStatus" aria-live="polite"></div>
+</div>
 
 <div class="site-body">
 <main>
@@ -3109,5 +3186,126 @@ footer strong { color: var(--accent2); }
   <p style="margin-top:0.5rem;">Finn Magne &amp; Tina · Sandefjord · 2008–2014</p>
 </footer>
 
+<script>
+/* Søk og kategorifilter */
+(function () {
+  var input = document.getElementById('search');
+  var clearBtn = document.getElementById('searchClear');
+  var status = document.getElementById('searchStatus');
+  var main = document.querySelector('main');
+  if (!input || !main) return;
+
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav .nav-inner a'));
+  var navMap = { 'reise': 'travel', 'blogg': 'blog', 'barna': 'kids', 'oppskrifter': 'rec' };
+  var category = 'all';
+
+  var posts = Array.prototype.slice.call(main.querySelectorAll('article')).map(function (el) {
+    var h = el.querySelector('h2');
+    return {
+      el: el,
+      original: el.innerHTML,
+      text: norm(el.textContent),
+      tags: (el.className + ' ' + Array.prototype.map.call(el.querySelectorAll('.post-tag'), function (t) { return t.className; }).join(' '))
+    };
+  });
+  var labels = Array.prototype.slice.call(main.querySelectorAll('.year-label'));
+  var noRes = document.createElement('p');
+  noRes.className = 'no-results filtered-hidden';
+  main.appendChild(noRes);
+
+  function norm(s) { return String(s).toLowerCase().replace(/\s+/g, ' '); }
+  function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function escHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function inCategory(p) {
+    if (category === 'all') return true;
+    if (category === 'travel') return /\btravel\b|tag-travel|tag-bryllupsreise/.test(p.tags);
+    if (category === 'kids') return /\bkids\b|tag-barna/.test(p.tags);
+    if (category === 'rec') return /\brec\b|tag-rec/.test(p.tags);
+    if (category === 'blog') return /\bblog\b|tag-blogg/.test(p.tags);
+    return true;
+  }
+
+  function highlight(el, re) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodes = [], n;
+    while ((n = walker.nextNode())) {
+      if (n.parentNode.closest('h2, p') && re.test(n.nodeValue)) nodes.push(n);
+      re.lastIndex = 0;
+    }
+    nodes.forEach(function (node) {
+      var span = document.createElement('span');
+      span.innerHTML = escHtml(node.nodeValue).replace(re, function (m) { return '<mark class="hit">' + m + '</mark>'; });
+      re.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      while (span.firstChild) frag.appendChild(span.firstChild);
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  function apply() {
+    var q = input.value.trim();
+    var words = norm(q).split(' ').filter(Boolean);
+    var re = words.length ? new RegExp('(' + words.map(function (w) { return escRe(escHtml(w)); }).join('|') + ')', 'gi') : null;
+    var count = 0;
+
+    posts.forEach(function (p) {
+      var match = inCategory(p) && words.every(function (w) { return p.text.indexOf(w) !== -1; });
+      if (p.highlighted) { p.el.innerHTML = p.original; p.highlighted = false; }
+      p.el.classList.toggle('filtered-hidden', !match);
+      if (match) {
+        count++;
+        if (re) { highlight(p.el, re); p.highlighted = true; }
+      }
+    });
+
+    labels.forEach(function (label) {
+      var el = label.nextElementSibling, visible = false;
+      while (el && !el.classList.contains('year-label')) {
+        if (el.tagName === 'ARTICLE' && !el.classList.contains('filtered-hidden')) { visible = true; break; }
+        el = el.nextElementSibling;
+      }
+      label.classList.toggle('filtered-hidden', !visible);
+    });
+
+    clearBtn.hidden = !q;
+    var filtering = words.length || category !== 'all';
+    if (!filtering) {
+      status.textContent = '';
+    } else if (count) {
+      status.innerHTML = '<strong>' + count + '</strong> innlegg' + (q ? ' med «' + escHtml(q) + '»' : '');
+    } else {
+      status.textContent = '';
+    }
+    noRes.textContent = q ? 'Fant ingen innlegg med «' + q + '». Prøv et annet ord.' : 'Ingen innlegg i denne kategorien.';
+    noRes.classList.toggle('filtered-hidden', !(filtering && count === 0));
+
+    try {
+      var url = new URL(window.location.href);
+      if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+      history.replaceState(null, '', url);
+    } catch (e) {}
+  }
+
+  var timer;
+  input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(apply, 150); });
+  input.addEventListener('keydown', function (e) { if (e.key === 'Escape') { input.value = ''; apply(); } });
+  clearBtn.addEventListener('click', function () { input.value = ''; apply(); input.focus(); });
+
+  navLinks.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      category = navMap[a.textContent.trim().toLowerCase()] || 'all';
+      navLinks.forEach(function (x) { x.classList.toggle('active', x === a); });
+      apply();
+    });
+  });
+
+  try {
+    var initial = new URL(window.location.href).searchParams.get('q');
+    if (initial) { input.value = initial; apply(); }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
