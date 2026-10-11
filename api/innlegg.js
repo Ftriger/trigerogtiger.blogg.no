@@ -92,7 +92,7 @@ ${older ? `<link rel="prev" href="/innlegg/${older.slug}">` : ''}
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 <style>${css}
-.single { max-width: 760px; margin: 0 auto; padding: 2rem 16px 4rem; }
+.single { max-width: 980px; margin: 0 auto; padding: 2rem 16px 4rem; }
 .crumbs { font-family: 'Inter', sans-serif; font-size: .82rem; color: var(--muted); margin-bottom: 1.2rem; }
 .crumbs a { color: var(--accent); text-decoration: none; }
 .single article h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.2; margin: .4rem 0 1.2rem; }
