@@ -35,7 +35,8 @@
       "config": {
         "includeFiles": [
           "index.html",
-          "lib/**"
+          "lib/**",
+          "kommentarer/**"
         ]
       }
     }

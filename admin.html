@@ -101,6 +101,15 @@ main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 16px 4rem; }
 .list-head { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
 .list-head h2 { margin: 0; flex: 1; }
 #listSearch { max-width: 320px; }
+.badge { display: inline-block; min-width: 1.3em; padding: 0 .35em; margin-left: .3em; border-radius: 999px; background: var(--accent); color: #fff; font-size: .7rem; line-height: 1.5; text-align: center; }
+.cgroup h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin: 1.2rem 0 .5rem; }
+.citem { border: 1px solid var(--border); border-radius: 10px; padding: .8rem 1rem; margin-bottom: .6rem; background: #fff; }
+.citem.pending { border-color: var(--accent2); background: #fffaf3; }
+.citem .meta { font-size: .8rem; color: var(--muted); margin-bottom: .35rem; }
+.citem .meta a { color: var(--accent); }
+.citem .txt { white-space: pre-wrap; margin-bottom: .6rem; }
+.citem .act { display: flex; gap: .5rem; flex-wrap: wrap; }
+.citem .act .btn { padding: .4rem .8rem; font-size: .85rem; }
 .post-list { list-style: none; }
 .post-list li + li { border-top: 1px solid var(--border); }
 .post-list button {
@@ -279,6 +288,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   <nav class="tabs hidden" id="tabs">
     <button type="button" data-tab="new" class="active">Nytt innlegg</button>
     <button type="button" data-tab="list">Rediger innlegg</button>
+    <button type="button" data-tab="comments">Kommentarer <span class="badge hidden" id="cBadge"></span></button>
   </nav>
   <div class="rule"></div>
 </header>
@@ -298,6 +308,13 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     </label>
     <div class="actions"><button class="btn primary" id="loginBtn" type="button">Logg inn</button></div>
     <div id="loginMsg"></div>
+  </section>
+
+  <!-- COMMENTS -->
+  <section id="comments" class="card hidden">
+    <div class="list-head"><h2>Kommentarer</h2></div>
+    <div id="cMsg"></div>
+    <div id="cList"></div>
   </section>
 
   <!-- POST LIST -->
@@ -1255,14 +1272,93 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 
   window.__tt.openEditor = openEditor;
 
+  // ══ Comments ═══════════════════════════════════════════
+  const C_FILE = 'kommentarer/kommentarer.json';
+  const b64ToUtf8 = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g, '')), c => c.charCodeAt(0)));
+  function utf8ToB64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }
+  async function loadComments() {
+    try {
+      const j = await gh(`${repoPath}/contents/${C_FILE}`);
+      const data = JSON.parse(b64ToUtf8(j.content));
+      return { sha: j.sha, comments: Array.isArray(data.comments) ? data.comments : [] };
+    } catch (e) {
+      if (e.status === 404) return { sha: null, comments: [] };
+      throw e;
+    }
+  }
+  function setBadge(list) {
+    const n = list.filter(c => !c.approved).length;
+    $('cBadge').textContent = n;
+    $('cBadge').classList.toggle('hidden', !n);
+  }
+  function renderComments(list) {
+    setBadge(list);
+    const fmt = iso => new Date(iso).toLocaleString('nb-NO', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const item = c => `
+      <div class="citem${c.approved ? '' : ' pending'}">
+        <div class="meta"><strong>${esc(c.name)}</strong> · ${esc(fmt(c.date))} · på <a href="/innlegg/${encodeURIComponent(c.slug)}#kommentarer" target="_blank" rel="noopener">${esc(c.title || c.slug)}</a></div>
+        <div class="txt">${esc(c.text)}</div>
+        <div class="act">
+          ${c.approved ? `<button class="btn" data-hide="${esc(c.id)}">Skjul</button>` : `<button class="btn primary" data-ok="${esc(c.id)}">Godkjenn</button>`}
+          <button class="btn danger" data-delc="${esc(c.id)}">Slett</button>
+        </div>
+      </div>`;
+    const newest = (a, b) => String(b.date).localeCompare(String(a.date));
+    const pending = list.filter(c => !c.approved).sort(newest);
+    const shown = list.filter(c => c.approved).sort(newest);
+    $('cList').innerHTML =
+      `<div class="cgroup"><h3>Venter på godkjenning (${pending.length})</h3>${pending.length ? pending.map(item).join('') : '<p class="hint">Ingen nye kommentarer.</p>'}</div>` +
+      `<div class="cgroup"><h3>Vises på bloggen (${shown.length})</h3>${shown.length ? shown.map(item).join('') : '<p class="hint">Ingen ennå.</p>'}</div>`;
+  }
+  async function openComments() {
+    showView('comments');
+    showMsg($('cMsg'), 'info', 'Henter kommentarer…');
+    try { const d = await loadComments(); renderComments(d.comments); showMsg($('cMsg'), '', ''); }
+    catch (e) { showMsg($('cMsg'), 'err', authText(e)); }
+  }
+  async function changeComment(id, fn, msgText) {
+    document.querySelectorAll('#cList .btn').forEach(b => b.disabled = true);
+    showMsg($('cMsg'), 'info', 'Lagrer…');
+    try {
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const d = await loadComments();
+        const list = fn(d.comments.slice(), id);
+        try {
+          await gh(`${repoPath}/contents/${C_FILE}`, { method: 'PUT', body: JSON.stringify({
+            message: msgText, content: utf8ToB64(JSON.stringify({ comments: list }, null, 2) + '\n'), ...(d.sha ? { sha: d.sha } : {}) }) });
+          renderComments(list);
+          showMsg($('cMsg'), 'ok', 'Lagret. Bloggen oppdateres om ca. ett minutt.');
+          site = null; // the repo changed; reload posts next time
+          return;
+        } catch (e) { if (e.status !== 409 && e.status !== 422) throw e; }
+      }
+      throw new Error('Kunne ikke lagre – prøv igjen.');
+    } catch (e) {
+      showMsg($('cMsg'), 'err', authText(e));
+      document.querySelectorAll('#cList .btn').forEach(b => b.disabled = false);
+    }
+  }
+  $('cList').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.ok) changeComment(b.dataset.ok, l => l.map(c => c.id === b.dataset.ok ? { ...c, approved: true } : c), 'Godkjent kommentar');
+    else if (b.dataset.hide) changeComment(b.dataset.hide, l => l.map(c => c.id === b.dataset.hide ? { ...c, approved: false } : c), 'Skjult kommentar');
+    else if (b.dataset.delc && confirm('Slette kommentaren?')) changeComment(b.dataset.delc, l => l.filter(c => c.id !== b.dataset.delc), 'Slettet kommentar');
+  });
+  // Show how many comments are waiting as soon as we're logged in
+  function refreshBadge() { loadComments().then(d => setBadge(d.comments)).catch(() => {}); }
+
   // ══ Views ══════════════════════════════════════════════
   function showView(view) {
-    ['login', 'list', 'editor'].forEach(v => $(v).classList.toggle('hidden', v !== view));
+    ['login', 'list', 'editor', 'comments'].forEach(v => $(v).classList.toggle('hidden', v !== view));
     $('tabs').classList.toggle('hidden', view === 'login');
     $('logoutBtn').classList.toggle('hidden', view === 'login');
-    document.querySelectorAll('#tabs button').forEach(b => {
-      b.classList.toggle('active', (b.dataset.tab === 'list') === (view === 'list' || (view === 'editor' && !!editing)));
-    });
+    const tab = view === 'comments' ? 'comments' : (view === 'list' || (view === 'editor' && !!editing)) ? 'list' : 'new';
+    document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   }
   function startNew() {
     setMode(null);
@@ -1303,7 +1399,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     openEditor(site.articles[Number(b.dataset.i)].chunk);
   });
   document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => {
-    if (b.dataset.tab === 'list') openList(); else startNew();
+    if (b.dataset.tab === 'list') openList(); else if (b.dataset.tab === 'comments') openComments(); else startNew();
   }));
   $('backBtn').addEventListener('click', () => openList());
 
@@ -1403,6 +1499,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       $('tokenInput').value = '';
       showMsg($('loginMsg'), '', '');
       startNew();
+      refreshBadge();
     } catch (e) {
       token = null;
       showMsg($('loginMsg'), 'err', e.status === 401 ? (isGithubToken(t) ? 'Ugyldig token.' : 'Feil admin-kode.') : e.status === 404 ? 'Tokenet har ikke tilgang til repoet trigerogtiger.blogg.no.' : esc(e.message));
@@ -1415,7 +1512,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 
   fillCategoryOptions(null);
   const saved = store.get(TOKEN_KEY) || store.get(TOKEN_KEY, true);
-  if (saved) { token = saved; startNew(); } else { showView('login'); }
+  if (saved) { token = saved; startNew(); refreshBadge(); } else { showView('login'); }
 })();
 </script>
 </body>

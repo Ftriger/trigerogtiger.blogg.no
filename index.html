@@ -462,6 +462,8 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
 .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
 .lb-count { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font: 500 0.8rem 'Inter', sans-serif; color: #a89890; }
+.comment-link { display: inline-block; margin-top: .8rem; font-family: 'Inter', sans-serif; font-size: .82rem; color: var(--accent); text-decoration: none; }
+.comment-link:hover { text-decoration: underline; }
 main article { scroll-margin-top: 4rem; content-visibility: auto; contain-intrinsic-size: auto 600px; }
 .topic-list a { color: inherit; text-decoration: none; }
 .topic-list a:hover { color: var(--accent); }
@@ -6364,6 +6366,14 @@ main article { scroll-margin-top: 4rem; content-visibility: auto; contain-intrin
     link.style.cssText = 'color:inherit;text-decoration:none';
     while (h.firstChild) link.appendChild(h.firstChild);
     h.appendChild(link);
+    var inner = a.querySelector('.post-inner') || a;
+    if (!inner.querySelector('a.comment-link')) {
+      var c = document.createElement('a');
+      c.className = 'comment-link';
+      c.href = '/innlegg/' + slug + '#kommentarer';
+      c.textContent = '💬 Kommentarer';
+      inner.appendChild(c);
+    }
   });
 })();
 </script>
