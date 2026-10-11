@@ -1291,8 +1291,11 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       throw e;
     }
   }
+  // Badge: comments that arrived since the comments tab was last opened
+  const SEEN_KEY = 'tt-comments-seen';
   function setBadge(list) {
-    const n = list.filter(c => !c.approved).length;
+    const seen = store.get(SEEN_KEY) || '';
+    const n = list.filter(c => String(c.date) > seen).length;
     $('cBadge').textContent = n;
     $('cBadge').classList.toggle('hidden', !n);
   }
@@ -1304,21 +1307,27 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
         <div class="meta"><strong>${esc(c.name)}</strong> · ${esc(fmt(c.date))} · på <a href="/innlegg/${encodeURIComponent(c.slug)}#kommentarer" target="_blank" rel="noopener">${esc(c.title || c.slug)}</a></div>
         <div class="txt">${esc(c.text)}</div>
         <div class="act">
-          ${c.approved ? `<button class="btn" data-hide="${esc(c.id)}">Skjul</button>` : `<button class="btn primary" data-ok="${esc(c.id)}">Godkjenn</button>`}
+          ${c.approved ? `<button class="btn" data-hide="${esc(c.id)}">Skjul</button>` : `<button class="btn primary" data-ok="${esc(c.id)}">Vis igjen</button>`}
           <button class="btn danger" data-delc="${esc(c.id)}">Slett</button>
         </div>
       </div>`;
     const newest = (a, b) => String(b.date).localeCompare(String(a.date));
-    const pending = list.filter(c => !c.approved).sort(newest);
+    const hidden = list.filter(c => !c.approved).sort(newest);
     const shown = list.filter(c => c.approved).sort(newest);
     $('cList').innerHTML =
-      `<div class="cgroup"><h3>Venter på godkjenning (${pending.length})</h3>${pending.length ? pending.map(item).join('') : '<p class="hint">Ingen nye kommentarer.</p>'}</div>` +
-      `<div class="cgroup"><h3>Vises på bloggen (${shown.length})</h3>${shown.length ? shown.map(item).join('') : '<p class="hint">Ingen ennå.</p>'}</div>`;
+      `<div class="cgroup"><h3>Vises på bloggen (${shown.length})</h3>${shown.length ? shown.map(item).join('') : '<p class="hint">Ingen kommentarer ennå.</p>'}</div>` +
+      (hidden.length ? `<div class="cgroup"><h3>Skjult (${hidden.length})</h3>${hidden.map(item).join('')}</div>` : '');
   }
   async function openComments() {
     showView('comments');
     showMsg($('cMsg'), 'info', 'Henter kommentarer…');
-    try { const d = await loadComments(); renderComments(d.comments); showMsg($('cMsg'), '', ''); }
+    try {
+      const d = await loadComments();
+      renderComments(d.comments);
+      showMsg($('cMsg'), '', '');
+      const newest = d.comments.reduce((m, c) => String(c.date) > m ? String(c.date) : m, '');
+      if (newest) { store.set(SEEN_KEY, newest); setBadge(d.comments); }
+    }
     catch (e) { showMsg($('cMsg'), 'err', authText(e)); }
   }
   async function changeComment(id, fn, msgText) {
@@ -1345,7 +1354,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   }
   $('cList').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
-    if (b.dataset.ok) changeComment(b.dataset.ok, l => l.map(c => c.id === b.dataset.ok ? { ...c, approved: true } : c), 'Godkjent kommentar');
+    if (b.dataset.ok) changeComment(b.dataset.ok, l => l.map(c => c.id === b.dataset.ok ? { ...c, approved: true } : c), 'Viser kommentar igjen');
     else if (b.dataset.hide) changeComment(b.dataset.hide, l => l.map(c => c.id === b.dataset.hide ? { ...c, approved: false } : c), 'Skjult kommentar');
     else if (b.dataset.delc && confirm('Slette kommentaren?')) changeComment(b.dataset.delc, l => l.filter(c => c.id !== b.dataset.delc), 'Slettet kommentar');
   });
