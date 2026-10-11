@@ -272,16 +272,11 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   <!-- LOGIN -->
   <section id="login" class="card hidden">
     <h2>Logg inn</h2>
-    <p style="color:var(--ink2);font-size:.95rem;">Admin-siden lagrer innleggene rett i GitHub, og Vercel publiserer dem automatisk. Den trenger en GitHub-nøkkel (token) én gang:</p>
-    <ol>
-      <li>Åpne <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Ny fine-grained token</a></li>
-      <li>Navn: <code>blogg-admin</code>, utløp: velg f.eks. 1 år</li>
-      <li>Repository access: <strong>Only select repositories</strong> → <code>trigerogtiger.blogg.no</code></li>
-      <li>Permissions → Repository permissions → <strong>Contents: Read and write</strong></li>
-      <li>Trykk <strong>Generate token</strong>, kopier og lim inn her</li>
-    </ol>
-    <label for="tokenInput">GitHub-token</label>
-    <input type="password" id="tokenInput" placeholder="github_pat_…" autocomplete="off">
+    <p style="color:var(--ink2);font-size:.95rem;">Skriv inn admin-koden for å skrive og redigere innlegg.</p>
+    <label for="tokenInput">Admin-kode</label>
+    <input type="password" id="tokenInput" placeholder="Admin-kode" autocomplete="current-password">
+    <details style="margin:.4rem 0 .8rem;font-size:.85rem;color:var(--ink2);"><summary>Har du en GitHub-token i stedet?</summary>
+      <p style="margin-top:.4rem;">Du kan også lime inn en GitHub-token (github_pat_…) med «Contents: Read and write» for repoet trigerogtiger.blogg.no.</p></details>
     <label style="display:flex;gap:.5rem;align-items:center;text-transform:none;letter-spacing:0;font-weight:500;font-size:.9rem;color:var(--ink2);">
       <input type="checkbox" id="rememberInput" checked> Husk meg på denne enheten
     </label>
@@ -695,8 +690,9 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   window.__tt = { insertPost, removePost, replacePost, parseArticles, articleToPost, buildArticle, sanitizeBody, noDateToIso };
 
   // ══ GitHub API ═════════════════════════════════════════
+  const isGithubToken = t => /^(github_pat_|ghp_|gho_)/.test(t || '');
   async function gh(path, opts = {}) {
-    const res = await fetch(API + path, {
+    const res = isGithubToken(token) ? await fetch(API + path, {
       method: opts.method || 'GET',
       body: opts.body,
       cache: 'no-store',
@@ -706,6 +702,11 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
         'X-GitHub-Api-Version': '2022-11-28',
         ...(opts.body ? { 'Content-Type': 'application/json' } : {})
       }
+    }) : await fetch('/api/gh.js', {
+      method: 'POST',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Code': token },
+      body: JSON.stringify({ path, method: opts.method || 'GET', body: opts.body, accept: opts.accept })
     });
     if (!res.ok) {
       let detail = '';
@@ -995,7 +996,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   $('backBtn').addEventListener('click', () => openList());
 
   function authText(e) {
-    if (e.status === 401) return 'GitHub-tokenet er utløpt eller ugyldig. Logg ut og logg inn med et nytt token.';
+    if (e.status === 401) return isGithubToken(token) ? 'GitHub-tokenet er utløpt eller ugyldig. Logg ut og logg inn med et nytt token.' : 'Admin-koden er endret eller GitHub-nøkkelen i Vercel er utløpt. Logg ut og logg inn på nytt.';
     return esc(e.message);
   }
 
@@ -1081,7 +1082,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   // ══ Login ══════════════════════════════════════════════
   $('loginBtn').addEventListener('click', async () => {
     const t = $('tokenInput').value.trim();
-    if (!t) return showMsg($('loginMsg'), 'err', 'Lim inn tokenet først.');
+    if (!t) return showMsg($('loginMsg'), 'err', 'Skriv inn admin-koden først.');
     $('loginBtn').disabled = true;
     try {
       await checkToken(t);
@@ -1092,7 +1093,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       startNew();
     } catch (e) {
       token = null;
-      showMsg($('loginMsg'), 'err', e.status === 401 ? 'Ugyldig token.' : e.status === 404 ? 'Tokenet har ikke tilgang til repoet trigerogtiger.blogg.no.' : esc(e.message));
+      showMsg($('loginMsg'), 'err', e.status === 401 ? (isGithubToken(t) ? 'Ugyldig token.' : 'Feil admin-kode.') : e.status === 404 ? 'Tokenet har ikke tilgang til repoet trigerogtiger.blogg.no.' : esc(e.message));
     } finally {
       $('loginBtn').disabled = false;
     }
