@@ -462,7 +462,9 @@ mark.hit { background: #f6dcc6; color: inherit; padding: 0 0.1em; border-radius:
 .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
 .lb-count { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font: 500 0.8rem 'Inter', sans-serif; color: #a89890; }
-main article { scroll-margin-top: 4rem; }
+main article { scroll-margin-top: 4rem; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+.topic-list a { color: inherit; text-decoration: none; }
+.topic-list a:hover { color: var(--accent); }
 </style>
 <meta name="description" content="Familieblogg og reiseblogg fra Vestfold: Tina og Finn Magne Triger og seks barn på tur i Egypt, Tyrkia, Paris, London, Spania og Sardinia – pluss korps, 17. mai, bryllup og hverdagskaos 2008–2014.">
 <link rel="canonical" href="https://www.trigerogtiger.no/">
@@ -6100,18 +6102,33 @@ main article { scroll-margin-top: 4rem; }
       <p>Sammen er vi dynamitt! Se opp for eksplosjoner! Og om dette ikke var nok: <strong>Kine, Tiril, Emma, Theo, Storm og Ariane</strong> er med på ferden.</p>
       <br>
       <p style="color:#a89890; font-size:0.72rem;">Sandefjord · 2008–2014<br>Gjenopprettet fra web.archive.org</p>
+      <p style="margin-top:.6rem;"><a href="/om-oss" style="color:var(--accent);">Les mer om oss →</a></p>
     </div>
+  </div>
+
+  <div class="sidebar-card">
+    <h3>Temaer</h3>
+    <ul class="places-list topic-list">
+      <li><a href="/tema/sharm-el-sheikh-egypt">Sharm El Sheikh og Egypt</a></li>
+      <li><a href="/tema/bryllup-og-bryllupsreise">Bryllup og bryllupsreise</a></li>
+      <li><a href="/tema/paris-og-london-med-barn">Paris og London med barn</a></li>
+      <li><a href="/tema/tyrkia-belek-alanya-side">Tyrkia 2013</a></li>
+      <li><a href="/tema/husbygging-og-oppussing">Husbygging og oppussing</a></li>
+      <li><a href="/tema/korps">Korps</a></li>
+      <li><a href="/tema/justin-bieber">Justin Bieber i Oslo</a></li>
+    </ul>
   </div>
 
   <div class="sidebar-card">
     <h3>Arkiv</h3>
     <ul class="archive-list">
       <li><span>2014</span><span class="archive-count">4</span></li>
-      <li><span>2013</span><span class="archive-count">70</span></li>
-      <li><span>2012</span><span class="archive-count">11</span></li>
+      <li><span>2013</span><span class="archive-count">115</span></li>
+      <li><span>2012</span><span class="archive-count">15</span></li>
       <li><span>2011</span><span class="archive-count">1</span></li>
-      <li><span>2010</span><span class="archive-count">29</span></li>
-      <li><span>2009</span><span class="archive-count">3</span></li>
+      <li><span>2010</span><span class="archive-count">32</span></li>
+      <li><span>2009</span><span class="archive-count">19</span></li>
+      <li><span>2008</span><span class="archive-count">78</span></li>
     </ul>
   </div>
 
@@ -6139,6 +6156,7 @@ main article { scroll-margin-top: 4rem; }
 <footer>
   <p><strong>Triger'n og Tiger'n &amp; resten av familien suser verden rundt</strong></p>
   <p style="margin-top:0.5rem;">Finn Magne &amp; Tina · Sandefjord · 2008–2014</p>
+  <p style="margin-top:0.5rem;"><a href="/tema/" style="color:inherit;">Temaer</a> · <a href="/om-oss" style="color:inherit;">Om oss</a> · <a href="/rss.xml" style="color:inherit;">RSS</a></p>
 </footer>
 
 <script>

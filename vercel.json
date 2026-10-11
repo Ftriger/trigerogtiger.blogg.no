@@ -50,6 +50,18 @@
       "dest": "/api/innlegg.js?slug=$slug"
     },
     {
+      "src": "/tema/?",
+      "dest": "/api/tema.js"
+    },
+    {
+      "src": "/tema/(?<slug>[^/?#]+)/?",
+      "dest": "/api/tema.js?slug=$slug"
+    },
+    {
+      "src": "/om-oss/?",
+      "dest": "/api/om.js"
+    },
+    {
       "src": "/sitemap.xml",
       "dest": "/api/sitemap.js"
     },
