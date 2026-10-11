@@ -54,7 +54,7 @@ body {
   overflow: hidden;
 }
 .masthead-inner {
-  max-width: 900px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 3.5rem 2rem 2.5rem;
   display: grid;
@@ -125,7 +125,7 @@ nav {
   z-index: 10;
 }
 .nav-inner {
-  max-width: 900px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -151,12 +151,12 @@ nav a.active { color: var(--accent2); border-bottom-color: var(--accent); }
 
 /* ── LAYOUT ── */
 .site-body {
-  max-width: 900px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 3rem 2rem 6rem;
   display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: 3rem;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 2.5rem;
   align-items: start;
 }
 main { min-width: 0; }
@@ -375,7 +375,7 @@ footer strong { color: var(--accent2); }
 
 /* ── SEARCH ── */
 .search-wrap {
-  max-width: 900px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 2rem 2rem 0;
 }
