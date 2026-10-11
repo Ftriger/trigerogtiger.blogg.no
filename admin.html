@@ -201,6 +201,15 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 }
 .thumb .move { position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; }
 .thumb .move button { position: static; width: 22px; height: 22px; background: rgba(28,20,16,.75); font-size: 0.75rem; }
+.thumb { height: auto; }
+.thumb img { height: 96px; }
+.thumb .place { position: static; display: block; width: 100%; height: auto; margin-top: 4px; border-radius: 6px; padding: 4px 2px; font-size: 0.72rem; background: var(--accent); }
+.thumb .place.out { background: #8a7b72; }
+.thumb.placed img { opacity: .55; }
+.rte .ed-img { display: flex; align-items: center; gap: 10px; margin: 0.6rem 0 0.9rem; padding: 6px; border: 2px dashed var(--accent2); border-radius: 8px; background: #fbf6f0; user-select: none; }
+.rte .ed-img img { height: 90px; width: auto; max-width: 160px; object-fit: cover; border-radius: 6px; }
+.rte .ed-img span { flex: 1; font-size: 0.8rem; color: var(--ink2); }
+.rte .ed-img button { border: none; background: var(--ink); color: #fff; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; }
 
 .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; align-items: center; }
 .btn {
@@ -343,7 +352,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
         <span class="label">Bilder</span>
         <div class="drop" id="drop">
           <strong>Velg bilder</strong> eller dra dem hit
-          <div class="hint">Bildene gjøres mindre automatisk før opplasting.</div>
+          <div class="hint">Bildene gjøres mindre automatisk før opplasting. Klikk i teksten der bildet skal stå, og trykk «Sett inn i teksten» under bildet. Bilder du ikke setter inn, havner øverst i innlegget.</div>
           <input type="file" id="files" accept="image/*" multiple hidden>
         </div>
         <div class="thumbs" id="thumbs"></div>
@@ -395,7 +404,9 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   };
 
   let token = null;
-  let images = [];       // { src } for existing, { dataUrl, base64 } for new
+  let images = [];       // { id, src } for existing, { id, dataUrl, base64 } for new
+  let nextImgId = 1;
+  const withId = o => ({ ...o, id: nextImgId++ });
   let editing = null;    // null = new post; otherwise { chunk, title, dateIso, galleryExtra, customCat }
   let site = null;       // { headSha, treeSha, branch, html, articles }
 
@@ -463,6 +474,11 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       }
       flush();
       const t = n.tagName;
+      if (t === 'DIV' && n.classList.contains('ed-img')) {
+        const id = (n.getAttribute('data-id') || '').replace(/\D/g, '');
+        if (id) out.push(`${indent}<!--img:${id}-->`);
+        return;
+      }
       if (t === 'A') {
         const href = (n.getAttribute('href') || '').trim();
         if (/^https?:/i.test(href)) out.push(`${indent}<a href="${esc(href)}" target="_blank" class="video-link">${cleanInline(n).trim()}</a>`);
@@ -502,8 +518,22 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   }
   function youtubeOk(url) { return /^https?:\/\/\S+$/i.test(url || ''); }
 
+  const GALLERY_OPEN = '<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">';
+  const placedIds = html => new Set([...String(html || '').matchAll(/<!--img:(\d+)-->/g)].map(m => Number(m[1])));
+  function inlineGalleries(bodyHtml, pics, title) {
+    const byId = new Map(pics.map(x => [x.id, x.path]));
+    return bodyHtml.replace(/(?:[ \t]*<!--img:\d+-->\n?)+/g, run => {
+      const srcs = [...run.matchAll(/<!--img:(\d+)-->/g)].map(m => byId.get(Number(m[1]))).filter(Boolean);
+      if (!srcs.length) return '';
+      return [GALLERY_OPEN, ...srcs.map(src => `<img src="${esc(src)}" alt="${esc(title)}" loading="lazy" style="${IMG_STYLE}">`), '</div>'].join('\n') + '\n';
+    }).replace(/\n$/, '');
+  }
   function buildArticle(p) {
     const c = catFor(p.category, p.customCat);
+    // p.pics = [{ id, path }] in thumbnail order; ids placed in the text are shown there
+    const pics = p.pics || [];
+    const inText = placedIds(p.bodyHtml);
+    const top = pics.filter(x => !inText.has(x.id)).map(x => x.path);
     const lines = [
       `  <article class="${c.article}">`,
       `    <div class="post-inner">`,
@@ -513,9 +543,9 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       `    </div>`,
       `    <h2>${esc(p.title)}</h2>`
     ];
-    if (p.imagePaths.length || p.galleryExtra) {
-      lines.push('<div class="post-gallery" style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px 0;">');
-      p.imagePaths.forEach(src => lines.push(`<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy" style="${IMG_STYLE}">`));
+    if (top.length || p.galleryExtra) {
+      lines.push(GALLERY_OPEN);
+      top.forEach(src => lines.push(`<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy" style="${IMG_STYLE}">`));
       if (p.galleryExtra) lines.push(p.galleryExtra);
       lines.push('</div>');
     }
@@ -526,7 +556,10 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     if (youtubeOk(p.video)) {
       lines.push(`    <a href="${esc(p.video.trim())}" target="_blank" class="video-link">▶ Se videoen på YouTube</a>`);
     }
-    if (p.bodyHtml) lines.push(p.bodyHtml);
+    if (p.bodyHtml) {
+      const body = inlineGalleries(p.bodyHtml, pics, p.title);
+      if (body.trim()) lines.push(body);
+    }
     lines.push(`    </div>`, `  </article>`);
     return lines.join('\n');
   }
@@ -549,15 +582,30 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 
     const dateText = (inner.querySelector('.post-date') || {}).textContent || '';
     const title = (inner.querySelector('h2') || {}).textContent || '';
-    const gallery = inner.querySelector('.post-gallery');
-    const imgs = gallery ? [...gallery.querySelectorAll('img')].map(i => i.getAttribute('src')) : [];
-    const galleryExtra = gallery ? [...gallery.children].filter(c => c.tagName !== 'IMG').map(c => c.outerHTML).join('\n') : '';
     const locEl = inner.querySelector(':scope > .location-badge');
     const vidEl = inner.querySelector(':scope > a.video-link');
+    // The top gallery is one that comes before any text; galleries further down stay where they are
+    let gallery = null;
+    for (const n of inner.children) {
+      if (n.matches('.post-meta, h2') || n === locEl || n === vidEl) continue;
+      if (n.matches('.post-gallery')) gallery = n;
+      break;
+    }
+    const imgs = gallery ? [...gallery.querySelectorAll('img')].map(i => i.getAttribute('src')) : [];
+    const galleryExtra = gallery ? [...gallery.children].filter(c => c.tagName !== 'IMG').map(c => c.outerHTML).join('\n') : '';
 
     const rest = document.createElement('div');
     [...inner.childNodes].forEach(n => {
-      if (n.nodeType === 1 && (n.matches('.post-meta, h2, .post-gallery') || n === locEl || n === vidEl)) return;
+      if (n.nodeType === 1 && (n.matches('.post-meta, h2') || n === gallery || n === locEl || n === vidEl)) return;
+      if (n.nodeType === 1 && n.matches('.post-gallery')) {
+        n.querySelectorAll('img').forEach(im => {
+          const d = document.createElement('div');
+          d.className = 'ed-img';
+          d.setAttribute('data-src', im.getAttribute('src') || '');
+          rest.appendChild(d);
+        });
+        return;
+      }
       rest.appendChild(document.importNode(n, true));
     });
     return {
@@ -793,27 +841,83 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
   async function addFiles(fileList) {
     const files = [...fileList].filter(f => f.type.startsWith('image/') || /\.(heic|heif)$/i.test(f.name));
     for (const f of files) {
-      try { images.push(await processFile(f)); }
+      try { images.push(withId(await processFile(f))); }
       catch (e) { showMsg($('msg'), 'err', esc(e.message)); }
     }
     renderThumbs(); renderPreview();
   }
   const imgUrl = im => im.src ? '/' + im.src.replace(/^\//, '') : im.dataUrl;
+  const blockFor = id => rte.querySelector(`.ed-img[data-id="${id}"]`);
+  function edBlock(im) {
+    const d = document.createElement('div');
+    d.className = 'ed-img';
+    d.contentEditable = 'false';
+    d.setAttribute('data-id', im.id);
+    d.innerHTML = `<img src="${esc(imgUrl(im))}" alt=""><span>Bildet står her i innlegget</span>
+      <button type="button" data-up title="Flytt opp">↑</button><button type="button" data-down title="Flytt ned">↓</button>
+      <button type="button" data-out title="Ta ut av teksten">Ta ut</button>`;
+    return d;
+  }
+  // Turn <!--img:N--> markers from sanitizeBody back into editor blocks
+  function markersToEditor(html) {
+    const box = document.createElement('div');
+    box.innerHTML = html;
+    const walker = document.createTreeWalker(box, NodeFilter.SHOW_COMMENT);
+    const found = [];
+    while (walker.nextNode()) found.push(walker.currentNode);
+    found.forEach(c => {
+      const m = /^img:(\d+)$/.exec(c.nodeValue.trim());
+      const im = m && images.find(x => x.id === Number(m[1]));
+      if (im) c.replaceWith(edBlock(im)); else c.remove();
+    });
+    return box;
+  }
+  let lastRange = null;
+  document.addEventListener('selectionchange', () => {
+    const sel = window.getSelection();
+    if (sel.rangeCount && rte.contains(sel.getRangeAt(0).startContainer)) lastRange = sel.getRangeAt(0).cloneRange();
+  });
+  function placeImage(im) {
+    // Put the block after the paragraph where the cursor was (or at the end)
+    let node = lastRange && rte.contains(lastRange.startContainer) ? lastRange.startContainer : null;
+    while (node && node.parentNode !== rte) node = node.parentNode;
+    const block = edBlock(im);
+    if (node) node.after(block); else rte.appendChild(block);
+    if (!block.nextSibling) { const p = document.createElement('p'); p.innerHTML = '<br>'; block.after(p); }
+    onInput();
+  }
+  $('body').addEventListener('click', e => {
+    const b = e.target.closest('.ed-img button'); if (!b) return;
+    e.preventDefault();
+    const block = b.closest('.ed-img');
+    if (b.hasAttribute('data-out')) block.remove();
+    else if (b.hasAttribute('data-up') && block.previousElementSibling) block.previousElementSibling.before(block);
+    else if (b.hasAttribute('data-down') && block.nextElementSibling) block.nextElementSibling.after(block);
+    renderThumbs(); onInput();
+  });
   function renderThumbs() {
-    $('thumbs').innerHTML = images.map((im, i) => `
-      <div class="thumb">
+    $('thumbs').innerHTML = images.map((im, i) => {
+      const placed = !!blockFor(im.id);
+      return `
+      <div class="thumb${placed ? ' placed' : ''}">
         <img src="${esc(imgUrl(im))}" alt="">
         <button type="button" data-del="${i}" aria-label="Fjern bilde">×</button>
-        <div class="move">
+        <div class="move" style="bottom:auto;top:70px;">
           <button type="button" data-left="${i}" aria-label="Flytt til venstre" ${i === 0 ? 'style="visibility:hidden"' : ''}>‹</button>
           <button type="button" data-right="${i}" aria-label="Flytt til høyre" ${i === images.length - 1 ? 'style="visibility:hidden"' : ''}>›</button>
         </div>
-      </div>`).join('');
+        ${placed ? `<button type="button" class="place out" data-out="${i}">Ta ut av teksten</button>`
+                 : `<button type="button" class="place" data-place="${i}">Sett inn i teksten</button>`}
+      </div>`;
+    }).join('');
   }
+  $('thumbs').addEventListener('mousedown', e => { if (e.target.closest('[data-place]')) e.preventDefault(); });
   $('thumbs').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     const swap = (a, c) => { [images[a], images[c]] = [images[c], images[a]]; };
-    if (b.dataset.del !== undefined) images.splice(Number(b.dataset.del), 1);
+    if (b.dataset.place !== undefined) placeImage(images[Number(b.dataset.place)]);
+    else if (b.dataset.out !== undefined) { const bl = blockFor(images[Number(b.dataset.out)].id); if (bl) bl.remove(); }
+    else if (b.dataset.del !== undefined) { const bl = blockFor(images[Number(b.dataset.del)].id); if (bl) bl.remove(); images.splice(Number(b.dataset.del), 1); }
     else if (b.dataset.left !== undefined) swap(Number(b.dataset.left), Number(b.dataset.left) - 1);
     else if (b.dataset.right !== undefined) swap(Number(b.dataset.right), Number(b.dataset.right) + 1);
     renderThumbs(); renderPreview(); saveDraft();
@@ -882,12 +986,14 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       $('preview').innerHTML = '<article><p class="empty">Innlegget vises her mens du skriver.</p></article>';
       return;
     }
-    $('preview').innerHTML = buildArticle({ ...p, title: p.title || 'Uten tittel', imagePaths: images.map(imgUrl) });
+    $('preview').innerHTML = buildArticle({ ...p, title: p.title || 'Uten tittel', pics: images.map(im => ({ id: im.id, path: imgUrl(im) })) });
   }
 
   function saveDraft() {
     if (editing) return;
-    const d = { body: rte.innerHTML };
+    const copy = rte.cloneNode(true);
+    copy.querySelectorAll('.ed-img').forEach(x => x.remove());
+    const d = { body: copy.innerHTML };
     textFields.forEach(f => d[f] = $(f).value);
     store.set(DRAFT_KEY, JSON.stringify(d));
   }
@@ -911,6 +1017,15 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     renderThumbs(); renderPreview();
   }
   function onInput() { renderPreview(); saveDraft(); }
+  rte.addEventListener('input', () => renderThumbs());
+  // Start with a real paragraph so the first line is a block like the rest
+  rte.addEventListener('focus', () => {
+    if (rte.innerHTML.trim() === '' || rte.innerHTML === '<br>') {
+      rte.innerHTML = '<p><br></p>';
+      const r = document.createRange(); r.setStart(rte.firstChild, 0); r.collapse(true);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+  });
   textFields.forEach(f => $(f).addEventListener('input', onInput));
   $('category').addEventListener('change', onInput);
   rte.addEventListener('input', onInput);
@@ -935,13 +1050,23 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     $('category').value = p.category;
     $('location').value = p.location;
     $('video').value = p.video;
-    rte.innerHTML = sanitizeBody(p.bodyHtml);
-    images = p.images.map(src => ({ src }));
+    images = p.images.map(src => withId({ src }));
+    const tmp = document.createElement('div');
+    tmp.innerHTML = p.bodyHtml;
+    tmp.querySelectorAll('.ed-img[data-src]').forEach(d => {
+      const im = withId({ src: d.getAttribute('data-src') });
+      images.push(im);
+      d.setAttribute('data-id', im.id);
+    });
+    rte.innerHTML = '';
+    rte.append(...markersToEditor(sanitizeBody(tmp.innerHTML)).childNodes);
     renderThumbs(); renderPreview();
     showMsg($('msg'), '', '');
     showView('editor');
     window.scrollTo(0, 0);
   }
+
+  window.__tt.openEditor = openEditor;
 
   // ══ Views ══════════════════════════════════════════════
   function showView(view) {
@@ -1034,7 +1159,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       try {
         await loadSite();
         const up = await uploadImages(images, post.dateIso);
-        const article = buildArticle({ ...post, imagePaths: up.paths });
+        const article = buildArticle({ ...post, pics: images.map((im, i) => ({ id: im.id, path: up.paths[i] })) });
         let html;
         if (wasEditing) {
           html = (wasEditing.dateIso === post.dateIso)
