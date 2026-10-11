@@ -230,7 +230,14 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 
 /* Preview — same look as the blog */
 .preview-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-.preview { position: sticky; top: 1rem; }
+.preview { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
+#preview { position: relative; }
+#preview img[data-id] { cursor: grab; }
+#preview img[data-id]:hover { outline: 3px solid var(--accent2); outline-offset: 1px; }
+#preview img.dragging { opacity: .35; }
+.drop-line { position: absolute; left: 0; right: 0; height: 4px; border-radius: 2px; background: var(--accent); pointer-events: none; box-shadow: 0 0 0 3px rgba(200,110,50,.18); display: none; z-index: 5; }
+.drop-line.on { display: block; }
+.preview-hint { font-size: 0.78rem; color: var(--muted); margin: -0.2rem 0 0.5rem; }
 .preview article {
   background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 2rem;
   font-family: 'Source Serif 4', Georgia, serif; font-size: 18px; line-height: 1.8;
@@ -367,6 +374,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 
       <div class="preview">
         <div class="preview-label">Forhåndsvisning</div>
+        <p class="preview-hint">Dra bildene opp eller ned i forhåndsvisningen for å plassere dem. Dra et bilde helt til toppen for å legge det øverst.</p>
         <div id="preview"></div>
       </div>
     </div>
@@ -899,7 +907,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     $('thumbs').innerHTML = images.map((im, i) => {
       const placed = !!blockFor(im.id);
       return `
-      <div class="thumb${placed ? ' placed' : ''}">
+      <div class="thumb${placed ? ' placed' : ''}" draggable="true" title="Dra bildet inn i forhåndsvisningen">
         <img src="${esc(imgUrl(im))}" alt="">
         <button type="button" data-del="${i}" aria-label="Fjern bilde">×</button>
         <div class="move" style="bottom:auto;top:70px;">
@@ -987,7 +995,116 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
       return;
     }
     $('preview').innerHTML = buildArticle({ ...p, title: p.title || 'Uten tittel', pics: images.map(im => ({ id: im.id, path: imgUrl(im) })) });
+    setupPreviewDrag(p);
   }
+
+  // ══ Drag images in the preview ═════════════════════════
+  // The body is a list of "units" (paragraphs, headings, lists… and <!--img:N--> markers).
+  // Each preview block is either one unit or one gallery made of a run of markers.
+  let dragUnits = null, dragBlocks = null, dragId = null;
+  function bodyUnits() {
+    const doc = new DOMParser().parseFromString(`<body>${sanitizeBody(rte.innerHTML)}</body>`, 'text/html');
+    return [...doc.body.childNodes].filter(n => n.nodeType === 1 || n.nodeType === 8)
+      .map(n => n.nodeType === 8 ? { id: Number((/^img:(\d+)$/.exec(n.nodeValue.trim()) || [])[1]) || null, html: `<!--${n.nodeValue}-->` } : { id: null, html: n.outerHTML })
+      .filter(u => u.id === null ? true : images.some(im => im.id === u.id));
+  }
+  function setupPreviewDrag(p) {
+    const box = $('preview');
+    const inner = box.querySelector('.post-inner');
+    if (!inner) return;
+    const byPath = new Map(images.map(im => [imgUrl(im), im.id]));
+    box.querySelectorAll('img').forEach(img => {
+      const id = byPath.get(img.getAttribute('src'));
+      if (id) { img.dataset.id = id; img.draggable = true; img.title = 'Dra for å flytte bildet'; }
+    });
+    // Units -> preview blocks
+    dragUnits = bodyUnits();
+    const map = [];
+    dragUnits.forEach((u, i) => {
+      if (u.id !== null) {
+        const last = map[map.length - 1];
+        if (last && last.gal && last.end === i - 1) last.end = i; else map.push({ gal: true, start: i, end: i });
+      } else map.push({ gal: false, start: i, end: i });
+    });
+    const kids = [...inner.children];
+    const inText = placedIds(p.bodyHtml);
+    const hasTop = images.some(im => !inText.has(im.id)) || !!p.galleryExtra;
+    let k = 2; // .post-meta, h2
+    const topGallery = hasTop ? kids[k] : null;
+    if (hasTop) k++;
+    if (p.location && p.location.trim()) k++;
+    if (youtubeOk(p.video)) k++;
+    const bodyEls = kids.slice(k);
+    dragBlocks = bodyEls.length === map.length ? bodyEls.map((el, i) => ({ el, ...map[i] })) : null;
+    let line = box.querySelector('.drop-line');
+    if (!line) { line = document.createElement('div'); line.className = 'drop-line'; box.appendChild(line); }
+  }
+  // Where would a drop at clientY land? Returns { unitIndex } or { top: true }
+  function dropTarget(clientY) {
+    const box = $('preview');
+    const header = box.querySelector('.post-inner h2');
+    const firstBody = dragBlocks && dragBlocks[0] ? dragBlocks[0].el : null;
+    const topEdge = firstBody ? firstBody.getBoundingClientRect().top : (header ? header.getBoundingClientRect().bottom + 40 : 0);
+    if (clientY < topEdge) return { top: true, y: (header ? header.getBoundingClientRect().bottom : topEdge) };
+    if (!dragBlocks || !dragBlocks.length) return { unitIndex: dragUnits ? dragUnits.length : 0, y: topEdge };
+    for (const b of dragBlocks) {
+      const r = b.el.getBoundingClientRect();
+      if (clientY < r.top + r.height / 2) return { unitIndex: b.start, y: r.top - 6 };
+    }
+    const last = dragBlocks[dragBlocks.length - 1].el.getBoundingClientRect();
+    return { unitIndex: dragUnits.length, y: last.bottom + 4 };
+  }
+  function applyDrop(id, t) {
+    let units = dragUnits.slice();
+    const from = units.findIndex(u => u.id === id);
+    let at = t.unitIndex;
+    if (from >= 0) { units.splice(from, 1); if (!t.top && from < at) at--; }
+    if (!t.top) units.splice(at, 0, { id, html: `<!--img:${id}-->` });
+    rte.innerHTML = '';
+    rte.append(...markersToEditor(units.map(u => u.html).join('\n')).childNodes);
+    if (!rte.lastElementChild || rte.lastElementChild.classList.contains('ed-img')) { const pp = document.createElement('p'); pp.innerHTML = '<br>'; rte.appendChild(pp); }
+    renderThumbs(); onInput();
+  }
+  function startDrag(e, id) {
+    dragId = id;
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', 'img:' + id); } catch (x) {}
+  }
+  $('preview').addEventListener('dragstart', e => {
+    const img = e.target.closest && e.target.closest('img[data-id]');
+    if (!img) return;
+    img.classList.add('dragging');
+    startDrag(e, Number(img.dataset.id));
+  });
+  $('thumbs').addEventListener('dragstart', e => {
+    const t = e.target.closest && e.target.closest('.thumb');
+    if (!t) return;
+    const i = [...$('thumbs').children].indexOf(t);
+    if (images[i]) startDrag(e, images[i].id);
+  });
+  $('preview').addEventListener('dragover', e => {
+    if (dragId === null) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const box = $('preview'), line = box.querySelector('.drop-line');
+    const t = dropTarget(e.clientY);
+    line.style.top = (t.y - box.getBoundingClientRect().top) + 'px';
+    line.classList.add('on');
+  });
+  $('preview').addEventListener('dragleave', e => {
+    if (!$('preview').contains(e.relatedTarget)) { const l = $('preview').querySelector('.drop-line'); if (l) l.classList.remove('on'); }
+  });
+  $('preview').addEventListener('drop', e => {
+    if (dragId === null) return;
+    e.preventDefault();
+    const id = dragId; dragId = null;
+    applyDrop(id, dropTarget(e.clientY));
+  });
+  document.addEventListener('dragend', () => {
+    dragId = null;
+    const l = $('preview').querySelector('.drop-line'); if (l) l.classList.remove('on');
+    document.querySelectorAll('#preview img.dragging').forEach(x => x.classList.remove('dragging'));
+  });
 
   function saveDraft() {
     if (editing) return;
