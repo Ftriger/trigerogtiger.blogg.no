@@ -5,9 +5,9 @@
 Bloggen handler om reiser med en stor familie (seks barn, inkludert tvillinger), skolekorps og korpsfestivaler (Nordsøfestivalen, Danmarks-treff, Peter Wessel Festivalen), 17. mai, bryllup, flytting og hverdagsliv. Alle innlegg er på norsk bokmål.
 
 ## Hovedsider
-- [Forside med alle innlegg](https://trigerogtiger.no/): alle innleggene, nyeste først, med søk og kategorier
-- [Sitemap](https://trigerogtiger.no/sitemap.xml): lenke til hvert enkelt innlegg
-- [RSS-feed](https://trigerogtiger.no/rss.xml): de 50 nyeste innleggene
+- [Forside med alle innlegg](https://www.trigerogtiger.no/): alle innleggene, nyeste først, med søk og kategorier
+- [Sitemap](https://www.trigerogtiger.no/sitemap.xml): lenke til hvert enkelt innlegg
+- [RSS-feed](https://www.trigerogtiger.no/rss.xml): de 50 nyeste innleggene
 
 ## Reiser
 - Egypt (Sharm el-Sheikh, Na'ama Bay) – dykking 2008 og familietur 2012

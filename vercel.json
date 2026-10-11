@@ -47,15 +47,15 @@
     },
     {
       "src": "/innlegg/(?<slug>[^/?#]+)/?",
-      "dest": "/api/innlegg?slug=$slug"
+      "dest": "/api/innlegg.js?slug=$slug"
     },
     {
       "src": "/sitemap.xml",
-      "dest": "/api/sitemap"
+      "dest": "/api/sitemap.js"
     },
     {
       "src": "/(rss\\.xml|feed|rss)/?",
-      "dest": "/api/rss"
+      "dest": "/api/rss.js"
     },
     {
       "src": "/llms.txt",
