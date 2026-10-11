@@ -374,7 +374,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
 
       <div class="preview">
         <div class="preview-label">Forhåndsvisning</div>
-        <p class="preview-hint">Dra bildene opp eller ned i forhåndsvisningen for å plassere dem. Dra et bilde helt til toppen for å legge det øverst.</p>
+        <p class="preview-hint">Dra bildene dit du vil ha dem i forhåndsvisningen – også midt i et avsnitt, så deles avsnittet der. Dra et bilde helt til toppen for å legge det øverst.</p>
         <div id="preview"></div>
       </div>
     </div>
@@ -1040,8 +1040,59 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     if (!line) { line = document.createElement('div'); line.className = 'drop-line'; box.appendChild(line); }
   }
   // Where would a drop at clientY land? Returns { unitIndex } or { top: true }
-  function dropTarget(clientY) {
+  // Character offset in a paragraph under the pointer, snapped to the nearest space between words
+  function caretOffsetIn(el, x, y) {
+    let node = null, off = 0;
+    if (document.caretRangeFromPoint) { const r = document.caretRangeFromPoint(x, y); if (r) { node = r.startContainer; off = r.startOffset; } }
+    else if (document.caretPositionFromPoint) { const c = document.caretPositionFromPoint(x, y); if (c) { node = c.offsetNode; off = c.offset; } }
+    if (!node || !el.contains(node)) return null;
+    const r = document.createRange();
+    r.setStart(el, 0); r.setEnd(node, off);
+    const pos = r.toString().length;
+    const text = el.textContent;
+    let L = pos, R = pos;
+    while (L > 0 && !/\s/.test(text[L - 1])) L--;
+    while (R < text.length && !/\s/.test(text[R])) R++;
+    let snap = (pos - L <= R - pos) ? L : R;
+    // Prefer the end of a sentence if one is close by
+    let best = null;
+    for (const m of text.matchAll(/[.!?:)]\s+/g)) {
+      const at = m.index + m[0].length;
+      if (Math.abs(at - pos) <= 30 && (best === null || Math.abs(at - pos) < Math.abs(best - pos))) best = at;
+    }
+    if (best !== null) snap = best;
+    if (text.slice(0, snap).trim() === '') snap = 0;
+    if (text.slice(snap).trim() === '') snap = text.length;
+    return { offset: snap, length: text.length };
+  }
+  // Pixel position of a text offset inside an element (for the drop line)
+  function offsetRect(el, offset) {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let n, left = offset;
+    while ((n = walker.nextNode())) {
+      if (left <= n.nodeValue.length) {
+        const r = document.createRange(); r.setStart(n, left); r.setEnd(n, Math.min(n.nodeValue.length, left + 1));
+        return r.getBoundingClientRect();
+      }
+      left -= n.nodeValue.length;
+    }
+    return el.getBoundingClientRect();
+  }
+  function dropTarget(clientY, clientX) {
     const box = $('preview');
+    // Inside a paragraph: split it where the pointer is
+    if (dragBlocks && clientX !== undefined) {
+      const hit = dragBlocks.find(b => !b.gal && b.el.tagName === 'P' && (() => { const r = b.el.getBoundingClientRect(); return clientY >= r.top && clientY <= r.bottom; })());
+      if (hit) {
+        const c = caretOffsetIn(hit.el, clientX, clientY);
+        if (c && c.offset > 0 && c.offset < c.length) {
+          const rr = offsetRect(hit.el, c.offset);
+          return { unitIndex: hit.start, split: c.offset, y: rr.top - 3 };
+        }
+        if (c && c.offset >= c.length) return { unitIndex: hit.start + 1, y: hit.el.getBoundingClientRect().bottom + 4 };
+        if (c && c.offset === 0) return { unitIndex: hit.start, y: hit.el.getBoundingClientRect().top - 6 };
+      }
+    }
     const header = box.querySelector('.post-inner h2');
     const firstBody = dragBlocks && dragBlocks[0] ? dragBlocks[0].el : null;
     const topEdge = firstBody ? firstBody.getBoundingClientRect().top : (header ? header.getBoundingClientRect().bottom + 40 : 0);
@@ -1054,8 +1105,27 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     const last = dragBlocks[dragBlocks.length - 1].el.getBoundingClientRect();
     return { unitIndex: dragUnits.length, y: last.bottom + 4 };
   }
+  // Split one paragraph's HTML at a text offset into two paragraphs
+  function splitParagraph(html, offset) {
+    const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
+    const p = doc.body.firstElementChild;
+    const walker = doc.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+    let n, left = offset;
+    while ((n = walker.nextNode())) { if (left <= n.nodeValue.length) break; left -= n.nodeValue.length; }
+    if (!n) return null;
+    const r = doc.createRange(); r.setStart(n, left); r.setEndAfter(p.lastChild);
+    const second = doc.createElement('p'); second.appendChild(r.extractContents());
+    return [p.outerHTML, second.outerHTML];
+  }
   function applyDrop(id, t) {
     let units = dragUnits.slice();
+    if (t.split !== undefined) {
+      const parts = splitParagraph(units[t.unitIndex].html, t.split);
+      if (parts) {
+        units.splice(t.unitIndex, 1, { id: null, html: parts[0] }, { id: null, html: parts[1] });
+        t = { unitIndex: t.unitIndex + 1 };
+      }
+    }
     const from = units.findIndex(u => u.id === id);
     let at = t.unitIndex;
     if (from >= 0) { units.splice(from, 1); if (!t.top && from < at) at--; }
@@ -1087,7 +1157,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     const box = $('preview'), line = box.querySelector('.drop-line');
-    const t = dropTarget(e.clientY);
+    const t = dropTarget(e.clientY, e.clientX);
     line.style.top = (t.y - box.getBoundingClientRect().top) + 'px';
     line.classList.add('on');
   });
@@ -1098,7 +1168,7 @@ input:focus, select:focus, .rte:focus { outline: 2px solid var(--accent2); borde
     if (dragId === null) return;
     e.preventDefault();
     const id = dragId; dragId = null;
-    applyDrop(id, dropTarget(e.clientY));
+    applyDrop(id, dropTarget(e.clientY, e.clientX));
   });
   document.addEventListener('dragend', () => {
     dragId = null;
