@@ -1,4 +1,4 @@
-// /api/kommentar.js – receives a comment from a post page and stores it (unapproved)
+// /api/kommentar.js – receives a comment from a post page and publishes it right away
 // in kommentarer/kommentarer.json in the repo, using GITHUB_TOKEN from Vercel.
 const { getPosts } = require('../lib/blog');
 const { FILE } = require('../lib/comments');
@@ -91,10 +91,10 @@ module.exports = async (req, res) => {
       id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
       slug, title: post.title, name, text,
       date: new Date().toISOString(),
-      approved: false
+      approved: true
     });
   } catch (e) {
     return done(502, 'Kunne ikke lagre kommentaren akkurat nå. Prøv igjen senere.', slug);
   }
-  done(200, 'Takk! Kommentaren vises når den er godkjent.', slug);
+  done(200, 'Takk! Kommentaren din vises om ca. ett minutt.', slug);
 };

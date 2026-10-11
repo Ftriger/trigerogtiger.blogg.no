@@ -46,7 +46,7 @@ module.exports = (req, res) => {
       <textarea id="ctext" name="text" rows="5" maxlength="2000" required></textarea>
       <button type="submit">Send kommentar</button>
       <p class="cmsg" role="status"></p>
-      <p class="cnote">Kommentarer vises etter at de er godkjent. Vi viser bare navnet du skriver.</p>
+      <p class="cnote">Vi viser bare navnet du skriver. Kommentarer som ikke er hyggelige, blir slettet.</p>
     </form>
   </section>
   <script>
@@ -54,7 +54,7 @@ module.exports = (req, res) => {
     var f = document.querySelector('.cform'); if (!f) return;
     f.t.value = Date.now();
     var msg = f.querySelector('.cmsg');
-    if (/kommentar=takk/.test(location.search)) msg.textContent = 'Takk! Kommentaren vises når den er godkjent.';
+    if (/kommentar=takk/.test(location.search)) msg.textContent = 'Takk! Kommentaren din vises om ca. ett minutt.';
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       var btn = f.querySelector('button'); btn.disabled = true; msg.textContent = 'Sender…';
